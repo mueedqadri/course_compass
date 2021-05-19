@@ -17,7 +17,7 @@ Tutorial for CSCI 5709 - Group 9
 **[Optional]** If what is being submitted is an individual Lab or Assignment, you may simply include your name and email address. Otherwise list the members of your group.
 
 * [Philemon Lee](philemon.lee@dal.ca) - *(Role)*
-* [Name](email@dal.ca) - *(Role)*
+* [Mani Teja Varma](manitejavarma@dal.ca) - *(Role)*
 * [Name](email@dal.ca) - *(Role)*
 * [Name](email@dal.ca) - *(Role)*
 * [Name](email@dal.ca) - *(Role)*
