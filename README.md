@@ -10,7 +10,7 @@ Tutorial for CSCI 5709 - Group 9
 
 * *Date Created*: 19 MAY 2021
 * *Last Modification Date*: DD MMM YYYY
-* *URL*: <http://example.com/>
+* *URL*: <https://tutorial2-5709.herokuapp.com/>
 
 ## Authors
 
@@ -18,7 +18,7 @@ Tutorial for CSCI 5709 - Group 9
 
 * [Philemon Lee](philemon.lee@dal.ca) - *(Role)*
 * [Mani Teja Varma](manitejavarma@dal.ca) - *(Role)*
-* [Name](email@dal.ca) - *(Role)*
+* [Milan Ganesh Acharya](ml650738@dal.ca) - *(Role)*
 * [Name](email@dal.ca) - *(Role)*
 * [Name](email@dal.ca) - *(Role)*
 
