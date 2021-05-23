@@ -13,7 +13,8 @@ Tutorial for code deployment to Heroku
 
 ## Getting Started
 
-If needing to provide the marker with a copy of the project that should run on their local machine for development, testing and/or marking purposes. Please include the following sections.
+The Git repository can be found at:
+https://github.com/manitejavarmadal/tutorial2.git
 
 See deployment for notes on how to deploy the project on a live system.
 
@@ -30,22 +31,30 @@ See the following section for detailed step-by-step instructions on how to insta
 
 ### Installing
 
-```
+
 Install Homebrew
 1. Open the terminal and type in the command:
+```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
 2. Once install is complete run the below command. This should display the version if install was successful.
+```
 brew --version
+```
 
 Install Node
 1. In the terminal type the command:
+```
 brew install node
+```
 2. Once install has completed, run the below commands. They should display the version if install was successful.
+```
 node --version
 npm --version
 ```
 
 The following terminal log shows the versions of homebrew and node installed.
+```
 milan@Milans-MacBook-Air tutorial2 % brew --version
 Homebrew 3.1.7
 Homebrew/homebrew-core (git revision af2b88de0b; last commit 2021-05-15)
@@ -53,6 +62,7 @@ milan@Milans-MacBook-Air tutorial2 % node --version
 v14.9.0
 milan@Milans-MacBook-Air tutorial2 % npm --version
 7.13.0
+```
 
 
 ## Deployment
