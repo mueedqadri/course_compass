@@ -31,7 +31,7 @@ See the following section for detailed step-by-step instructions on how to insta
 
 ### Installing
 
-The following steps are for installing prerequisites on a Mac OS system:
+The following steps are for installing prerequisites on a Mac OS system:  
 Install Homebrew
 1. Open the terminal and type in the command:
 ```
