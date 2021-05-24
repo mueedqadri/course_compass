@@ -17,7 +17,7 @@ Tutorial for CSCI 5709 - Group 9
 ## Getting Started
 
 The Git repository can be found at:
-https://github.com/manitejavarmadal/tutorial2/tree/milan_achar
+https://github.com/manitejavarmadal/tutorial2.git
 
 See deployment for notes on how to deploy the project on a live system.
 
