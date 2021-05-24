@@ -3,7 +3,7 @@
 Tutorial for code deployment to Heroku
 
 * *Date Created*: 23 MAY 2021
-* *Last Modification Date*: 23 MAY 2021
+* *Last Modification Date*: 24 MAY 2021
 * *URL*: <https://tutorial2-5709.herokuapp.com/>
 
 ## Authors
@@ -14,7 +14,7 @@ Tutorial for code deployment to Heroku
 ## Getting Started
 
 The Git repository can be found at:
-https://github.com/manitejavarmadal/tutorial2.git
+https://github.com/manitejavarmadal/tutorial2/tree/milan_achar
 
 See deployment for notes on how to deploy the project on a live system.
 
@@ -31,7 +31,7 @@ See the following section for detailed step-by-step instructions on how to insta
 
 ### Installing
 
-
+The following steps are for installing prerequisites on a Mac OS system:
 Install Homebrew
 1. Open the terminal and type in the command:
 ```
