@@ -94,28 +94,28 @@ v14.9.0
 milan@Milans-MacBook-Air github % npm --version
 7.13.0
 milan@Milans-MacBook-Air tutorial2 % git --version
-git version 2.31.1
-milan@Milans-MacBook-Air github % npx create-react-app react-demo
+milan@Milans-MacBook-Air github % git clone https://github.com/manitejavarmadal/tutorial2.git
+Cloning into 'tutorial2'...
+remote: Enumerating objects: 100, done.
+remote: Counting objects: 100% (100/100), done.
+remote: Compressing objects: 100% (68/68), done.
+remote: Total 100 (delta 44), reused 80 (delta 27), pack-reused 0
+Receiving objects: 100% (100/100), 482.64 KiB | 1.30 MiB/s, done.
+Resolving deltas: 100% (44/44), done.
+milan@Milans-MacBook-Air github % cd tutorial2
+milan@Milans-MacBook-Air tutorial2 % npm i
 
-Creating a new React app in /Users/milan/github/react-demo.
+added 2003 packages, and audited 2004 packages in 45s
 
-Installing packages. This might take a couple of minutes.
-Installing react, react-dom, and react-scripts with cra-template...
-    ...
-    ...
-    ...
-Success! Created react-demo at /Users/milan/github/react-demo
-Inside that directory, you can run several commands:
-    ...
-    ...
-    ...
-We suggest that you begin by typing:
+80 moderate severity vulnerabilities
 
-  cd react-demo
-  npm start
+To address issues that do not require attention, run:
+  npm audit fix
 
-Happy hacking!
-milan@Milans-MacBook-Air github % cd react-demo
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
 milan@Milans-MacBook-Air react-demo % npm start
 Compiled successfully!
 
