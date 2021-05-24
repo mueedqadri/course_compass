@@ -5,6 +5,7 @@ Tutorial for CSCI 5709 - Group 9
 * *Date Created*: 19 MAY 2021
 * *Last Modification Date*: 24 MAY 2021
 * *URL*: <https://tutorial2-5709.herokuapp.com/>
+* Individual Branch Link : https://github.com/manitejavarmadal/tutorial2/tree/mueedqadri
 
 ## Authors
 
