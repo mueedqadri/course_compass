@@ -70,12 +70,16 @@ git --version
 ```
 3. Register for a GitHub account, as seen in [4].
 
-Create React App
-4. As seen in [5], to create a react app run the below command. You can also create a react app from Github by cloning a repository, as seen in [6].
+Build React App  
+1. As seen in [5], clone the Github repository using the command below. You can also create a new react app as seen in [6].
 ```
-npx create-react-app <name-of-the-app>
+git clone https://github.com/manitejavarmadal/tutorial2.git
 ```
-5. Enter the newly created folder "<name-of-the-app>" and to start the app, run the command:
+2. Enter the newly created folder "tutorial2" and fetch all dependencies:
+```
+npm i
+```
+3. Finally start the app using the command
 ```
 npm start
 ```
@@ -143,7 +147,7 @@ git clone https://github.com/manitejavarmadal/tutorial2.git
 npm i
 ```
 
-5. Finally start the project.
+6. Finally start the project.
 ```
 npm start   
 ```
@@ -172,6 +176,6 @@ As mentioned in [7], to deploy the project, you need to have your Github reposit
 [2] A. Stacoviak, "Install Node.js and npm using Homebrew on OS X and macOS", March 12, 2013, https://changelog.com/posts/install-node-js-with-homebrew-on-os-x  
 [3] Linode LLC., "How to Install Git on Linux, Mac or Windows", Jan 15, 2021, https://www.linode.com/docs/guides/how-to-install-git-on-linux-mac-and-windows/  
 [4] N. Levine, "How to Create an Account on GitHub", April 8, 2021, https://www.wikihow.com/Create-an-Account-on-GitHub  
-[5] K. Kalyanaraman, "Getting started with Create React App", April 28, 2021, https://blog.logrocket.com/getting-started-with-create-react-app-d93147444a27/  
-[6] P. Singh, "Setting Up a React Project from GitHub", October 20, 2020, https://www.pluralsight.com/guides/setting-up-a-react-project-from-github  
+[5] P. Singh, "Setting Up a React Project from GitHub", October 20, 2020, https://www.pluralsight.com/guides/setting-up-a-react-project-from-github  
+[6] K. Kalyanaraman, "Getting started with Create React App", April 28, 2021, https://blog.logrocket.com/getting-started-with-create-react-app-d93147444a27/    
 [7] Salesforce Inc., "GitHub Integration (Heroku GitHub Deploys)", April 09, 2020, https://devcenter.heroku.com/articles/github-integration
