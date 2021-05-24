@@ -16,7 +16,7 @@ Tutorial for code deployment to Heroku
 The Git repository can be found at:
 https://github.com/manitejavarmadal/tutorial2/tree/milan_achar
 
-See deployment for notes on how to deploy the project on a live system.
+*See deployment for notes on how to deploy the project on a live system.*
 
 ### Prerequisites
 
@@ -28,7 +28,7 @@ To have a local copy of this project up and running on your local machine, you w
 3. Git
 ```
 
-See the following section for detailed step-by-step instructions on how to install this software / libraries / plug-ins
+*See the following section for detailed step-by-step instructions on how to install this software / libraries / plug-ins*
 
 ### Installing
 
@@ -38,7 +38,7 @@ Install Homebrew as seen in [1]
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
-2. Once install is complete run the below command. This should display the version if install was successful.
+2. Once install is complete, run the below command. This should display the version if install was successful.
 ```
 brew --version
 ```
@@ -61,7 +61,7 @@ Install Git as seen in [3]
 ```
 brew install git
 ```
-2. Once install has completed, run the below commands. This should display the version if install was successful.
+2. Once install is complete, run the below command. This should display the version if install was successful.
 ```
 git --version
 ```
@@ -81,7 +81,7 @@ git version 2.31.1
 ```
 
 ## Development
-1. As seen in [5], to create a react app run the below command. You can also create a react app from Github by cloning a repository, as seen in [6]
+1. As seen in [5], to create a react app run the below command. You can also create a react app from Github by cloning a repository, as seen in [6].
 ```
 npx create-react-app <name-of-the-app>
 ```
@@ -141,10 +141,10 @@ As mentioned in [7], to deploy the project, you need to have your Github reposit
 
 
 ## References
-[1] R. Kumar, "How to Install Homebrew on macOS", November 24, 2020, https://tecadmin.net/install-homebrew-macos/
-[2] A. Stacoviak, "Install Node.js and npm using Homebrew on OS X and macOS", March 12, 2013, https://changelog.com/posts/install-node-js-with-homebrew-on-os-x
-[3] Linode LLC., "How to Install Git on Linux, Mac or Windows", Jan 15, 2021, https://www.linode.com/docs/guides/how-to-install-git-on-linux-mac-and-windows/
-[4] N. Levine, "How to Create an Account on GitHub", April 8, 2021, https://www.wikihow.com/Create-an-Account-on-GitHub
-[5] K. Kalyanaraman, "Getting started with Create React App", April 28, 2021, https://blog.logrocket.com/getting-started-with-create-react-app-d93147444a27/
-[6] P. Singh, "Setting Up a React Project from GitHub", October 20, 2020, https://www.pluralsight.com/guides/setting-up-a-react-project-from-github
+[1] R. Kumar, "How to Install Homebrew on macOS", November 24, 2020, https://tecadmin.net/install-homebrew-macos/  
+[2] A. Stacoviak, "Install Node.js and npm using Homebrew on OS X and macOS", March 12, 2013, https://changelog.com/posts/install-node-js-with-homebrew-on-os-x  
+[3] Linode LLC., "How to Install Git on Linux, Mac or Windows", Jan 15, 2021, https://www.linode.com/docs/guides/how-to-install-git-on-linux-mac-and-windows/  
+[4] N. Levine, "How to Create an Account on GitHub", April 8, 2021, https://www.wikihow.com/Create-an-Account-on-GitHub  
+[5] K. Kalyanaraman, "Getting started with Create React App", April 28, 2021, https://blog.logrocket.com/getting-started-with-create-react-app-d93147444a27/  
+[6] P. Singh, "Setting Up a React Project from GitHub", October 20, 2020, https://www.pluralsight.com/guides/setting-up-a-react-project-from-github  
 [7] Salesforce Inc., "GitHub Integration (Heroku GitHub Deploys)", April 09, 2020, https://devcenter.heroku.com/articles/github-integration
