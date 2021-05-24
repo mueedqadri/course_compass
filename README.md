@@ -47,9 +47,11 @@ Install Node
 ```
 brew install node
 ```
-2. Once install has completed, run the below commands. They should display the version if install was successful.
+2. Once install has completed, run the below commands. They should display the versions if install was successful.
 ```
 node --version
+```
+```
 npm --version
 ```
 
