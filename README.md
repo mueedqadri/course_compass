@@ -71,12 +71,16 @@ git --version
 ```
 3. Register for a GitHub account, as seen in [4].
 
-Create React App
-4. As seen in [5], to create a react app run the below command. You can also create a react app from Github by cloning a repository, as seen in [6].
+Build React App  
+1. As seen in [5], clone the Github repository using the command below. You can also create a new react app as seen in [6].
 ```
-npx create-react-app <name-of-the-app>
+git clone https://github.com/manitejavarmadal/tutorial2.git
 ```
-5. Enter the newly created folder "<name-of-the-app>" and to start the app, run the command:
+2. Enter the newly created folder "tutorial2" and fetch all dependencies:
+```
+npm i
+```
+3. Finally start the app using the command
 ```
 npm start
 ```
@@ -91,28 +95,28 @@ v14.9.0
 milan@Milans-MacBook-Air github % npm --version
 7.13.0
 milan@Milans-MacBook-Air tutorial2 % git --version
-git version 2.31.1
-milan@Milans-MacBook-Air github % npx create-react-app react-demo
+milan@Milans-MacBook-Air github % git clone https://github.com/manitejavarmadal/tutorial2.git
+Cloning into 'tutorial2'...
+remote: Enumerating objects: 100, done.
+remote: Counting objects: 100% (100/100), done.
+remote: Compressing objects: 100% (68/68), done.
+remote: Total 100 (delta 44), reused 80 (delta 27), pack-reused 0
+Receiving objects: 100% (100/100), 482.64 KiB | 1.30 MiB/s, done.
+Resolving deltas: 100% (44/44), done.
+milan@Milans-MacBook-Air github % cd tutorial2
+milan@Milans-MacBook-Air tutorial2 % npm i
 
-Creating a new React app in /Users/milan/github/react-demo.
+added 2003 packages, and audited 2004 packages in 45s
 
-Installing packages. This might take a couple of minutes.
-Installing react, react-dom, and react-scripts with cra-template...
-    ...
-    ...
-    ...
-Success! Created react-demo at /Users/milan/github/react-demo
-Inside that directory, you can run several commands:
-    ...
-    ...
-    ...
-We suggest that you begin by typing:
+80 moderate severity vulnerabilities
 
-  cd react-demo
-  npm start
+To address issues that do not require attention, run:
+  npm audit fix
 
-Happy hacking!
-milan@Milans-MacBook-Air github % cd react-demo
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
 milan@Milans-MacBook-Air react-demo % npm start
 Compiled successfully!
 
@@ -144,7 +148,7 @@ git clone https://github.com/manitejavarmadal/tutorial2.git
 npm i
 ```
 
-5. Finally start the project.
+6. Finally start the project.
 ```
 npm start   
 ```
@@ -170,18 +174,10 @@ As mentioned in [7], to deploy the project, you need to have your Github reposit
 
 ## References
 [1] R. Kumar, "How to Install Homebrew on macOS", November 24, 2020, https://tecadmin.net/install-homebrew-macos/  
-
 [2] A. Stacoviak, "Install Node.js and npm using Homebrew on OS X and macOS", March 12, 2013, https://changelog.com/posts/install-node-js-with-homebrew-on-os-x  
-
 [3] Linode LLC., "How to Install Git on Linux, Mac or Windows", Jan 15, 2021, https://www.linode.com/docs/guides/how-to-install-git-on-linux-mac-and-windows/  
-
 [4] N. Levine, "How to Create an Account on GitHub", April 8, 2021, https://www.wikihow.com/Create-an-Account-on-GitHub  
-
-[5] K. Kalyanaraman, "Getting started with Create React App", April 28, 2021, https://blog.logrocket.com/getting-started-with-create-react-app-d93147444a27/  
-
-[6] P. Singh, "Setting Up a React Project from GitHub", October 20, 2020, https://www.pluralsight.com/guides/setting-up-a-react-project-from-github  
-
-[7] Salesforce Inc., "GitHub Integration (Heroku GitHub Deploys)", April 09, 2020, https://devcenter.heroku.com/articles/github-integration
-
-[8]“Create a new react app,” Reactjs.org. [Online]. Available: https://reactjs.org/docs/create-a-new-react-app.html. [Accessed: 24-May-2021].
-
+[5] P. Singh, "Setting Up a React Project from GitHub", October 20, 2020, https://www.pluralsight.com/guides/setting-up-a-react-project-from-github  
+[6] K. Kalyanaraman, "Getting started with Create React App", April 28, 2021, https://blog.logrocket.com/getting-started-with-create-react-app-d93147444a27/  
+[7] Salesforce Inc., "GitHub Integration (Heroku GitHub Deploys)", April 09, 2020, https://devcenter.heroku.com/articles/github-integration  
+[8] “Create a new react app,” Reactjs.org. [Online]. Available: https://reactjs.org/docs/create-a-new-react-app.html. [Accessed: 24-May-2021].
