@@ -169,9 +169,18 @@ As mentioned in [7], to deploy the project, you need to have your Github reposit
 
 ## References
 [1] R. Kumar, "How to Install Homebrew on macOS", November 24, 2020, https://tecadmin.net/install-homebrew-macos/  
+
 [2] A. Stacoviak, "Install Node.js and npm using Homebrew on OS X and macOS", March 12, 2013, https://changelog.com/posts/install-node-js-with-homebrew-on-os-x  
+
 [3] Linode LLC., "How to Install Git on Linux, Mac or Windows", Jan 15, 2021, https://www.linode.com/docs/guides/how-to-install-git-on-linux-mac-and-windows/  
+
 [4] N. Levine, "How to Create an Account on GitHub", April 8, 2021, https://www.wikihow.com/Create-an-Account-on-GitHub  
+
 [5] K. Kalyanaraman, "Getting started with Create React App", April 28, 2021, https://blog.logrocket.com/getting-started-with-create-react-app-d93147444a27/  
+
 [6] P. Singh, "Setting Up a React Project from GitHub", October 20, 2020, https://www.pluralsight.com/guides/setting-up-a-react-project-from-github  
+
 [7] Salesforce Inc., "GitHub Integration (Heroku GitHub Deploys)", April 09, 2020, https://devcenter.heroku.com/articles/github-integration
+
+[8]“Create a new react app,” Reactjs.org. [Online]. Available: https://reactjs.org/docs/create-a-new-react-app.html. [Accessed: 24-May-2021].
+
