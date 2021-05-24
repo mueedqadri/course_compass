@@ -11,15 +11,14 @@ Tutorial for CSCI 5709 - Group 9
 * [Philemon Lee](philemon.lee@dal.ca) - *(Collaborator)*
 * [Mani Teja Varma](manitejavarma@dal.ca) - *(Collaborator)*
 * [Milan Ganesh Acharya](ml650738@dal.ca) - *(Collaborator)*
-* [Name](email@dal.ca) - *(Collaborator)*
+* [Abdul Mueed Qadri](ab291996@dal.ca) - *(Collaborator)*
 
 
 ## Getting Started
 
-The Git repository can be found at:
-https://github.com/manitejavarmadal/tutorial2.git
+The Git repository can be found at [here](https://github.com/manitejavarmadal/tutorial2.git)
 
-See deployment for notes on how to deploy the project on a live system.
+*See deployment for notes on how to deploy the project on a live system.*
 
 ### Prerequisites
 
@@ -28,12 +27,14 @@ To have a local copy of this project up and running on your local machine, you w
 ```
 1. Homebrew
 2. Node
+3. Git
 ```
 
 See the following section for detailed step-by-step instructions on how to install this software / libraries / plug-ins
 
-### Installing
+## Installing
 
+#### **MacOS**
 The following steps are for installing prerequisites on a Mac OS system:  
 Install Homebrew
 1. Open the terminal and type in the command:
@@ -44,7 +45,6 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 ```
 brew --version
 ```
-
 Install Node
 1. In the terminal type the command:
 ```
@@ -53,8 +53,7 @@ brew install node
 2. Once install has completed, run the below commands. They should display the versions if install was successful.
 ```
 node --version
-```
-```
+
 npm --version
 ```
 
@@ -69,16 +68,43 @@ milan@Milans-MacBook-Air tutorial2 % npm --version
 7.13.0
 ```
 
+#### **Windows**
+The following steps are for installing prerequisites on a Windows system: 
+
+1. Download node.js from [here](https://nodejs.org/dist/v14.17.0/node-v14.17.0-x86.msi) and proceed with the default installation.
+
+2. Download git from [here](https://git-scm.com/downloads) and install it on your system.
+
+3. Clone this repository on your preferred directory.
+```
+git clone https://github.com/manitejavarmadal/tutorial2.git
+```
+
+4. Open the repository where you cloned the app in the terminal.
+
+5. Fetch all the dependencies.
+```
+npm i
+```
+
+5. Finally start the project.
+```
+npm start   
+```
+
+Once the build is successful you will see the following message:
+
+![Success Build Message](public/images/success_build_message.jpg)
+
 
 ## Deployment
 
 To deploy the project, you need to have your Github repository linked to Heroku.
-```
+
 1. Login to your Heroku account.
 2. Create a new app and link it to your repository using Github CLI.
 3. Choose the stream from which the deployment needs to take place.
 4. Add the build pack "https://buildpack-registry.s3.amazonaws.com/buildpacks/mars/create-react-app.tgz" under the settings of your current app.
-```
 
 ## Built With
 
