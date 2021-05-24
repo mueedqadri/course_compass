@@ -80,7 +80,7 @@ The following steps are for installing prerequisites on a Windows system:
 git clone https://github.com/manitejavarmadal/tutorial2.git
 ```
 
-4. Open the repository where you cloned the app in the terminal.
+4. Open the directory where you cloned the app in the terminal.
 
 5. Fetch all the dependencies.
 ```
