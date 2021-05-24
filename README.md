@@ -147,7 +147,7 @@ git clone https://github.com/manitejavarmadal/tutorial2.git
 npm i
 ```
 
-6. Finally start the project[8].
+6. Finally start the project [8].
 ```
 npm start   
 ```
