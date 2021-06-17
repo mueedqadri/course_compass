@@ -1,22 +1,26 @@
 import React, { useState } from 'react';
 import Paper from '@material-ui/core/Paper';
+import Input from '@material-ui/core/Input';
+import TableCell from '@material-ui/core/TableCell';
 import Container from '@material-ui/core/Container';
-import { Grid, Table, TableHeaderRow, TableRowDetail } from '@devexpress/dx-react-grid-material-ui';
-import { RowDetailState } from '@devexpress/dx-react-grid';
+import { Grid, Table, TableHeaderRow, TableRowDetail, TableFilterRow } from '@devexpress/dx-react-grid-material-ui';
+import { RowDetailState, FilteringState,
+  IntegratedFiltering, } from '@devexpress/dx-react-grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import './Courses.css';
-import { Button } from '@material-ui/core';
 
-function Courses() {
+function CourseList() {
 
   // Sets term state
-  const [term, setTerm] = React.useState('');
+    const [term, setTerm] = useState('');
 
-  const [expandedRowIds, setExpandedRowIds] = useState([2, 5]);
+    const [expandedRowIds, setExpandedRowIds] = useState([2, 5]);
+    
+    const [filters, setFilters] = useState([{ columnName: 'id', value: '' }]);
 
   const columns = [
   { name: 'id', title: 'Course Number' },
@@ -49,7 +53,7 @@ function Courses() {
   
   return (
     <Container maxWidth="sm">
-      <h1>Registered Courses</h1>
+      <h1>Course List</h1>
       <FormControl id="term-selector">
         <InputLabel>Term</InputLabel>
         <Select
@@ -64,27 +68,29 @@ function Courses() {
         <Grid
           rows={rows}
           columns={columns}
-        >
+              >
+                  <FilteringState
+          filters={filters}
+          onFiltersChange={setFilters}
+        />
+                  <IntegratedFiltering />
           <RowDetailState
           expandedRowIds={expandedRowIds}
           onExpandedRowIdsChange={setExpandedRowIds}
         />
           <Table columnExtensions={tableColumnExtensions} />
-          <TableHeaderRow />
+                  <TableHeaderRow />
+                  <TableFilterRow />
           <TableRowDetail
           contentComponent={RowDetail}
           />
         </Grid>
-        <br/>
-        <Button variant="contained">Add a course</Button>
-        <br/>
-        <br/>
       </Paper>
     </Container>
   );
 }
 
-export default Courses;
+export default CourseList;
 
 // https://reactrouter.com/
 // https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/getting-started/

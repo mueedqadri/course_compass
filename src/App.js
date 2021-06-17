@@ -1,10 +1,12 @@
 import './App.css';
 import Courses from './courses/Courses'
+import CourseList from './courses/CourseList'
 
 function App() {
   return (
     <div className="App">
-      <Courses/ >
+      <CourseList />
+      <Courses />
     </div>
   );
 }
