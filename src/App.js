@@ -1,4 +1,3 @@
-//import './App.css';
 import FeeAssessment from './courses/FeeAssessment'
 
 function App() {

@@ -6,13 +6,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Container from '@material-ui/core/Container';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import { DataTypeProvider } from '@devexpress/dx-react-grid';
-import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
+import { DataTypeProvider, SummaryState, IntegratedSummary } from '@devexpress/dx-react-grid';
+import { Grid, Table, TableHeaderRow, TableSummaryRow } from '@devexpress/dx-react-grid-material-ui';
 import Helmet from 'react-helmet';
 
 function FeeAssessment() {
     const [term, setTerm] = useState(10);
-  const [currencyColumns] = useState(['amount']);
+    const [currencyColumns] = useState(['amount']);
 
     const columns = [
         { name: 'id', title: 'Sl. No.' },
@@ -28,12 +28,11 @@ function FeeAssessment() {
     ]);
 
     const rows = [
-        { id: '1', description: 'Student Union', amount: '$75.78' },
-        { id: '2', description: 'Bus Pass Fee', amount: '$81.35' },
-        { id: '3', description: 'International Tuition Fee', amount: '$4,980.00' },
-        { id: '4', description: 'Grad. Society Fee', amount: '$20.00' },
-        { id: '5', description: 'Grad. Comp. Sci. Fee', amount: '$3,348.00' },
-        { id: '', description: 'Total:', amount: '$8505.13' }
+        { id: '1', description: 'Student Union', amount: 75.78 },
+        { id: '2', description: 'Bus Pass Fee', amount: 81.35 },
+        { id: '3', description: 'International Tuition Fee', amount: 4980.00 },
+        { id: '4', description: 'Grad. Society Fee', amount: 20.00 },
+        { id: '5', description: 'Grad. Comp. Sci. Fee', amount: 3348.00 }
     ];
 
     const CurrencyFormatter = ({ value }) => (
@@ -48,6 +47,10 @@ function FeeAssessment() {
             {...props}
         />
     );
+
+    const [totalSummaryItems] = useState([
+        { columnName: 'amount', type: 'sum' }
+      ]);
 
     const handleChange = (event) => {
         setTerm(event.target.value);
@@ -72,8 +75,11 @@ function FeeAssessment() {
                 <Paper>
                     <Grid rows={rows} columns={columns}>
                         <CurrencyTypeProvider for={currencyColumns} />
+                        <SummaryState totalItems={totalSummaryItems} />
+                        <IntegratedSummary />
                         <Table columnExtensions={tableColumnExtensions} />
                         <TableHeaderRow />
+                        <TableSummaryRow />
                     </Grid>
                     <br />
                     <Button variant="contained">Download Statement</Button>
