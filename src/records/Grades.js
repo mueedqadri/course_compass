@@ -35,31 +35,31 @@ function Grades() {
     const classes = useStyles();
   
     return (
-        <div>
-            <h2>Grades</h2>
-            <SelectTerm passTermData={setTerm} />
+        <div style={{textAlign:"center"}}>
+            <h1 style={{textAlign:"center"}}>Grades</h1>
+            <SelectTerm passTermData={setTerm} style={{textAlign:"left"}} />
             <br/>
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                     <TableRow>
-                        <TableCell align="right">Course</TableCell>
-                        <TableCell align="right">Course Title</TableCell>
-                        <TableCell align="right">Final Grade</TableCell>
-                        <TableCell align="right">Credits Attempted</TableCell>
-                        <TableCell align="right">Credits Earned</TableCell>
+                        <TableCell align="center">Course</TableCell>
+                        <TableCell align="center">Course Title</TableCell>
+                        <TableCell align="center">Final Grade</TableCell>
+                        <TableCell align="center">Credits Attempted</TableCell>
+                        <TableCell align="center">Credits Earned</TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
                     {rows.map((row) => (
                         <TableRow key={row.name}>
-                        <TableCell component="th" scope="row" align="right" >
+                        <TableCell component="th" scope="row" align="center" >
                             {row.name}
                         </TableCell>
-                        <TableCell align="right">{row.title}</TableCell>
-                        <TableCell align="right">{row.grade}</TableCell>
-                        <TableCell align="right">{row.attempted}</TableCell>
-                        <TableCell align="right">{row.earned}</TableCell>
+                        <TableCell align="center">{row.title}</TableCell>
+                        <TableCell align="center">{row.grade}</TableCell>
+                        <TableCell align="center">{row.attempted}</TableCell>
+                        <TableCell align="center">{row.earned}</TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
