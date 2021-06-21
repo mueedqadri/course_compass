@@ -1,22 +1,18 @@
-# Tutorial 2
+# Assignment 1
 
-Tutorial for CSCI 5709 - Group 9
+Assignment for CSCI 5709 - Group 9
 
-* *Date Created*: 19 MAY 2021
-* *Last Modification Date*: 24 MAY 2021
-* *URL*: <https://tutorial2-5709.herokuapp.com/>
+* *Date Created*: 5 JUNE 2021
+* *Last Modification Date*: 7 MAY 2021
+* *URL*: <https://a1-mueed-qadri.herokuapp.com/>
+* Git repo:  https://github.com/mueedq/A1_Mueed_Qadri
 
 ## Authors
 
-* [Philemon Lee](philemon.lee@dal.ca) - *(Collaborator)*
-* [Mani Teja Varma](manitejavarma@dal.ca) - *(Collaborator)*
-* [Milan Ganesh Acharya](ml650738@dal.ca) - *(Collaborator)*
 * [Abdul Mueed Qadri](ab291996@dal.ca) - *(Collaborator)*
 
 
 ## Getting Started
-
-The Git repository can be found [here](https://github.com/manitejavarmadal/tutorial2.git)
 
 *See deployment for notes on how to deploy the project on a live system.*
 
@@ -59,7 +55,7 @@ node --version
 npm --version
 ```
 
-Install Git as seen in [3]
+Install Git as seen in 
 1. In the terminal type the command:
 ```
 brew install git
@@ -68,12 +64,12 @@ brew install git
 ```
 git --version
 ```
-3. Register for a GitHub account, as seen in [4].
+3. Register for a GitHub account.
 
 Build React App  
-1. As seen in [5], clone the Github repository using the command below. You can also create a new react app as seen in [6].
+1. Clone the Github repository using the command below. 
 ```
-git clone https://github.com/manitejavarmadal/tutorial2.git
+git clone https://github.com/mueedq/mueed-qadri-csci5709.git
 ```
 2. Enter the newly created folder "tutorial2" and fetch all dependencies:
 ```
@@ -141,6 +137,8 @@ You can now view react-demo in the browser.
 Note that the development build is not optimized.
 To create a production build, use npm run build.
 ```
+#### **Windows**
+The following steps are for installing prerequisites on a Windows system:
 
 1. Download node.js from [here](https://nodejs.org/dist/v14.17.0/node-v14.17.0-x86.msi) and proceed with the default installation.
 
@@ -148,7 +146,7 @@ To create a production build, use npm run build.
 
 3. Clone this repository on your preferred directory.
 ```
-git clone https://github.com/manitejavarmadal/tutorial2.git
+git clone https://github.com/mueedq/mueed-qadri-csci5709.git
 ```
 
 4. Open the directory where you cloned the app in the terminal.
@@ -158,7 +156,7 @@ git clone https://github.com/manitejavarmadal/tutorial2.git
 npm i
 ```
 
-6. Finally start the project [8].
+6. Finally start the project.
 ```
 npm start   
 ```
@@ -170,24 +168,162 @@ Once the build is successful you will see the following message:
 
 ## Deployment
 
-As mentioned in [7], to deploy the project, you need to have your Github repository linked to Heroku.
+As mentioned in [3], to deploy the project, you need to have your Github repository linked to Heroku.
 
 1. Login to your Heroku account.
 2. Create a new app and link it to your repository using Github CLI.
 3. Choose the stream from which the deployment needs to take place.
 4. Add the build pack "https://buildpack-registry.s3.amazonaws.com/buildpacks/mars/create-react-app.tgz" under the settings of your current app.
 
+## Validation of existing user
+To validate the case where system shows that the account already exists please submit the form using the email "jamesbond007@dal.ca". After clicking Submit you will be able to a Dialog Box with corresponding feedback. 
+
+## Sources Used
+
+### RegistrationForm.jsx
+
+*Line 116*
+
+```
+else if (!/^[A-Za-z0-9]+$/.test(FirstName)) {
+    err.FirstName = "Enter a valid First Name";
+} 
+if 
+
+```
+
+The code above was created by adapting the code in [regex.test()](https://stackoverflow.com/questions/6603015/check-whether-a-string-matches-a-regex-in-js) as shown below: 
+
+```
+console.log(/^([a-z0-9]{5,})$/.test('abc1')); // false
+
+console.log(/^([a-z0-9]{5,})$/.test('abc12')); // true
+
+console.log(/^([a-z0-9]{5,})$/.test('abc123')); // true
+
+```
+
+- The code in [regex.test()](https://stackoverflow.com/questions/6603015/check-whether-a-string-matches-a-regex-in-js) was implemented by adding the custom regex and the inputting a string to the test method.
+- [regex.test()](https://stackoverflow.com/questions/6603015/check-whether-a-string-matches-a-regex-in-js)'s Code was used to validate various inputs from the user.
+- [regex.test()](https://stackoverflow.com/questions/6603015/check-whether-a-string-matches-a-regex-in-js)'s Code was not modified by testing various regex in regex101 and then implementing these regex to test various user inputs.
+
+### RegistrationForm.jsx
+
+*Line 304*
+
+```
+export default withStyles(useStyles, { withTheme: true })(RegistrationForm);
+
+```
+
+The code above was created by adapting the code in [stack overflow](https://stackoverflow.com/questions/56432167/how-to-style-components-using-makestyles-and-still-have-lifecycle-methods-in-mat) as shown below: 
+
+```
+export default withStyles(useStyles)(App)
+
+```
+*Line 18-38*
+
+```
+const useStyles = theme => ({
+    content: {
+        marginTop: theme.spacing(10),
+        color: theme.palette.text.secondary,
+        backgroundRepeat  : 'no-repeat',
+        backgroundImage: `url(${mainImage})`,
+        backgroundPosition: 'inherit',
+        backgroundSize: '60%'
+      },
+      form: {
+        width: '100%', 
+        marginTop: theme.spacing(5),
+      },
+      submit: {
+        margin: theme.spacing(3, 1, 3),
+      },
+      signUp:{
+        borderRadius: 15,
+        padding: theme.spacing(5, 3, 4)
+      },
+    });
+
+```
+
+The code above was created by adapting the code in [stack overflow](https://stackoverflow.com/questions/56432167/how-to-style-components-using-makestyles-and-still-have-lifecycle-methods-in-mat) as shown below: 
+
+```
+const useStyles = theme => ({
+    root: {
+        flexGrow: 1,
+      },
+});
+
+```
+
+- The code in [stack overflow](https://stackoverflow.com/questions/56432167/how-to-style-components-using-makestyles-and-still-have-lifecycle-methods-in-mat) was implemented by adding the useClass function and exporting component with the class. 
+- [stack overflow](https://stackoverflow.com/questions/56432167/how-to-style-components-using-makestyles-and-still-have-lifecycle-methods-in-mat)'s Code was used to implement custom styling in the material UI components.
+- [stack overflow](https://stackoverflow.com/questions/56432167/how-to-style-components-using-makestyles-and-still-have-lifecycle-methods-in-mat)'s Code was not modified by adding the classes and properties that was suitable for my application.
+
+### AlertDialog.jsx
+
+*Line 10-28*
+
+```
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: this.props.open
+        };
+        console.log('hi');
+    }
+    setOpen =(value)=>{
+        this.setState({ 
+            open: value
+         });
+    }
+    handleClickOpen = () => {
+      this.setOpen(true);
+    };
+  
+    handleClose = () => {
+      this.setOpen(false);
+    };
+
+```
+
+The code above was created by adapting the code in [Material UI](https://material-ui.com/components/dialogs/) as shown below: 
+
+```
+ const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+```
+
+- The code in [Material UI](https://material-ui.com/components/dialogs/) was implemented by adding the component to the file.
+- [Material UI](https://material-ui.com/components/dialogs/)'s Code was used to show a dialog box to the user when an account already exists.
+- [Material UI](https://material-ui.com/components/dialogs/)'s Code was not modified by changing the functions and props so as to support the class component approach.
+
+
 ## Built With
 
+* [Material UI](https://material-ui.com/) - ReactUI framework with a collection of beautiful and functional components.
 * [React](https://reactjs.org/) - The web framework used
 
 
+## Acknowledgments
+
+* Used the website [canva](https://www.canva.com/) to design the logo. 
+* Using the website [unDraw](https://undraw.co/) for the background image.
+* Used the documentation available on [Material UI](https://material-ui.com/) to integrate the code and fix any errors. Also, checked the API documentation to find the extended functionality of a component. 
+
 ## References
 [1] R. Kumar, "How to Install Homebrew on macOS", November 24, 2020, https://tecadmin.net/install-homebrew-macos/  
-[2] A. Stacoviak, "Install Node.js and npm using Homebrew on OS X and macOS", March 12, 2013, https://changelog.com/posts/install-node-js-with-homebrew-on-os-x  
-[3] Linode LLC., "How to Install Git on Linux, Mac or Windows", Jan 15, 2021, https://www.linode.com/docs/guides/how-to-install-git-on-linux-mac-and-windows/  
-[4] N. Levine, "How to Create an Account on GitHub", April 8, 2021, https://www.wikihow.com/Create-an-Account-on-GitHub  
-[5] P. Singh, "Setting Up a React Project from GitHub", October 20, 2020, https://www.pluralsight.com/guides/setting-up-a-react-project-from-github  
-[6] K. Kalyanaraman, "Getting started with Create React App", April 28, 2021, https://blog.logrocket.com/getting-started-with-create-react-app-d93147444a27/  
-[7] Salesforce Inc., "GitHub Integration (Heroku GitHub Deploys)", April 09, 2020, https://devcenter.heroku.com/articles/github-integration  
-[8] “Create a new react app,” Reactjs.org. [Online]. Available: https://reactjs.org/docs/create-a-new-react-app.html. [Accessed: 24-May-2021].
+[2] A. Stacoviak, "Install Node.js and npm using Homebrew on OS X and macOS", March 12, 2013, https://changelog.com/posts/install-node-js-with-homebrew-on-os-x   
+[3] Salesforce Inc., "GitHub Integration (Heroku GitHub Deploys)", April 09, 2020, https://devcenter.heroku.com/articles/github-integration  
+[4] “Create a new react app,” Reactjs.org. [Online]. Available: https://reactjs.org/docs/create-a-new-react-app.html. [Accessed: 24-May-2021].
