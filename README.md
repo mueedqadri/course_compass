@@ -64,7 +64,7 @@ Install Git as seen in [3]
 ```
 brew install git
 ```
-2. Once install is complete, run the below command. This should display the version if install was successful.
+2. Once install has completed, run the below commands. This should display the version if install was successful.
 ```
 git --version
 ```
@@ -94,28 +94,42 @@ v14.9.0
 milan@Milans-MacBook-Air github % npm --version
 7.13.0
 milan@Milans-MacBook-Air tutorial2 % git --version
-milan@Milans-MacBook-Air github % git clone https://github.com/manitejavarmadal/tutorial2.git
-Cloning into 'tutorial2'...
-remote: Enumerating objects: 100, done.
-remote: Counting objects: 100% (100/100), done.
-remote: Compressing objects: 100% (68/68), done.
-remote: Total 100 (delta 44), reused 80 (delta 27), pack-reused 0
-Receiving objects: 100% (100/100), 482.64 KiB | 1.30 MiB/s, done.
-Resolving deltas: 100% (44/44), done.
-milan@Milans-MacBook-Air github % cd tutorial2
-milan@Milans-MacBook-Air tutorial2 % npm i
+git version 2.31.1
+```
 
-added 2003 packages, and audited 2004 packages in 45s
+## Development
+1. As seen in [5], to create a react app run the below command. You can also create a react app from Github by cloning a repository, as seen in [6]
+```
+npx create-react-app <name-of-the-app>
+```
+2. Enter the newly created folder "<name-of-the-app>" and to start the app, run the command:
+```
+npm start
+```
 
-80 moderate severity vulnerabilities
+An example of what to expect is given below:
+```
+milan@Milans-MacBook-Air github % npx create-react-app react-demo
 
-To address issues that do not require attention, run:
-  npm audit fix
+Creating a new React app in /Users/milan/github/react-demo.
 
-To address all issues (including breaking changes), run:
-  npm audit fix --force
+Installing packages. This might take a couple of minutes.
+Installing react, react-dom, and react-scripts with cra-template...
+    ...
+    ...
+    ...
+Success! Created react-demo at /Users/milan/github/react-demo
+Inside that directory, you can run several commands:
+    ...
+    ...
+    ...
+We suggest that you begin by typing:
 
-Run `npm audit` for details.
+  cd react-demo
+  npm start
+
+Happy hacking!
+milan@Milans-MacBook-Air github % cd react-demo
 milan@Milans-MacBook-Air react-demo % npm start
 Compiled successfully!
 
@@ -127,9 +141,6 @@ You can now view react-demo in the browser.
 Note that the development build is not optimized.
 To create a production build, use npm run build.
 ```
-
-#### **Windows**
-The following steps are for installing prerequisites on a Windows system:
 
 1. Download node.js from [here](https://nodejs.org/dist/v14.17.0/node-v14.17.0-x86.msi) and proceed with the default installation.
 
