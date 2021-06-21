@@ -8,8 +8,8 @@ import { Switch, Route} from "react-router-dom";
 import ContentLayout from './Shared/ContentLayout'
 import Schedular from './Schedular/Schedular'
 import ProfilePage from './Profile/ProfilePage'
-import Courses from './Courses/Courses'
-import CourseList from './Courses/CourseList'
+import Courses from './courses/Courses'
+import CourseList from './courses/CourseList'
 
 
 export default function App(){
@@ -24,6 +24,12 @@ export default function App(){
                         </Layout>
                     </Route>
                     <Route exact path="/login">
+                        <Layout
+                            form = {<LoginForm/>}
+                        >
+                        </Layout>
+                    </Route>
+                    <Route exact path="/">
                         <Layout
                             form = {<LoginForm/>}
                         >
