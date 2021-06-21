@@ -5,9 +5,10 @@ import Header from './Shared/Header';
 import Footer from './Shared/Footer';
 import Layout from './Shared/Layout';
 import { Switch, Route} from "react-router-dom";
-import ContentLayout from './Shared/ContentLayout'
-import Schedular from './Schedular/Schedular'
-import ProfilePage from './Profile/ProfilePage'
+import ContentLayout from './Shared/ContentLayout';
+import Schedular from './Schedular/Schedular';
+import ProfilePage from './Profile/ProfilePage';
+import FeePage from './Fee/FeeAssessment';
 
 export default function App(){
   return (
@@ -34,6 +35,11 @@ export default function App(){
                     <Route exact path="/profile">
                         <ContentLayout
                             content = {<ProfilePage/>}
+                        />
+                    </Route>
+                    <Route exact path="/fee">
+                        <ContentLayout
+                            content = {<FeePage/>}
                         />
                     </Route>
                 </Switch>                   
