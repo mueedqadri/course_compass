@@ -14,6 +14,9 @@ import Select from '@material-ui/core/Select';
 import { Button } from '@material-ui/core';
 import './Courses.css';
 
+import SaveIcon from '@material-ui/icons/Save';
+import Button from '@material-ui/core/Button';
+
 function CourseList() {
 
   // Sets term state
@@ -26,17 +29,31 @@ function CourseList() {
   const columns = [
   { name: 'id', title: 'Course Number' },
   { name: 'name', title: 'Title' },
-  { name: 'credits', title: 'Credits' }
+  { name: 'credits', title: 'Credits' },
+  { name: "action", title: "action" }
   ];
 
   // Align table column right
   const [tableColumnExtensions] = useState([
     { columnName: 'credits', align: 'right' },
   ]);
+  const addResetBtn = ({ index }) => {
+    return (
+      <Button
+      variant="contained"
+      color="primary"
+      size="large"
+      startIcon={<SaveIcon />}
+    >
+      Save
+    </Button>
+    );
+};
+
 
   const rows = [
-  { id: 'CSCI3901', name: 'Intro to Computing', credits: '3' },
-  { id: 'CSCI2345', name: 'Intro to Programming', credits: '3' },
+  { id: 'CSCI3901', name: 'Intro to Computing', credits: '3', action: addResetBtn.call(this, { index: 0 }) },
+  { id: 'CSCI2345', name: 'Intro to Programming', credits: '3', action: addResetBtn.call(this, { index: 1 }) },
   ];
 
   const RowDetail = ({ row }) => (
@@ -56,7 +73,7 @@ function CourseList() {
   };
   
   return (
-    <Container maxWidth="sm">
+    <Container >
       <h1>Course List</h1>
       <FormControl id="term-selector">
         <InputLabel>Term</InputLabel>
