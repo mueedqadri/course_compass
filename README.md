@@ -30,7 +30,7 @@ To have a local copy of this project up and running on your local machine, you w
 3. Git
 ```
 
-See the following section for detailed step-by-step instructions on how to install this software / libraries / plug-ins
+*See the following section for detailed step-by-step instructions on how to install this software / libraries / plug-ins*
 
 ## Installing
 
@@ -64,7 +64,7 @@ Install Git as seen in [3]
 ```
 brew install git
 ```
-2. Once install has completed, run the below commands. This should display the version if install was successful.
+2. Once install is complete, run the below command. This should display the version if install was successful.
 ```
 git --version
 ```
@@ -98,7 +98,7 @@ git version 2.31.1
 ```
 
 ## Development
-1. As seen in [5], to create a react app run the below command. You can also create a react app from Github by cloning a repository, as seen in [6]
+1. As seen in [5], to create a react app run the below command. You can also create a react app from Github by cloning a repository, as seen in [6].
 ```
 npx create-react-app <name-of-the-app>
 ```
