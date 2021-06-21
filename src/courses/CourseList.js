@@ -11,6 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { Button } from '@material-ui/core';
 import './Courses.css';
 
 function CourseList() {
@@ -43,7 +44,10 @@ function CourseList() {
     Details for
     {' '}
     {row.name}
-    {' '}
+          {' '}
+          <br />
+          <br/>
+                  <Button variant="contained">More info</Button>
   </div>
 );
 
@@ -73,7 +77,7 @@ function CourseList() {
           filters={filters}
           onFiltersChange={setFilters}
         />
-                  <IntegratedFiltering />
+        <IntegratedFiltering />
           <RowDetailState
           expandedRowIds={expandedRowIds}
           onExpandedRowIdsChange={setExpandedRowIds}

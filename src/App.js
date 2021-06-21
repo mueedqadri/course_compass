@@ -4,6 +4,7 @@ import CourseList from './courses/CourseList'
 
 function App() {
   return (
+    // navbar
     <div className="App">
       <CourseList />
       <Courses />
