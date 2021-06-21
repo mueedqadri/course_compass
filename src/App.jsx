@@ -10,6 +10,9 @@ import Schedular from './Schedular/Schedular'
 import ProfilePage from './Profile/ProfilePage'
 import Courses from './courses/Courses'
 import CourseList from './courses/CourseList'
+import { Grade } from '@material-ui/icons';
+import Grades from './records/Grades';
+import Transcripts from './records/Transcripts';
 
 
 export default function App(){
@@ -53,6 +56,16 @@ export default function App(){
                     <Route exact path="/courses/list">
                         <ContentLayout
                             content = {<CourseList/>}
+                        />
+                    </Route>
+                    <Route exact path="/grades">
+                        <ContentLayout
+                            content = {<Grades/>}
+                        />
+                    </Route>
+                    <Route exact path="/transcripts">
+                        <ContentLayout
+                            content = {<Transcripts/>}
                         />
                     </Route>
                 </Switch>                   

@@ -85,6 +85,12 @@ export default function Header(){
             <Link to="/courses" style={{ textDecoration: 'none' }}>
                 <Button color="inherit" className={classes.buttonFontSize}>Courses</Button>
             </Link> 
+            <Link to="/grades" style={{ textDecoration: 'none' }}>
+                <Button color="inherit" className={classes.buttonFontSize}>Grades</Button>
+            </Link>
+            <Link to="/transcripts" style={{ textDecoration: 'none' }}>
+                <Button color="inherit" className={classes.buttonFontSize}>Transcripts</Button>
+            </Link>
             </Toolbar>
         </Grid>
         </AppBar>
