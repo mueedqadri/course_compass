@@ -11,6 +11,7 @@ import Select from '@material-ui/core/Select';
 import './Courses.css';
 import SaveIcon from '@material-ui/icons/Save';
 import Button from '@material-ui/core/Button';
+import { useHistory } from 'react-router-dom';
 
 function CourseList() {
 
@@ -21,12 +22,18 @@ function CourseList() {
     
     const [filters, setFilters] = useState([{ columnName: 'id', value: '' }]);
 
+    const history = useHistory();
+
   const columns = [
   { name: 'id', title: 'Course Number' },
   { name: 'name', title: 'Title' },
   { name: 'credits', title: 'Credits' },
   { name: "action", title: "action" }
   ];
+
+  const handleClick = () => {
+    history.push('/courses/list/courseinfo');
+  }
 
   // Align table column right
   const [tableColumnExtensions] = useState([
@@ -59,7 +66,7 @@ function CourseList() {
           {' '}
           <br />
           <br/>
-                  <Button variant="contained">More info</Button>
+                  <Button variant="contained" onClick={handleClick}>More info</Button>
   </div>
 );
 

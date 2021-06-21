@@ -13,6 +13,8 @@ import CourseList from './courses/CourseList'
 import { Grade } from '@material-ui/icons';
 import Grades from './records/Grades';
 import Transcripts from './records/Transcripts';
+import Fee from './Fee/FeeAssessment';
+import CourseInfo from './courses/CourseInfo';
 
 
 export default function App(){
@@ -58,6 +60,11 @@ export default function App(){
                             content = {<CourseList/>}
                         />
                     </Route>
+                    <Route exact path="/courses/list/courseinfo">
+                        <ContentLayout
+                            content = {<CourseInfo/>}
+                        />
+                    </Route>
                     <Route exact path="/grades">
                         <ContentLayout
                             content = {<Grades/>}
@@ -66,6 +73,11 @@ export default function App(){
                     <Route exact path="/transcripts">
                         <ContentLayout
                             content = {<Transcripts/>}
+                        />
+                    </Route>
+                    <Route exact path="/fee">
+                        <ContentLayout
+                            content = {<Fee/>}
                         />
                     </Route>
                 </Switch>                   
