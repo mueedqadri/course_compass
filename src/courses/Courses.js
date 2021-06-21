@@ -5,11 +5,12 @@ import { Grid, Table, TableHeaderRow, TableRowDetail } from '@devexpress/dx-reac
 import { RowDetailState } from '@devexpress/dx-react-grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import './Courses.css';
 import { Button } from '@material-ui/core';
+import { Link} from "react-router-dom";
+
 
 function Courses() {
 
@@ -75,8 +76,10 @@ function Courses() {
           contentComponent={RowDetail}
           />
         </Grid>
-        <br/>
-        <Button variant="contained">Add a course</Button>
+        <br />
+        <Link to="/courses/list" style={{ textDecoration: 'none' }}>
+                <Button variant="contained" >Add a course</Button>
+        </Link> 
         <br/>
         <br/>
       </Paper>
