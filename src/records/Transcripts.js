@@ -3,6 +3,8 @@ import countryList from "react-select-country-list";
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import { PlayCircleFilledWhite } from '@material-ui/icons';
 
 
 const countries = countryList().getData();
@@ -16,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
+
+
+
 function Transcripts() {
     const [childData, setChildData] = useState("");
     // console.log(childData);
@@ -25,52 +30,72 @@ function Transcripts() {
     const handleChange = (event) => {
         setCountry(event.target.value);
     };
+
+    const submitRequest = ()=>{
+        alert("Request is submmited. If approved transcripts will be sent over mail.")
+    };
+
+    const downloadTranscripts = ()=>{
+        alert("Downloaded unofficial transcripts successfully")
+    };
   
     return (
-        <div style={{textAlign:'left',marginLeft: '0.8rem'}}>
-            <h2>Request Official Transcripts</h2>
+        <div style={{textAlign:'left'}}>
+            <h1 style={{textAlign:'center'}}>Request Official Transcripts</h1>
             <br/>
+            <div style={{ backgroundColor:'white',borderRadius: 15, padding:'4rem'}}>
             <form className={classes.root} noValidate autoComplete="off">
-                <div><TextField id="outlined-basic" label="Name" variant="outlined" /></div>
-                <div><TextField id="outlined-basic" label="Number of Copies(Max 5)" variant="outlined" /></div>
-                <div><TextField
-                    id="outlined-multiline-static"
-                    label="Address"
-                    multiline
-                    rows={3}
-                    variant="outlined"
-                />
-                </div>
-                <div>
-                    <TextField id="outlined-basic" label="City" variant="outlined" />
-                    <TextField id="outlined-basic" label="State/Province" variant="outlined" />
-                    <TextField id="outlined-basic" label="Zip/Postal Code" variant="outlined" />
-                </div>
-                <div><TextField
-                        id="outlined-select-currency-native"
-                        select
-                        label="Select Country"
-                        value={country}
-                        onChange={handleChange}
-                        SelectProps={{
-                            native: true,
-                        }}
-                        helperText="Please select your country"
-                        variant="outlined"
-                        >
-                        {countries.map((option) => (
-                            <option key={option.value} value={option.value}>
-                            {option.label}
-                            </option>
-                        ))}
-                    </TextField>
-                </div>
-                <Button variant="contained" color="primary">Submit Request</Button>    
+                <Grid container spacing={1}>
+                    <Grid item xs={12}>
+                        <TextField id="outlined-basic" label="Name" variant="outlined" />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField id="outlined-basic" label="Number of Copies(Max 5)" variant="outlined" />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                                id="outlined-multiline-static"
+                                label="Address"
+                                multiline
+                                rows={3}
+                                variant="outlined"
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                            <TextField id="outlined-basic" label="City" variant="outlined" />
+                            <TextField id="outlined-basic" label="State/Province" variant="outlined" />
+                            <TextField id="outlined-basic" label="Zip/Postal Code" variant="outlined" />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            id="outlined-select-currency-native"
+                            select
+                            label="Select Country"
+                            value={country}
+                            onChange={handleChange}
+                            SelectProps={{
+                                native: true,
+                            }}
+                            helperText="Please select your country"
+                            variant="outlined"
+                            >
+                            {countries.map((option) => (
+                                <option key={option.value} value={option.value}>
+                                {option.label}
+                                </option>
+                            ))}
+                        </TextField>
+                        
+                    </Grid>
+                       
+                </Grid> 
+                <Grid><Button variant="contained" color="primary" onClick={submitRequest}>Submit Request</Button></Grid>
             </form>
+            </div>
             <br/>
             <br/>
             <div>
-                <Button color="primary" size="small">You can also download unofficial transcripts by clicking here</Button>
+                <Button color="primary" size="medium" onClick={downloadTranscripts}>You can also download unofficial transcripts by clicking here</Button>
             </div>
             
         </div>
