@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import Container from '@material-ui/core/Container';
-import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
+import Grid from '@material-ui/core/Grid';
 import Helmet from 'react-helmet';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -13,37 +12,21 @@ import Typography from '@material-ui/core/Typography';
 import prof from '../images/professor.jpeg'
 
 function CourseInfo() {
-    const courseColumns = [
-        { name: 'id', title: 'Course ID' },
-        { name: 'name', title: 'Name' },
-        { name: 'credits', title: 'Credits' },
-        { name: 'mode', title: 'Delivery Mode' },
-        { name: 'timing', title: 'Timings' },
-        { name: 'instructor', title: 'Instructor' }
-    ];
-
-    // Align table column right
-    const [courseTableExtensions] = useState([
-        { columnName: 'id', width: '10%' },
-        { columnName: 'credits', width: '10%' },
-        { columnName: 'mode', width: '15%' }
-    ]);
-
-    const courseRows = [
-        { id: 'CSCI 5100', name: 'Intro to Computing', credits: '3', mode: 'Online', timing: 'Mon: 08:00-09:30, Fri: 14:00-15:30', instructor: 'Martin Cash' }
-    ];
 
     const useStyles = makeStyles((theme) => ({
         root: {
-            maxWidth: 345,
+            maxWidth: 345
         },
         media: {
             height: 0,
-            paddingTop: '56.25%', // 16:9
+            paddingTop: '56.25%' // 16:9
         },
         avatar: {
             backgroundColor: 'red'
         },
+        padding: {
+            padding: '15px'
+        }
     }));
 
     const classes = useStyles();
@@ -53,45 +36,57 @@ function CourseInfo() {
             <Helmet>
                 <title>Course Info</title>
             </Helmet>
-            <Container>
-                <h1>Course Information</h1>
-                <Paper elevation='2'>
-                    <Grid rows={courseRows} columns={courseColumns}>
-                        <Table columnExtensions={courseTableExtensions} />
-                        <TableHeaderRow />
-                    </Grid>
-                </Paper>
-                <br />
-                <h1>Instructor Information</h1>
-                <Card className={classes.root} elevation='2'>
-                    <CardHeader
-                        avatar={
-                            <Avatar aria-label="instructor" className={classes.avatar}>
-                                M
-                            </Avatar>
-                        }
-                        title="Martin Cash"
-                        subheader="m.cash@coursecompass.com"
-                    />
-                    <CardMedia
-                        className={classes.media}
-                        image={prof}
-                        title="Paella dish"
-                    />
-                    <CardContent>
-                        <Typography variant="body1" color="textSecondary" component="p">
-                            {<div>
-                                <p>Martin Cash has PhD in Distributed Networking and Analysis. He has worked for a number of major network providers and 
-                                    has helped them with the development of various networking technologies.
-                                </p>
-                                <p>
-                                    Now he is persuing his passion for teaching, and helping research student with their thesis.
-                                </p>
-                            </div>}
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </Container>
+            <Grid container spacing={1}>
+                <Grid item xs={9}>
+                    <h1>Course Information</h1>
+                    <Paper className={classes.padding} elevation='2'>
+                        <h2>CSCI 5100 Intro to Computing</h2>
+                        <p>This course, using both lecture and laboratory practice, introduces students to basic computer concepts in hardware,
+                            software, networking, computer security, programming, database, e-commerce, decision support systems, and other
+                            emerging technologies such as blogs, wiki, RSS, podcasting, and Google applications. Additional lectures examine social,
+                            legal, ethical issues including privacy, intellectual property, health concerns, green computing, and accessibility. Students learn
+                            techniques to search, evaluate, validate, and cite information found online. Widely used applications including word processing,
+                            spreadsheets, databases, presentation, and web development software are studied.</p>
+                        <h3>Credits: 3</h3>
+                        <h3>Class Hours: </h3>
+                        <p> Mon - 08:00 to 09:30<br />
+                            Thu - 08:00 to 10:00<br />
+                            Fri - 14:30 to 16:00</p>
+                        <h3>Mode of Delivery: Online</h3>
+                    </Paper>
+                </Grid>
+                <Grid item xs={3}>
+                    <h1>Instructor Information</h1>
+                    <Card className={classes.root} elevation='2'>
+                        <CardHeader
+                            avatar={
+                                <Avatar aria-label="instructor" className={classes.avatar}>
+                                    M
+                                </Avatar>
+                            }
+                            title="Martin Cash"
+                            subheader="m.cash@coursecompass.com"
+                        />
+                        <CardMedia
+                            className={classes.media}
+                            image={prof}
+                            title="instructor"
+                        />
+                        <CardContent>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                {<div>
+                                    <p>Martin Cash has PhD in Distributed Networking and Analysis. He has worked for a number of major network providers and
+                                        has helped them with the development of various networking technologies.
+                                    </p>
+                                    <p>
+                                        Now he is persuing his passion for teaching, and helping research students with their thesis.
+                                    </p>
+                                </div>}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </Grid>
+            </Grid>
         </div>
     );
 }
