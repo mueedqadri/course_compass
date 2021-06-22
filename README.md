@@ -1,14 +1,17 @@
-# Assignment 1
+# CourseCompass
 
-Assignment for CSCI 5709 - Group 9
+Project of Group 9
 
-* *Date Created*: 5 JUNE 2021
-* *Last Modification Date*: 7 MAY 2021
-* *URL*: <https://a1-mueed-qadri.herokuapp.com/>
-* Git repo:  https://github.com/mueedq/A1_Mueed_Qadri
+* *Date Created*: 18 JUN 2021
+* *Last Modification Date*: 22 JUN 2021
+* *URL*: <https://course-compass.herokuapp.com>
+* *Git repo*: <https://github.com/manitejavarmadal/group9_course_compass.git>
 
 ## Authors
 
+* [Philemon Lee](philemon.lee@dal.ca) - *(Collaborator)*
+* [Mani Teja Varma](manitejavarma@dal.ca) - *(Collaborator)*
+* [Milan Ganesh Acharya](ml650738@dal.ca) - *(Collaborator)*
 * [Abdul Mueed Qadri](ab291996@dal.ca) - *(Collaborator)*
 
 
@@ -55,7 +58,7 @@ node --version
 npm --version
 ```
 
-Install Git as seen in 
+Install Git
 1. In the terminal type the command:
 ```
 brew install git
@@ -67,9 +70,9 @@ git --version
 3. Register for a GitHub account.
 
 Build React App  
-1. Clone the Github repository using the command below. 
+1. Clone the Github repository using the command below.
 ```
-git clone https://github.com/mueedq/mueed-qadri-csci5709.git
+git clone https://github.com/manitejavarmadal/group9_course_compass.git
 ```
 2. Enter the newly created folder "tutorial2" and fetch all dependencies:
 ```
@@ -118,8 +121,10 @@ As mentioned in [3], to deploy the project, you need to have your Github reposit
 3. Choose the stream from which the deployment needs to take place.
 4. Add the build pack "https://buildpack-registry.s3.amazonaws.com/buildpacks/mars/create-react-app.tgz" under the settings of your current app.
 
+
 ## Validation of existing user
-To validate the case where system shows that the account already exists please submit the form using the email "jamesbond007@dal.ca". After clicking Submit you will be able to a Dialog Box with corresponding feedback. 
+To validate the case where system shows that the account already exists please submit the form using the email "jamesbond007@dal.ca". After clicking Submit you will be able to a Dialog Box with corresponding feedback.
+
 
 ## Sources Used
 
@@ -130,12 +135,12 @@ To validate the case where system shows that the account already exists please s
 ```
 else if (!/^[A-Za-z0-9]+$/.test(FirstName)) {
     err.FirstName = "Enter a valid First Name";
-} 
-if 
+}
+if
 
 ```
 
-The code above was created by adapting the code in [regex.test()](https://stackoverflow.com/questions/6603015/check-whether-a-string-matches-a-regex-in-js) as shown below: 
+The code above was created by adapting the code in [regex.test()](https://stackoverflow.com/questions/6603015/check-whether-a-string-matches-a-regex-in-js) as shown below:
 
 ```
 console.log(/^([a-z0-9]{5,})$/.test('abc1')); // false
@@ -150,6 +155,7 @@ console.log(/^([a-z0-9]{5,})$/.test('abc123')); // true
 - [regex.test()](https://stackoverflow.com/questions/6603015/check-whether-a-string-matches-a-regex-in-js)'s Code was used to validate various inputs from the user.
 - [regex.test()](https://stackoverflow.com/questions/6603015/check-whether-a-string-matches-a-regex-in-js)'s Code was not modified by testing various regex in regex101 and then implementing these regex to test various user inputs.
 
+
 ### RegistrationForm.jsx
 
 *Line 304*
@@ -159,7 +165,7 @@ export default withStyles(useStyles, { withTheme: true })(RegistrationForm);
 
 ```
 
-The code above was created by adapting the code in [stack overflow](https://stackoverflow.com/questions/56432167/how-to-style-components-using-makestyles-and-still-have-lifecycle-methods-in-mat) as shown below: 
+The code above was created by adapting the code in [stack overflow](https://stackoverflow.com/questions/56432167/how-to-style-components-using-makestyles-and-still-have-lifecycle-methods-in-mat) as shown below:
 
 ```
 export default withStyles(useStyles)(App)
@@ -178,7 +184,7 @@ const useStyles = theme => ({
         backgroundSize: '60%'
       },
       form: {
-        width: '100%', 
+        width: '100%',
         marginTop: theme.spacing(5),
       },
       submit: {
@@ -192,7 +198,7 @@ const useStyles = theme => ({
 
 ```
 
-The code above was created by adapting the code in [stack overflow](https://stackoverflow.com/questions/56432167/how-to-style-components-using-makestyles-and-still-have-lifecycle-methods-in-mat) as shown below: 
+The code above was created by adapting the code in [stack overflow](https://stackoverflow.com/questions/56432167/how-to-style-components-using-makestyles-and-still-have-lifecycle-methods-in-mat) as shown below:
 
 ```
 const useStyles = theme => ({
@@ -203,9 +209,10 @@ const useStyles = theme => ({
 
 ```
 
-- The code in [stack overflow](https://stackoverflow.com/questions/56432167/how-to-style-components-using-makestyles-and-still-have-lifecycle-methods-in-mat) was implemented by adding the useClass function and exporting component with the class. 
+- The code in [stack overflow](https://stackoverflow.com/questions/56432167/how-to-style-components-using-makestyles-and-still-have-lifecycle-methods-in-mat) was implemented by adding the useClass function and exporting component with the class.
 - [stack overflow](https://stackoverflow.com/questions/56432167/how-to-style-components-using-makestyles-and-still-have-lifecycle-methods-in-mat)'s Code was used to implement custom styling in the material UI components.
 - [stack overflow](https://stackoverflow.com/questions/56432167/how-to-style-components-using-makestyles-and-still-have-lifecycle-methods-in-mat)'s Code was not modified by adding the classes and properties that was suitable for my application.
+
 
 ### AlertDialog.jsx
 
@@ -220,21 +227,21 @@ const useStyles = theme => ({
         console.log('hi');
     }
     setOpen =(value)=>{
-        this.setState({ 
+        this.setState({
             open: value
          });
     }
     handleClickOpen = () => {
       this.setOpen(true);
     };
-  
+
     handleClose = () => {
       this.setOpen(false);
     };
 
 ```
 
-The code above was created by adapting the code in [Material UI](https://material-ui.com/components/dialogs/) as shown below: 
+The code above was created by adapting the code in [Material UI](https://material-ui.com/components/dialogs/) as shown below:
 
 ```
  const [open, setOpen] = React.useState(false);
@@ -253,6 +260,60 @@ The code above was created by adapting the code in [Material UI](https://materia
 - [Material UI](https://material-ui.com/components/dialogs/)'s Code was not modified by changing the functions and props so as to support the class component approach.
 
 
+### CourseInfo.js
+
+*Line 16-30*
+
+```
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            maxWidth: 345
+        },
+        media: {
+            height: 0,
+            paddingTop: '56.25%' // 16:9
+        },
+        avatar: {
+            backgroundColor: 'red'
+        },
+        padding: {
+            padding: '15px'
+        }
+    }));
+
+```
+
+The code above was created by adapting the code in [Material UI](https://material-ui.com/components/cards/) as shown below:
+
+```
+const useStyles = makeStyles((theme) => ({
+ root: {
+   maxWidth: 345,
+ },
+ media: {
+   height: 0,
+   paddingTop: '56.25%', // 16:9
+ },
+ expand: {
+   transform: 'rotate(0deg)',
+   marginLeft: 'auto',
+   transition: theme.transitions.create('transform', {
+     duration: theme.transitions.duration.shortest,
+   }),
+ },
+ expandOpen: {
+   transform: 'rotate(180deg)',
+ },
+ avatar: {
+   backgroundColor: red[500],
+ },
+}));
+```
+
+- [Material UI](https://material-ui.com/components/cards/)'s Code was used to show the instructor's information in card element.
+- [Material UI](https://material-ui.com/components/cards/)'s Code was modified by changing the colour for the avatar, and adding some padding to the content.
+
+
 ## Built With
 
 * [Material UI](https://material-ui.com/) - ReactUI framework with a collection of beautiful and functional components.
@@ -261,12 +322,16 @@ The code above was created by adapting the code in [Material UI](https://materia
 
 ## Acknowledgments
 
-* Used the website [canva](https://www.canva.com/) to design the logo. 
+* Used the website [canva](https://www.canva.com/) to design the logo.
 * Using the website [unDraw](https://undraw.co/) for the background image.
-* Used the documentation available on [Material UI](https://material-ui.com/) to integrate the code and fix any errors. Also, checked the API documentation to find the extended functionality of a component. 
+* Used the documentation available on [Material UI](https://material-ui.com/) to integrate the code and fix any errors. Also, checked the API documentation to find the extended functionality of a component.
+* The image for the professor was taken from [Pinterest](https://www.pinterest.com/pin/502292164692373728/)
+* The content for the Course Info was taken from [George Mason University](https://ist.gmu.edu/wp-content/uploads/IT103Summer2013Syllabus.pdf)
+
 
 ## References
-[1] R. Kumar, "How to Install Homebrew on macOS", November 24, 2020, https://tecadmin.net/install-homebrew-macos/  
-[2] A. Stacoviak, "Install Node.js and npm using Homebrew on OS X and macOS", March 12, 2013, https://changelog.com/posts/install-node-js-with-homebrew-on-os-x   
-[3] Salesforce Inc., "GitHub Integration (Heroku GitHub Deploys)", April 09, 2020, https://devcenter.heroku.com/articles/github-integration  
-[4] “Create a new react app,” Reactjs.org. [Online]. Available: https://reactjs.org/docs/create-a-new-react-app.html. [Accessed: 24-May-2021].
+
+[1] R. Kumar, *How to Install Homebrew on macOS", November 24, 2020*, Accessed on: JUN. 18, 2021. [Online]. Available: https://tecadmin.net/install-homebrew-macos/  
+[2] A. Stacoviak, *Install Node.js and npm using Homebrew on OS X and macOS*, Accessed on: JUN. 18, 2021. [Online]. Available: https://changelog.com/posts/install-node-js-with-homebrew-on-os-x   
+[3] Salesforce Inc., *GitHub Integration (Heroku GitHub Deploys)*, Accessed on: JUN. 18, 2021. [Online]. Available: https://devcenter.heroku.com/articles/github-integration  
+[4] Reactjs.org., *Create a new react app*, Accessed on: JUN. 20, 2021. [Online]. Available: https://reactjs.org/docs/create-a-new-react-app.html.
