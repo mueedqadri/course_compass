@@ -5,12 +5,6 @@ import Header from './Shared/Header';
 import Footer from './Shared/Footer';
 import Layout from './Shared/Layout';
 import { Switch, Route} from "react-router-dom";
-<<<<<<< HEAD
-import ContentLayout from './Shared/ContentLayout';
-import Schedular from './Schedular/Schedular';
-import ProfilePage from './Profile/ProfilePage';
-import FeePage from './Fee/FeeAssessment';
-=======
 import ContentLayout from './Shared/ContentLayout'
 import Schedular from './Schedular/Schedular'
 import ProfilePage from './Profile/ProfilePage'
@@ -22,7 +16,6 @@ import Transcripts from './records/Transcripts';
 import Fee from './Fee/FeeAssessment';
 import CourseInfo from './courses/CourseInfo';
 
->>>>>>> main
 
 export default function App(){
   return (
@@ -57,11 +50,6 @@ export default function App(){
                             content = {<ProfilePage/>}
                         />
                     </Route>
-<<<<<<< HEAD
-                    <Route exact path="/fee">
-                        <ContentLayout
-                            content = {<FeePage/>}
-=======
                     <Route exact path="/courses">
                         <ContentLayout
                             content = {<Courses/>}
@@ -90,7 +78,6 @@ export default function App(){
                     <Route exact path="/fee">
                         <ContentLayout
                             content = {<Fee/>}
->>>>>>> main
                         />
                     </Route>
                 </Switch>                   

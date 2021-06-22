@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "name": "course-compass",
-=======
   "name": "group9_course_compass",
->>>>>>> main
   "version": "0.1.0",
   "private": true,
   "dependencies": {
