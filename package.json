@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "course-compass",
+=======
+  "name": "group9_course_compass",
+>>>>>>> main
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -18,6 +22,7 @@
     "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-select-country-list": "^2.2.3",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
