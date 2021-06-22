@@ -5,24 +5,10 @@ import Header from './Shared/Header';
 import Footer from './Shared/Footer';
 import Layout from './Shared/Layout';
 import { Switch, Route} from "react-router-dom";
-<<<<<<< HEAD
 import ContentLayout from './Shared/ContentLayout';
 import Schedular from './Schedular/Schedular';
 import ProfilePage from './Profile/ProfilePage';
 import FeePage from './Fee/FeeAssessment';
-=======
-import ContentLayout from './Shared/ContentLayout'
-import Schedular from './Schedular/Schedular'
-import ProfilePage from './Profile/ProfilePage'
-import Courses from './courses/Courses'
-import CourseList from './courses/CourseList'
-import { Grade } from '@material-ui/icons';
-import Grades from './records/Grades';
-import Transcripts from './records/Transcripts';
-import Fee from './Fee/FeeAssessment';
-import CourseInfo from './courses/CourseInfo';
-
->>>>>>> main
 
 export default function App(){
   return (
@@ -41,12 +27,6 @@ export default function App(){
                         >
                         </Layout>
                     </Route>
-                    <Route exact path="/">
-                        <Layout
-                            form = {<LoginForm/>}
-                        >
-                        </Layout>
-                    </Route>
                     <Route exact path="/schedule">
                         <ContentLayout
                             content = {<Schedular/>}
@@ -57,40 +37,9 @@ export default function App(){
                             content = {<ProfilePage/>}
                         />
                     </Route>
-<<<<<<< HEAD
                     <Route exact path="/fee">
                         <ContentLayout
                             content = {<FeePage/>}
-=======
-                    <Route exact path="/courses">
-                        <ContentLayout
-                            content = {<Courses/>}
-                        />
-                    </Route>
-                    <Route exact path="/courses/list">
-                        <ContentLayout
-                            content = {<CourseList/>}
-                        />
-                    </Route>
-                    <Route exact path="/courses/list/courseinfo">
-                        <ContentLayout
-                            content = {<CourseInfo/>}
-                        />
-                    </Route>
-                    <Route exact path="/grades">
-                        <ContentLayout
-                            content = {<Grades/>}
-                        />
-                    </Route>
-                    <Route exact path="/transcripts">
-                        <ContentLayout
-                            content = {<Transcripts/>}
-                        />
-                    </Route>
-                    <Route exact path="/fee">
-                        <ContentLayout
-                            content = {<Fee/>}
->>>>>>> main
                         />
                     </Route>
                 </Switch>                   
