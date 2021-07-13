@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SelectTerm from '../SelectTerm.js';
+import SelectTerm from '../Shared/SelectTerm';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
