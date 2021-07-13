@@ -9,7 +9,7 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 function SelectTerm(props) {
 
 
-    const [term,setTerm] = useState('')
+    const [setTerm] = useState('')
 
     const handleChange = (event) => {   
         setTerm(event.target.value);

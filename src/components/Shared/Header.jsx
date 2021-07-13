@@ -1,7 +1,7 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import { makeStyles } from '@material-ui/core/styles';
-import logo from '../images/Logo.png';
+import logo from '../../images/Logo.png';
 import { Grid, Button, Toolbar, Avatar} from "@material-ui/core"
 
 import { Link} from "react-router-dom";
@@ -93,6 +93,9 @@ export default function Header(){
             </Link>
             <Link to="/fee" style={{ textDecoration: 'none' }}>
                 <Button color="inherit" className={classes.buttonFontSize}>Fee</Button>
+            </Link>
+            <Link to="/CustomCourse" style={{ textDecoration: 'none' }}>
+                <Button color="inherit" className={classes.buttonFontSize}>CustomCourse</Button>
             </Link>
             </Toolbar>
         </Grid>

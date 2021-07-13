@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import countryList from "react-select-country-list";
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import { PlayCircleFilledWhite } from '@material-ui/icons';
 
 
 const countries = countryList().getData();
@@ -22,8 +21,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Transcripts() {
-    const [childData, setChildData] = useState("");
-    // console.log(childData);
     const classes = useStyles();
     const [country, setCountry] = React.useState('');
 
