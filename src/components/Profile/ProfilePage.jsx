@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { deepOrange } from '@material-ui/core/colors';
-import '../css/Custom.css';
+import '../../css/Custom.css';
 
 
 const useStyles = makeStyles((theme) => ({

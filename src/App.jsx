@@ -1,20 +1,17 @@
 import React from 'react';
-import RegistrationForm  from './Register/RegistrationForm';
-import LoginForm  from './Login/LoginForm';
-import Header from './Shared/Header';
-import Footer from './Shared/Footer';
-import Layout from './Shared/Layout';
+import RegistrationForm  from './components/Register/RegistrationForm';
+import LoginForm  from './components/Login/LoginForm';
+import Header from './components/Shared/Header';
+import Footer from './components/Shared/Footer';
+import Layout from './components/Shared/Layout';
 import { Switch, Route} from "react-router-dom";
-import ContentLayout from './Shared/ContentLayout'
-import Schedular from './Schedular/Schedular'
-import ProfilePage from './Profile/ProfilePage'
-import Courses from './courses/Courses'
-import CourseList from './courses/CourseList'
-import { Grade } from '@material-ui/icons';
-import Grades from './records/Grades';
-import Transcripts from './records/Transcripts';
-import Fee from './Fee/FeeAssessment';
-import CourseInfo from './courses/CourseInfo';
+import ContentLayout from './components/Shared/ContentLayout'
+import Schedular from './components/Schedular/Schedular'
+import ProfilePage from './components/Profile/ProfilePage'
+import Grades from './components/records/Grades';
+import Transcripts from './components/records/Transcripts';
+import Fee from './components/Fee/FeeAssessment';
+import CourseDetails from './components/courses/CourseDetails';
 
 
 export default function App(){
@@ -52,17 +49,7 @@ export default function App(){
                     </Route>
                     <Route exact path="/courses">
                         <ContentLayout
-                            content = {<Courses/>}
-                        />
-                    </Route>
-                    <Route exact path="/courses/list">
-                        <ContentLayout
-                            content = {<CourseList/>}
-                        />
-                    </Route>
-                    <Route exact path="/courses/list/courseinfo">
-                        <ContentLayout
-                            content = {<CourseInfo/>}
+                            content = {<CourseDetails/>}
                         />
                     </Route>
                     <Route exact path="/grades">

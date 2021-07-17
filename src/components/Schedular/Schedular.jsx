@@ -108,8 +108,12 @@ export default function Schedular()  {
         <WeekView
             timeTableCellComponent={TimeTableCell}
             dayScaleCellComponent={DayScaleCell}
+            startDayHour={9}
+            endDayHour={17}
         />
         <DayView
+            startDayHour={9}
+            endDayHour={17}
         />
         <MonthView
             

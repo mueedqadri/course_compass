@@ -2,8 +2,8 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import mainImage from '../images/image.svg';
-import '../css/Custom.css';
+import mainImage from '../../images/image.svg';
+import '../../css/Custom.css';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 
