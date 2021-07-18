@@ -109,15 +109,6 @@ export default function Schedular() {
       await Axios.get("http://localhost:2000/api/schedule/1").then((res) => {
         const data = res.data.courseInfo;
 
-        if (res.status === 404) {
-          alert("User has not registered for any courses");
-          return;
-        }
-        else if (res.status !== 200) {
-          alert("An error has occured when requesting for scedule");
-          return;
-        }
-
         var appointment = [];
         var resource = [];
         for (var i = 0; i < data.length; i++) {
@@ -146,6 +137,15 @@ export default function Schedular() {
 
         setAppointments(appointment);
         setResourcesData(resource);
+      }, 
+      (error) => {
+        var status = error.response.status;
+        if (status === 404) {
+          alert("User has not registered for any courses");
+        }
+        else if (status !== 404) {
+          alert("An error has occured when requesting for schedule");
+        }
       });
     }
     fetchData();
