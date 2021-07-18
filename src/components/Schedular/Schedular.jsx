@@ -94,6 +94,8 @@ const DayScaleCellMonth = (props) => {
   } return <MonthView.DayScaleCell {...props} />;
 };
 
+var colors = [pink, purple, teal, amber, deepOrange];
+
 export default function Schedular() {
   const [appointments, setAppointments] = useState([]);
   const [resourcesData, setResourcesData] = useState([]);
@@ -107,23 +109,42 @@ export default function Schedular() {
     async function fetchData() {
       await Axios.get("http://localhost:2000/api/schedule/1").then((res) => {
         const data = res.data.courseInfo;
-        console.log(res.data.courseInfo);
 
-        const app = [{
-          id: 0,
-          title: 'Final exams',
-          roomId: 0,
-          members: [2, 3],
-          startDate: new Date(2021, 6, 18, 12, 0),
-          endDate: new Date(2021, 6, 18, 13, 35),
-          rRule: 'FREQ=WEEKLY;BYDAY=MO,WE;WKST=TU;INTERVAL=3;COUNT=2'
-        }];
+        if (res.status === 404) {
+          alert("User has not registered for any courses");
+          return;
+        }
+        else if (res.status !== 200) {
+          alert("An error has occured when requesting for scedule");
+          return;
+        }
 
-        const resource = [{
-          text: 'Room 103',
-          id: 0,
-          color: teal,
-        }];
+        var app = [];
+        var resource = [];
+        for (var i = 0; i < data.length; i++) {
+          var related = JSON.parse(data[i].relatedInfo);
+
+          var startDate = related.meetingTime.startDate.split('/');
+          var beginTime = related.meetingTime.beginTime.split(':');
+          var endTime = related.meetingTime.endTime.split(':');
+
+          var appItem = {};
+          appItem['id'] = i;
+          appItem['title'] = data[i].title;
+          appItem['roomId'] = i;
+          //appItem['members'] = [2, 3];
+          appItem['startDate'] = new Date(startDate[2], startDate[0] - 1, startDate[1], beginTime[0], beginTime[1]);
+          appItem['endDate'] = new Date(startDate[2], startDate[0] - 1, startDate[1], endTime[0], endTime[1]);
+          appItem['rRule'] = related.meetingTime.schedule;
+          app.push(appItem);
+
+          var resourceItem = {};
+          resourceItem['text'] = related.meetingTime.room;
+          resourceItem['id'] = i;
+          resourceItem['color'] = colors[(i + 1) % 5];
+          resource.push(resourceItem);
+        }
+
         setAppointments(app);
         setResourcesData(resource);
       });
