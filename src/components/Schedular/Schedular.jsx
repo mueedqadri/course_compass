@@ -20,7 +20,6 @@ import { useState, useEffect } from 'react';
 import {
   pink, purple, teal, amber, deepOrange,
 } from '@material-ui/core/colors';
-//import { appointments, resourcesData } from '../demo-data/appointments';
 
 const useStyles = makeStyles(theme => ({
   todayCell: {
@@ -119,7 +118,7 @@ export default function Schedular() {
           return;
         }
 
-        var app = [];
+        var appointment = [];
         var resource = [];
         for (var i = 0; i < data.length; i++) {
           var related = JSON.parse(data[i].relatedInfo);
@@ -136,7 +135,7 @@ export default function Schedular() {
           appItem['startDate'] = new Date(startDate[2], startDate[0] - 1, startDate[1], beginTime[0], beginTime[1]);
           appItem['endDate'] = new Date(startDate[2], startDate[0] - 1, startDate[1], endTime[0], endTime[1]);
           appItem['rRule'] = related.meetingTime.schedule;
-          app.push(appItem);
+          appointment.push(appItem);
 
           var resourceItem = {};
           resourceItem['text'] = related.meetingTime.room;
@@ -145,7 +144,7 @@ export default function Schedular() {
           resource.push(resourceItem);
         }
 
-        setAppointments(app);
+        setAppointments(appointment);
         setResourcesData(resource);
       });
     }
@@ -162,9 +161,9 @@ export default function Schedular() {
       <Scheduler data={appointments} height={600}>
         <ViewState defaultCurrentDate={year + " " + month + " " + day} />
 
-        <WeekView timeTableCellComponent={TimeTableCell} dayScaleCellComponent={DayScaleCell} startDayHour={9} endDayHour={17} />
+        <WeekView timeTableCellComponent={TimeTableCell} dayScaleCellComponent={DayScaleCell} startDayHour={8} endDayHour={18} />
 
-        <DayView startDayHour={9} endDayHour={17} />
+        <DayView startDayHour={8} endDayHour={18} />
 
         <MonthView timeTableCellComponent={TimeTableCellMonth} dayScaleCellComponent={DayScaleCellMonth} />
 
