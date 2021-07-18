@@ -95,7 +95,7 @@ const DayScaleCellMonth = (props) => {
 
 var colors = [pink, purple, teal, amber, deepOrange];
 
-export default function Schedular() {
+export default function Schedule() {
   const [appointments, setAppointments] = useState([]);
   const [resourcesData, setResourcesData] = useState([]);
   const resources = [{
@@ -122,7 +122,6 @@ export default function Schedular() {
           appItem['id'] = i;
           appItem['title'] = data[i].title;
           appItem['roomId'] = i;
-          //appItem['members'] = [2, 3];
           appItem['startDate'] = new Date(startDate[2], startDate[0] - 1, startDate[1], beginTime[0], beginTime[1]);
           appItem['endDate'] = new Date(startDate[2], startDate[0] - 1, startDate[1], endTime[0], endTime[1]);
           appItem['rRule'] = related.meetingTime.schedule;

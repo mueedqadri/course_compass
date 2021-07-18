@@ -6,7 +6,7 @@ import Footer from './components/Shared/Footer';
 import Layout from './components/Shared/Layout';
 import { Switch, Route} from "react-router-dom";
 import ContentLayout from './components/Shared/ContentLayout'
-import Schedular from './components/Schedular/Schedular'
+import Schedule from './components/Schedule/Schedule'
 import ProfilePage from './components/Profile/ProfilePage'
 import Grades from './components/records/Grades';
 import Transcripts from './components/records/Transcripts';
@@ -39,7 +39,7 @@ export default function App(){
                     </Route>
                     <Route exact path="/schedule">
                         <ContentLayout
-                            content = {<Schedular/>}
+                            content = {<Schedule/>}
                         />
                     </Route>
                     <Route exact path="/profile">
