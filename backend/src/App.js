@@ -9,10 +9,10 @@ global.db = db;
 app.use(express.json());
 
 const courses = require('./routes/courseRegistration')
-const login = require('./routes/login')
+const users = require('./routes/userManagement')
 
 app.use('/', courses);
-app.use('/', login);
+app.use('/', users);
 
 app.use('/', (req, res)=>{
     res.send('User API')
