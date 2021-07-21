@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import "../../css/Custom.css";
 import Chip from "@material-ui/core/Chip";
 import { makeStyles } from "@material-ui/core/styles";
+import AlertDialog from '../Shared/AlertDialog'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +22,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Courses() {
-  const classes = useStyles();
+
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [chipToDelete, setChipToDelete] = React.useState(false);
 
   const [chipData, setChipData] = React.useState([
     { key: 0, label: "CSCI3901 - Intro to Computing" },
@@ -29,19 +32,44 @@ function Courses() {
     { key: 2, label: "CSCI2345 - Data Structures" },
   ]);
 
-  const handleDelete = (chipToDelete) => () => {
-    setChipData((chips) =>
-      chips.filter((chip) => chip.key !== chipToDelete.key)
-    );
+  const handleDelete = (selectedChip) => () => {
+    setChipToDelete(selectedChip.key)
+    setShowAlert(true)
   };
+
+  const closeAlert = () => {
+    setShowAlert(false);
+  };
+
+  const agreeWarning = ()=>{
+    setChipData((chips) =>
+      chips.filter((chip) => chip.key !== chipToDelete)
+      );
+    setShowAlert(false);
+  }
+
+  const classes = useStyles();
+
   return (
     <Container>
+      {
+        showAlert ? 
+          <AlertDialog
+            title = "Confirm Deletion"
+            description = "Are you sure you want to drop the course "
+            closeCallBack = {closeAlert}
+            showSecondaryButton ={true}
+            secondaryButtonTitle = "Drop"
+            secondaryButtonVariant = "contained"
+            secondaryButtonColor = "secondary"
+            secondaryButtonCallback = {agreeWarning}
+          />: <div></div>
+      }
       <Typography gutterBottom align="center" variant="h6">
         Registered Courses
       </Typography>
       <div className={classes.root}>
         {chipData.map((data) => {
-          console.log(data.label.split("-")[1].trim());
           return (
             <Chip
               avatar={

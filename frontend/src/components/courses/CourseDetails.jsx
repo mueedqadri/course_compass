@@ -1,10 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Courses from './Courses'
-import CourseList from './CourseList'
-import TermMenu from './TermMenu'
-
+import Courses from './Courses';
+import CourseList from './CourseList';
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     extraLarge: {
@@ -20,6 +19,14 @@ const useStyles = makeStyles((theme) => ({
       
       borderRadius: 10,
     },
+    departmentPaper: {
+        padding: theme.spacing(4),
+        margin: 'auto',
+        maxWidth: 1000,
+    },
+    searchText: {
+    padding: theme.spacing(2),
+    },
     img: {
       margin: 'auto',
       display: 'block',
@@ -30,11 +37,13 @@ const useStyles = makeStyles((theme) => ({
         height: "100%",
     }
   }));
-export default function CourseDetails() {
-  const classes = useStyles();
-
-  return (
+export default function CourseDetails(props) {
     
+    const {courses} = useParams();
+
+    const classes = useStyles();
+    
+    return (
         <div className={classes.root}>
             <Grid container justify="space-between" >
                 <Grid item xs={3}>
@@ -45,9 +54,6 @@ export default function CourseDetails() {
                         spacing={7}
                     >
                         <Grid item >
-                            <TermMenu/>
-                        </Grid>
-                        <Grid item >
                             <Courses/>
                         </Grid>
                     </Grid>
@@ -55,8 +61,7 @@ export default function CourseDetails() {
                 <Grid item sm={9}>
                     <CourseList/>
                 </Grid>
-                
             </Grid>
         </div>    
-  );
+    );
 }

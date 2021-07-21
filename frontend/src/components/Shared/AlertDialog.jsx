@@ -10,8 +10,14 @@ export default function AlertDialog(props){
     const [open, setOpen] = useState(true);
 
     const handleClose = () => {
+        props.closeCallBack()
         setOpen(false);
     };
+
+    const handleSecondary = () =>{
+        props.secondaryButtonCallback()
+        setOpen(false);
+    }
 
     return (
         <div>
@@ -21,17 +27,27 @@ export default function AlertDialog(props){
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
-            <DialogTitle id="alert-dialog-title">{"User Exists"}</DialogTitle>
+            <DialogTitle id="alert-dialog-title">
+                {props.title}
+            </DialogTitle>
             <DialogContent>
             <DialogContentText id="alert-dialog-description">
-                It seems that an account with the email {props.email} already exists. Please choose
-                a different email or Sign In instead.
+                {props.description}
             </DialogContentText>
             </DialogContent>
             <DialogActions>
             <Button onClick={handleClose} color="primary">
                 Close
             </Button>
+            {props.showSecondaryButton &&
+                <Button 
+                    onClick={handleSecondary} 
+                    variant={props.secondaryButtonVariant} 
+                    color={props.secondaryButtonColor} 
+                >
+                    {props.secondaryButtonTitle}
+                </Button> 
+            }
             </DialogActions>
         </Dialog>
         </div>

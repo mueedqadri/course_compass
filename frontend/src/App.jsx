@@ -12,7 +12,8 @@ import Grades from './components/records/Grades';
 import Transcripts from './components/records/Transcripts';
 import Fee from './components/Fee/FeeAssessment';
 import CourseDetails from './components/courses/CourseDetails';
-
+import CourseCriteria from './components/courses/CourseCriteria';
+import StudentDashboard from './components/Dashboard/StudentDashboard';
 
 export default function App(){
   return (
@@ -32,14 +33,20 @@ export default function App(){
                         </Layout>
                     </Route>
                     <Route exact path="/">
-                        <Layout
-                            form = {<LoginForm/>}
-                        >
-                        </Layout>
+                        
+                        <ContentLayout
+                            content = {<StudentDashboard/>}
+                        />
                     </Route>
                     <Route exact path="/schedule">
                         <ContentLayout
-                            content = {<Schedule/>}
+                            content = {
+                            <Schedular
+                                height ={600}
+                                viewDefault ={'Month'}
+                                showToday ={true}
+                                showViewSwitch ={true}
+                            />}
                         />
                     </Route>
                     <Route exact path="/profile">
@@ -49,7 +56,7 @@ export default function App(){
                     </Route>
                     <Route exact path="/courses">
                         <ContentLayout
-                            content = {<CourseDetails/>}
+                            content = {<CourseCriteria/>}
                         />
                     </Route>
                     <Route exact path="/grades">
@@ -65,6 +72,16 @@ export default function App(){
                     <Route exact path="/fee">
                         <ContentLayout
                             content = {<Fee/>}
+                        />
+                    </Route>
+                    <Route exact path="/course-details/:term/:courses">
+                        <ContentLayout
+                            content = {<CourseDetails/>}
+                        />
+                    </Route>
+                    <Route exact path="/dashBoard">
+                        <ContentLayout
+                            content = {<StudentDashboard/>}
                         />
                     </Route>
                 </Switch>                   

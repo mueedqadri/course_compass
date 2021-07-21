@@ -8,7 +8,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 const useStyles = makeStyles((theme) => ({
     content: {
-        marginTop: theme.spacing(7),
+        marginTop: theme.spacing(12),
         color: theme.palette.text.secondary,
       },
     }));
