@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
@@ -15,7 +15,7 @@ import '../../css/Custom.css';
 import AlertDialog from '../Shared/AlertDialog';
 import { Link, useHistory} from "react-router-dom";
 
-const authAPI = 'https://tutorial4-api.herokuapp.com/api/users/login'
+const authAPI = 'https://course-compass-group9.herokuapp.com/users/login'
 
 const useStyles = makeStyles((theme) => ({
       form: {
@@ -64,8 +64,8 @@ export default function LoginForm()  {
         console.log(user.password)
 
         // Authenticate via API
-        const data = {"email" : "jonsnow@westeros.com", "password" : "G@me0fthr0ne5"}
-        // const data = {"email" : user.email, "password" : user.password}
+        // const data = {"email" : "jonsnow@westeros.com", "password" : "G@me0fthr0ne5"}
+        const data = {"emailId" : user.email, "password" : user.password}
         const res = await axios.post(authAPI, data)
         console.log(res)
         // check response
@@ -93,8 +93,9 @@ export default function LoginForm()  {
         if(!Object.values(err).filter(i => i !==undefined).length){
 
             history.push('/profile');
-        }*/
-        setOpenDialogBox(open);
+        }
+        */
+        // setOpenDialogBox(true);
     }
 
     const validateChange =(fieldName, fieldValue)=> {
@@ -182,7 +183,6 @@ export default function LoginForm()  {
                                 >
                                     Login
                                 </Button>
-                                <Button onClick={api}>API</Button>
                             </Grid>
                         </Grid>
                         <Grid container justify="flex-end">

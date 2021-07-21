@@ -1,10 +1,10 @@
-import React from 'react';
-import RegistrationForm  from './components/Register/RegistrationForm';
-import LoginForm  from './components/Login/LoginForm';
+import React, {useState, useEffect} from 'react';
+import RegistrationForm from './components/Register/RegistrationForm';
+import LoginForm from './components/Login/LoginForm';
 import Header from './components/Shared/Header';
 import Footer from './components/Shared/Footer';
 import Layout from './components/Shared/Layout';
-import { Switch, Route} from "react-router-dom";
+import {Switch, Route} from "react-router-dom";
 import ContentLayout from './components/Shared/ContentLayout'
 import Schedular from './components/Schedular/Schedular'
 import ProfilePage from './components/Profile/ProfilePage'
@@ -15,77 +15,107 @@ import CourseDetails from './components/courses/CourseDetails';
 import CourseCriteria from './components/courses/CourseCriteria';
 import StudentDashboard from './components/Dashboard/StudentDashboard';
 
-export default function App(){
-  return (
+export default function App() {
+    const [loggedIn, setLoggedIn] = useState(false)
+
+    useEffect(() => {
+        if (localStorage.getItem('token') && localStorage.getItem('token') !== undefined) {
+            setLoggedIn(true);
+        }
+    }, []);
+
+    return (
         <React.StrictMode>
             <Header/>
-                <Switch>
+            {loggedIn ? <Switch>
                     <Route exact path="/register">
                         <Layout
-                            form = {<RegistrationForm/>}
+                            form={<RegistrationForm/>}
                         >
                         </Layout>
                     </Route>
                     <Route exact path="/login">
                         <Layout
-                            form = {<LoginForm/>}
+                            form={<LoginForm/>}
                         >
                         </Layout>
                     </Route>
                     <Route exact path="/">
-                        
+
                         <ContentLayout
-                            content = {<StudentDashboard/>}
+                            content={<StudentDashboard/>}
                         />
                     </Route>
                     <Route exact path="/schedule">
                         <ContentLayout
-                            content = {
-                            <Schedular
-                                height ={600}
-                                viewDefault ={'Month'}
-                                showToday ={true}
-                                showViewSwitch ={true}
-                            />}
+                            content={
+                                <Schedular
+                                    height={600}
+                                    viewDefault={'Month'}
+                                    showToday={true}
+                                    showViewSwitch={true}
+                                />}
                         />
                     </Route>
                     <Route exact path="/profile">
                         <ContentLayout
-                            content = {<ProfilePage/>}
+                            content={<ProfilePage/>}
                         />
                     </Route>
                     <Route exact path="/courses">
                         <ContentLayout
-                            content = {<CourseCriteria/>}
+                            content={<CourseCriteria/>}
                         />
                     </Route>
                     <Route exact path="/grades">
                         <ContentLayout
-                            content = {<Grades/>}
+                            content={<Grades/>}
                         />
                     </Route>
                     <Route exact path="/transcripts">
                         <ContentLayout
-                            content = {<Transcripts/>}
+                            content={<Transcripts/>}
                         />
                     </Route>
                     <Route exact path="/fee">
                         <ContentLayout
-                            content = {<Fee/>}
+                            content={<Fee/>}
                         />
                     </Route>
                     <Route exact path="/course-details/:term/:departments">
                         <ContentLayout
-                            content = {<CourseDetails/>}
+                            content={<CourseDetails/>}
                         />
                     </Route>
                     <Route exact path="/dashBoard">
                         <ContentLayout
-                            content = {<StudentDashboard/>}
+                            content={<StudentDashboard/>}
                         />
                     </Route>
-                </Switch>                   
+                </Switch>
+                :
+                <Switch>
+                    <Route exact path="/">
+                        <Layout
+                            form={<LoginForm/>}
+                        >
+                        </Layout>
+                    </Route>
+                    <Route exact path="/login">
+                        <Layout
+                            form={<LoginForm/>}
+                        >
+                        </Layout>
+                    </Route>
+                    <Route exact path="/register">
+                        <Layout
+                            form={<RegistrationForm/>}
+                        >
+                        </Layout>
+                    </Route>
+                </Switch>
+            }
             <Footer/>
         </React.StrictMode>
-  )
+    )
 };

@@ -12,8 +12,10 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import '../../css/Custom.css';
 import AlertDialog from '../Shared/AlertDialog';
-import { Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import axios from "axios";
 
+const authAPI = 'https://course-compass-group9.herokuapp.com/users/create'
 
 const useStyles = makeStyles((theme) => ({
       form: {
@@ -31,6 +33,8 @@ const useStyles = makeStyles((theme) => ({
 
     
 export default function RegistrationForm()  {
+    const history = useHistory();
+
     const [user, setUser] = useState({
         firstName: "",
         lastName: "",
@@ -59,7 +63,24 @@ export default function RegistrationForm()  {
         setErrors(err);
     }
 
-    const onSubmit = () =>{
+    const onSubmit = async () =>{
+        const data = {
+            "emailId" : user.email,
+            "password" : user.password,
+            "firstName" : user.firstName,
+            "lastName" : user.lastName
+        }
+        const res = await axios.post(authAPI, data)
+        console.log(res)
+        // check response
+        if (res.data.status && res.status === 200) {
+            // do if logged in, save logged in state
+            localStorage.setItem('token', res.data.token);
+            history.push('/profile');
+        } else {
+            alert("Invalid login")
+        }
+
         let err ={};
         let open = false;
         for (const prop in user) {
