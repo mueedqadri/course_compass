@@ -1,16 +1,16 @@
 const express = require('express');
 const app = express();
 const mysql= require("mysql");
-const dbCredentials = require('./config/dbCredentials') 
+const dbCredentials = require('./config/dbCredentials')
+const cors = require('cors')
+const courses = require('./routes/courseRegistration')
+const users = require('./routes/userManagement')
 
 let db = mysql.createConnection(dbCredentials);
 global.db = db;
 
+app.use(cors)
 app.use(express.json());
-
-const courses = require('./routes/courseRegistration')
-const users = require('./routes/userManagement')
-
 app.use('/', courses);
 app.use('/', users);
 
