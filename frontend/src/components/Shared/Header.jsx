@@ -82,7 +82,7 @@ export default function Header() {
                         </Tab>
                       <Tab
                         className={classes.tabRoot}
-                        label="Schedular"
+                        label="Schedule"
                         value="/schedule"
                       ></Tab>
                       <Tab
