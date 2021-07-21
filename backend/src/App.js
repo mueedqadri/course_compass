@@ -1,12 +1,17 @@
 const express = require('express');
 const app = express();
 const mysql= require("mysql");
-const dbCredentials = require('./config/dbCredentials'); 
 const courses = require('./routes/courseRegistration');
 const users = require('./routes/userManagement');
 const cors = require('cors');
+require('dotenv').config();
 
-let db = mysql.createConnection(dbCredentials);
+let db = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASS,
+    database: process.env.MYSQL_DB
+});
 global.db = db;
 
 app.use(express.json());
