@@ -38,7 +38,7 @@ export default function App(){
                             content = {<StudentDashboard/>}
                         />
                     </Route>
-                    <Route exact path="/schedule">
+                    <Route exact path="/schedular">
                         <ContentLayout
                             content = {
                             <Schedular
