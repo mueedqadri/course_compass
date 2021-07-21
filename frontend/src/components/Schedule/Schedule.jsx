@@ -114,7 +114,7 @@ export default function Schedule(props) {
 
   useEffect(() => {
     async function fetchData() {
-      await Axios.get("http://localhost:4000/schedule/1").then((res) => {
+      await Axios.get(process.env.REACT_APP_API_END_POINT + '/schedule/1').then((res) => {
         const data = res.data.courseInfo;
 
         var appointment = [];
