@@ -5,7 +5,9 @@
   "main": "App.js",
   "scripts": {
     "start": "node ./src/App.js",
+    "web":"node ./src/App.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+    
   },
   "author": "",
   "license": "ISC",
