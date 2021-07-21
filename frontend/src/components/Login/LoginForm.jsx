@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
@@ -14,6 +15,7 @@ import '../../css/Custom.css';
 import AlertDialog from '../Shared/AlertDialog';
 import { Link, useHistory} from "react-router-dom";
 
+const authAPI = 'https://tutorial4-api.herokuapp.com/api/users/login'
 
 const useStyles = makeStyles((theme) => ({
       form: {
@@ -42,6 +44,22 @@ export default function LoginForm()  {
     const [openDialogBox, setOpenDialogBox] = useState(false);
     const [errors, setErrors] = useState({});
 
+    const api = async () => {
+        console.log("API triggered")
+        const data = {"email" : "jonsnow@westeros.com", "password" : "G@me0fthr0ne5"}
+        // const data = {"email" : user.email, "password" : user.password}
+        const res = await axios.post(authAPI, data)
+        console.log(res)
+        // check response
+        if (res.data.status && res.status === 200) {
+            // do if logged in, save logged in state
+            localStorage.setItem('token', res.data.token);
+            history.push('/profile');
+        } else {
+            alert("Invalid login")
+        }
+    }
+
     const handleClickShowPassword = (event) => {
         if(event && event.currentTarget &&event.currentTarget.ariaLabel && event.currentTarget.ariaLabel.includes("confirmPassword") ){
             setShowPassword((prevState)=> !prevState);
@@ -57,7 +75,12 @@ export default function LoginForm()  {
         setErrors(err);
     }
 
-    const onSubmit = () =>{
+    const onSubmit = () => {
+        console.log(user.email)
+        console.log(user.password)
+
+        // Authenticate via API
+
         let err ={};
         let open = false;
         for (const prop in user) {
@@ -70,7 +93,7 @@ export default function LoginForm()  {
             open = true;
         }
         setErrors(err);
-        debugger
+        // debugger
         if(!Object.values(err).filter(i => i !==undefined).length){
 
             history.push('/profile');
@@ -102,9 +125,7 @@ export default function LoginForm()  {
             <Paper  elevation={10}  className={classes.signUp}>
                 {
                     openDialogBox &&
-                    <AlertDialog 
-                        email={"jamebond007@dal.ca"}
-                    ></AlertDialog>
+                    <AlertDialog email={"jamebond007@dal.ca"}/>
                 }
                 <Typography component="h1" variant="h4">
                     Login
@@ -120,7 +141,7 @@ export default function LoginForm()  {
                                 label="University Email"
                                 name="email"
                                 onChange={handleChange}
-                                error={errors.email? true : false}
+                                error={!!errors.email}
                                 helperText={errors.email ?errors.email : ""}
                             />
                             </Grid>
@@ -131,7 +152,7 @@ export default function LoginForm()  {
                                     fullWidth
                                     name="password"
                                     label="Password"
-                                    error={errors.password? true : false}
+                                    error={!!errors.password}
                                     onChange={handleChange}
                                     helperText={errors.password ?errors.password : ""}
                                     type={showPassword ? "text" : "password"}
@@ -164,7 +185,8 @@ export default function LoginForm()  {
                                     className={classes.submit}
                                 >
                                     Login
-                                </Button>   
+                                </Button>
+                                <Button onClick={api}>API</Button>
                             </Grid>
                         </Grid>
                         <Grid container justify="flex-end">
