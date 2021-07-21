@@ -3,21 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 
-const terms = [
-  {
-    value: 'Summer',
-    label: 'Summer',
-  },
-  {
-    value: 'Winter',
-    label: 'Winter',
-  },
-  {
-    value: 'Fall',
-    label: 'Fall',
-  },
-];
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 500,
@@ -32,22 +17,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TermMenu(props) {
   const classes = useStyles();
-
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <div>
         <TextField
             id="outlined-select-currency"
             select
-            label="Select"
+            label="Select Term"
             value={props.defaultTerm}
             onChange={props.callback}
             fullWidth={true}
             variant="outlined"
           >
-            {terms.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
+            {props.terms.map((option) => (
+              <MenuItem key={option.id} value={option.name}>
+                {option.name}
               </MenuItem>
             ))}
         </TextField>

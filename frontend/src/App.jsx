@@ -18,7 +18,7 @@ import StudentDashboard from './components/Dashboard/StudentDashboard';
 export default function App(){
   return (
         <React.StrictMode>
-            <Header></Header> 
+            <Header/>
                 <Switch>
                     <Route exact path="/register">
                         <Layout
@@ -74,7 +74,7 @@ export default function App(){
                             content = {<Fee/>}
                         />
                     </Route>
-                    <Route exact path="/course-details/:term/:courses">
+                    <Route exact path="/course-details/:term/:departments">
                         <ContentLayout
                             content = {<CourseDetails/>}
                         />
@@ -85,7 +85,7 @@ export default function App(){
                         />
                     </Route>
                 </Switch>                   
-            <Footer></Footer>
+            <Footer/>
         </React.StrictMode>
   )
 };
