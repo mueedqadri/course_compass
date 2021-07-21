@@ -3,6 +3,7 @@ const app = express();
 const mysql= require("mysql");
 const courses = require('./routes/courseRegistration');
 const users = require('./routes/userManagement');
+const schedule = require('./routes/schedule')
 const cors = require('cors');
 require('dotenv').config();
 
@@ -18,7 +19,7 @@ app.use(express.json());
 app.use(cors());
 app.use('/', courses);
 app.use('/', users);
-
+app.use('/', schedule);
 app.use('/', (req, res)=>{
     res.send('User API')
 })

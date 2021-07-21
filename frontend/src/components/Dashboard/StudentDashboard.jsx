@@ -10,7 +10,7 @@ import Avatar from '@material-ui/core/Avatar';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { deepOrange } from '@material-ui/core/colors';
 import '../../css/Custom.css';
-import Schedular from '../Schedular/Schedular';
+import Schedule from '../Schedule/Schedule';
 import Notifications from '../Notification/Notifications';
 
 
@@ -82,14 +82,14 @@ export default function StudentDashboard()  {
                     </Paper>
                 </Grid>
                 <Grid item xs={6}>
-                    <Schedular 
+                    <Schedule 
                         height ={500}
                         viewDefault ={'Day'}
                         showToday ={false}
                         showViewSwitch ={false}
                     >
 
-                    </Schedular>
+                    </Schedule>
                 </Grid>
                 <Grid item xs={3}>
                     <Notifications></Notifications>
