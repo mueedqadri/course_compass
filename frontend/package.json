@@ -2,6 +2,9 @@
   "name": "group9_course_compass",
   "version": "0.1.0",
   "private": true,
+  "optionalDependencies": {
+    "fsevents": "2.1.2"
+  },
   "dependencies": {
     "@devexpress/dx-react-core": "^2.7.5",
     "@devexpress/dx-react-grid": "^2.7.5",
