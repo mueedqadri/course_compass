@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Container from "@material-ui/core/Container";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
@@ -6,6 +6,7 @@ import "../../css/Custom.css";
 import Chip from "@material-ui/core/Chip";
 import { makeStyles } from "@material-ui/core/styles";
 import AlertDialog from '../Shared/AlertDialog'
+import AlertMessage from "../Shared/Alert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,34 +18,123 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   chip: {
-    margin: theme.spacing(0.5),
+    maxWidth: 290,
   },
 }));
 
-function Courses() {
+function Courses(props) {
+  
+  const [showDialog, setShowDialog] = useState(false);
 
-  const [showAlert, setShowAlert] = React.useState(false);
-  const [chipToDelete, setChipToDelete] = React.useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
-  const [chipData, setChipData] = React.useState([
-    { key: 0, label: "CSCI3901 - Intro to Computing" },
-    { key: 1, label: "CSCI2345 - Intro to Programming" },
-    { key: 2, label: "CSCI2345 - Data Structures" },
-  ]);
+  const [alertMessage, setAlertMessage] = useState('');
+
+  const [chipToDelete, setChipToDelete] = useState(false);
+
+  //Call backend to drop a course
+  const dropCourse=()=>{
+    fetch(`http://localhost:4000/courses/delete/${1}/${chipToDelete.id}`, {
+      method: 'DELETE',
+    })
+    .then(response =>{
+        if(response.ok){
+          props.getCourses();
+        }
+    })
+  }
+
+  //Perform various validations before adding a course to the user
+  useEffect(()=>{
+    if(props.courseToAdd){
+      let toAdd= props.courseToAdd[0]
+      if(props.registeredCourse.length > 0){
+        let totalCredits = props.registeredCourse
+        .map(course => course.courseCredits)
+        .reduce((accumulator, curr)=> accumulator+ curr)
+        if(totalCredits + toAdd.courseCredits > 9){
+          setAlertMessage('Credit Limit has been reached');
+          setShowAlert(true);
+          return;
+        }else {
+          let conflictCourse = conflict(toAdd);
+          if(conflictCourse.length > 0){
+            setAlertMessage('Conflicts with '+conflictCourse[0].courseName);
+            setShowAlert(true);
+            return;
+          }
+        }
+      }
+      addCourse();
+    }
+  }, [props.courseToAdd])
+
+ // Check if the course has a time conflict
+  const conflict = (toAdd)=>{
+    let timeConflictCourse = [];
+    if(toAdd.beginTime && toAdd.endTime){
+      let courseWithWeekConflict = weekConflict(props.registeredCourse, toAdd);
+      if(courseWithWeekConflict.length > 0){
+        timeConflictCourse = courseWithWeekConflict.filter(course=> {
+          return (toAdd.beginTime >= course.beginTime && toAdd.beginTime <= course.endTime) 
+          || (toAdd.endTime >= course.beginTime && toAdd.endTime <= course.endTime);
+        })
+      }
+    }
+    return timeConflictCourse;
+  }
+
+  //Check if course is on the weekday
+  const weekConflict = (registeredCourse, toAdd) =>{
+    return registeredCourse.filter(course =>{
+      for(let idx = 0; idx <=6; idx++){
+        if(course.weekData && course.beginTime && course.endTime){
+          if((course.weekData[idx].isSet === true) && (toAdd.weekData[idx].isSet === true)){
+            return course;
+          }
+        }
+      }
+    })
+  }
+
+  //After performing all the validations add the course to the user
+  const addCourse = ()=>{
+    let data = {
+        "userId":1,
+        "courseId":parseInt(props.courseToAdd[0].id) 
+    };
+    fetch('http://localhost:4000/courses/add/', {
+        method: 'POST',
+        body: JSON.stringify(data) ,
+        headers:{          
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+    })
+    .then(response =>{
+        if(response.ok){
+          props.getCourses();
+        }
+    })
+  }
 
   const handleDelete = (selectedChip) => () => {
-    setChipToDelete(selectedChip.key)
-    setShowAlert(true)
+    console.log(props.registeredCourse)
+    setChipToDelete(selectedChip)
+    setShowDialog(true)
   };
 
   const closeAlert = () => {
-    setShowAlert(false);
+    setShowDialog(false);
   };
 
   const agreeWarning = ()=>{
-    setChipData((chips) =>
-      chips.filter((chip) => chip.key !== chipToDelete)
-      );
+    dropCourse()
+    setShowDialog(false);
+  }
+
+  const handleCloseAlert=()=>{
+    setAlertMessage('');
     setShowAlert(false);
   }
 
@@ -53,7 +143,7 @@ function Courses() {
   return (
     <Container>
       {
-        showAlert ? 
+        showDialog ? 
           <AlertDialog
             title = "Confirm Deletion"
             description = "Are you sure you want to drop the course "
@@ -65,20 +155,30 @@ function Courses() {
             secondaryButtonCallback = {agreeWarning}
           />: <div></div>
       }
+        <AlertMessage
+          show={showAlert}
+          message={alertMessage}
+          alertClose= {handleCloseAlert}
+          >
+        </AlertMessage>
       <Typography gutterBottom align="center" variant="h6">
-        Registered Courses
+        {props.registeredCourse.length > 0 ? "Registered Courses" : "No courses registered"}
+        
       </Typography>
       <div className={classes.root}>
-        {chipData.map((data) => {
+        {props.registeredCourse.map((data) => {
+          
+          let fullName = `${data.courseCode} - ${data.courseName }`
           return (
             <Chip
+              className={classes.chip}
               avatar={
                 <Avatar
-                  alt={data.label.split("-")[1].trim()}
+                  alt={data.courseName}
                   src="/static/images/avatar/1.jpg"
                 />
               }
-              label={data.label}
+              label={fullName}
               onDelete={handleDelete(data)}
               color="primary"
             />
