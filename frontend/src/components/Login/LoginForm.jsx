@@ -44,22 +44,6 @@ export default function LoginForm()  {
     const [openDialogBox, setOpenDialogBox] = useState(false);
     const [errors, setErrors] = useState({});
 
-    const api = async () => {
-        console.log("API triggered")
-        const data = {"email" : "jonsnow@westeros.com", "password" : "G@me0fthr0ne5"}
-        // const data = {"email" : user.email, "password" : user.password}
-        const res = await axios.post(authAPI, data)
-        console.log(res)
-        // check response
-        if (res.data.status && res.status === 200) {
-            // do if logged in, save logged in state
-            localStorage.setItem('token', res.data.token);
-            history.push('/profile');
-        } else {
-            alert("Invalid login")
-        }
-    }
-
     const handleClickShowPassword = (event) => {
         if(event && event.currentTarget &&event.currentTarget.ariaLabel && event.currentTarget.ariaLabel.includes("confirmPassword") ){
             setShowPassword((prevState)=> !prevState);
@@ -75,13 +59,25 @@ export default function LoginForm()  {
         setErrors(err);
     }
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         console.log(user.email)
         console.log(user.password)
 
         // Authenticate via API
+        const data = {"email" : "jonsnow@westeros.com", "password" : "G@me0fthr0ne5"}
+        // const data = {"email" : user.email, "password" : user.password}
+        const res = await axios.post(authAPI, data)
+        console.log(res)
+        // check response
+        if (res.data.status && res.status === 200) {
+            // do if logged in, save logged in state
+            localStorage.setItem('token', res.data.token);
+            history.push('/profile');
+        } else {
+            alert("Invalid login")
+        }
 
-        let err ={};
+        /*let err ={};
         let open = false;
         for (const prop in user) {
             if (Object.hasOwnProperty.call(user, prop)) {
@@ -97,7 +93,7 @@ export default function LoginForm()  {
         if(!Object.values(err).filter(i => i !==undefined).length){
 
             history.push('/profile');
-        }
+        }*/
         setOpenDialogBox(open);
     }
 
