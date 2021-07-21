@@ -8,8 +8,13 @@
     "start": "nodemon ./src/App.js",
 =======
     "start": "node ./src/App.js",
+<<<<<<< HEAD
 >>>>>>> af74f9c3b64583dde77060a95f7f6c5d7afa5aff
+=======
+    "web":"node ./src/App.js",
+>>>>>>> fe7d598db694472c16627002a5cb2cb6593813b4
     "test": "echo \"Error: no test specified\" && exit 1"
+    
   },
   "author": "",
   "license": "ISC",
