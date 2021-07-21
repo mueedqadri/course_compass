@@ -11,14 +11,8 @@ global.db = db;
 
 app.use(express.json());
 
-<<<<<<< HEAD
 
-app.use(cors())
-=======
-const courses = require('./routes/courseRegistration')
-const users = require('./routes/userManagement')
->>>>>>> d2bc7883b9cb21002712b914dddb4eadf7b33ab7
-
+app.use(cors)
 app.use('/', courses);
 app.use('/', users);
 
