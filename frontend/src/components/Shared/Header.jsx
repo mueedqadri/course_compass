@@ -49,7 +49,6 @@ export default function Header() {
   const history = useHistory();
 
   const handleCallToRouter = (event, value) => {
-    debugger;
     let url = value? value : event.currentTarget.value;
     history.push(url);
   };

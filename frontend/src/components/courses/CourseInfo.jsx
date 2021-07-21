@@ -3,81 +3,137 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
+import TodayIcon from "@material-ui/icons/Today";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import DonutLargeIcon from '@material-ui/icons/DonutLarge';
+import LocationCityIcon from '@material-ui/icons/LocationCity';
+import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 
-function CourseInfo() {
+function CourseInfo(props) {
   const useStyles = makeStyles((theme) => ({
     root: {
       maxWidth: 345,
     },
-    media: {
-      height: 0,
-      paddingTop: "56.25%", // 16:9
-    },
     avatar: {
-      backgroundColor: "red",
+      marginTop: theme.spacing(7),
     },
     padding: {
       padding: "15px",
     },
   }));
 
-  const classes = useStyles();
+  const formatTime = (time) => {
+    let hours = time.substr(0, 2);
+    let min = time.substr(2);
+    var h12 = hours % 12 || 12;
+    var ampm = hours < 12 || hours === 24 ? "AM" : "PM";
+    return `${h12}:${min} ${ampm}`;
+  };
 
+  const getDates = () => {
+    if(props.details.beginTime){
+      return props.details.weekData
+      .filter((item) => item.isSet)
+      .map((item) => (
+        <ListItem>
+          <ListItemIcon>
+            <TodayIcon />
+          </ListItemIcon>
+          <ListItemText
+            primary={item.title}
+            secondary={`${formatTime(props.details.beginTime)} - ${formatTime(
+              props.details.endTime
+            )}`}
+          />
+        </ListItem>
+      ));
+    }
+  };
+
+  const classes = useStyles();
   return (
     <div>
       <Grid container spacing={1}>
         <Grid className={classes.padding} item xs={9}>
-          <h2>
-            CSCI 5100 Intro to Computing
-          </h2>
-          <p>
-            This course, using both lecture and laboratory practice, introduces
-            students to basic computer concepts in hardware, software,
-            networking, computer security, programming, database, e-commerce,
-            decision support systems, and other emerging technologies such as
-            blogs, wiki, RSS, podcasting, and Google applications. Additional
-            lectures examine social, legal, ethical issues including privacy,
-            intellectual property, health concerns, green computing, and
-            accessibility. Students learn techniques to search, evaluate,
-            validate, and cite information found online. Widely used
-            applications including word processing, spreadsheets, databases,
-            presentation, and web development software are studied.
-          </p>
-          <h3>Credits: 3</h3>
-          <h3>Class Hours: </h3>
-          <p>
-            {" "}
-            Mon - 08:00 to 09:30
-            <br />
-            Thu - 08:00 to 10:00
-            <br />
-            Fri - 14:30 to 16:00
-          </p>
-          <h3>Mode of Delivery: Online</h3>
-        </Grid>
-        <Grid item xs={3}>
-          <Grid container spacing={2} justify="center">
+          <Typography variant="h5" gutterBottom>
+            {`${props.details.courseCode} ${props.details.name}`}
+          </Typography>
+          <Typography variant="subtitle2" gutterBottom>
+            {props.details.description}
+          </Typography> 
+          <Grid container justify="space-around">
+          <Grid item>
+              <List
+                dense={true}
+                subheader={
+                  <ListSubheader component="div" id="timing-list-subheader">
+                    {props.details.beginTime? 'Course Timings': 'Timings not available'}
+                  </ListSubheader>
+                }
+              >
+                {getDates()}
+              </List>
+            </Grid>
             <Grid item>
-              <Avatar
-                alt="James Bond"
-                src="/broken-image.jpg"
-                className={`${classes.orange} ${classes.extraLarge}`}
-              />
+              <List
+                dense={true}
+                subheader={
+                  <ListSubheader component="div" id="additional-list-subheader">
+                    Additional Info
+                  </ListSubheader>
+                }
+              >
+                <ListItem>
+                  <ListItemIcon>
+                    <DonutLargeIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={`Credits: ${props.details.credits}`}
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <RecordVoiceOverIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={`Delivery mode: ${props.details.meetingType}`}
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <LocationCityIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={`Location: ${props.details.campusDescription}`}
+                    secondary={props.details.buildingDescription}
+                  />
+                </ListItem>
+              </List>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid item xs={3}>
+          <Grid
+            className={classes.avatar}
+            container
+            spacing={2}
+            justify="center"
+          >
+            <Grid item>
+              <Avatar alt={props.details.instructor} src="/broken-image.jpg" />
             </Grid>
             <Grid item container>
               <Grid item xs>
                 <Typography gutterBottom align="center" variant="h6">
-                  James Bond
+                  {props.details.instructor}
                 </Typography>
                 <Typography align="center" variant="body2" gutterBottom>
-                  jamesbond@007.com
-                </Typography>
-                <Typography
-                  align="center"
-                  variant="body2"
-                  color="textSecondary"
-                >
-                  PhD
+                  {props.details.instructorEmail}
                 </Typography>
               </Grid>
             </Grid>

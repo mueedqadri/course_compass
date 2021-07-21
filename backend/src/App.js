@@ -2,13 +2,17 @@ const express = require('express');
 const app = express();
 const mysql= require("mysql");
 const dbCredentials = require('./config/dbCredentials') 
+const courses = require('./routes/courseRegistration')
+const cors = require('cors')
+
 
 let db = mysql.createConnection(dbCredentials);
 global.db = db;
 
 app.use(express.json());
 
-const courses = require('./routes/courseRegistration')
+
+app.use(cors())
 
 app.use('/', courses);
 

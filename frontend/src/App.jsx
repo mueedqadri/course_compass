@@ -74,7 +74,7 @@ export default function App(){
                             content = {<Fee/>}
                         />
                     </Route>
-                    <Route exact path="/course-details/:term/:courses">
+                    <Route exact path="/course-details/:term/:departments">
                         <ContentLayout
                             content = {<CourseDetails/>}
                         />
