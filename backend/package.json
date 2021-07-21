@@ -4,7 +4,7 @@
   "description": "This is the backend server for application course compass",
   "main": "App.js",
   "scripts": {
-    "start": "nodemon ./src/App.js",
+    "start": "node ./src/App.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

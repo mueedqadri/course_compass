@@ -20,9 +20,9 @@ function SelectDepartment(props) {
         <Autocomplete
             multiple
             id="select-department-outlined"
-            options={top100Films}
+            options={props.departments}
             onChange= {props.callback}
-            getOptionLabel={(option) => option.title}
+            getOptionLabel={(option) => option.name}
             filterSelectedOptions
             renderInput={(params) => (
             <TextField
@@ -38,14 +38,3 @@ function SelectDepartment(props) {
 }
 
 export default SelectDepartment;
-
-const top100Films = [
-  { title: 'The Shawshank Redemption', id: 19294 },
-  { title: 'The Godfather', id: 191272 },
-  { title: 'The Godfather: Part II', id: 193174 },
-  { title: 'The Dark Knight', id: 201308 },
-  { title: '12 Angry Men', id: 1912357 },
-  { title: "Schindler's List", id: 199413 },
-  { title: 'Pulp Fiction', id: 199124 },
-  { title: 'The Lord of the Rings: The Return of the King', id: 2004213 },
-];

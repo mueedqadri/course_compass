@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import '../../css/Custom.css';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-
 const useStyles = makeStyles((theme) => ({
     content: {
         marginTop: theme.spacing(12),
@@ -13,9 +12,9 @@ const useStyles = makeStyles((theme) => ({
       },
     }));
 
-    
 export default function ContentLayout(props)  {
     const classes = useStyles();
+    
     return (
         <div>
             <Container component="main" maxWidth="lg">
