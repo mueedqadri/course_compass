@@ -10,7 +10,7 @@ let db = mysql.createConnection(dbCredentials);
 global.db = db;
 
 app.use(express.json());
-app.use(cors);
+app.use(cors());
 app.use('/', courses);
 app.use('/', users);
 
