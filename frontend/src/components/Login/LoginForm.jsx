@@ -52,7 +52,7 @@ export default function LoginForm()  {
 
     const history = useHistory();
 
-    const handleChange = (event)=> {
+    const handleChange = (event) => {
         user[event.target.name] = event.target.value;
         let err = validateChange(event.target.name, event.target.value);
         setUser(user);

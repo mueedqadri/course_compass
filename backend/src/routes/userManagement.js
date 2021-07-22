@@ -36,12 +36,12 @@ const decrypt = (hash) => {
 };
 
 // Get user info by id
-Router.get('/login/:id', (req, res) => {
+Router.get('/users/:id', (req, res) => {
     try {
         if (req.params.id || req.query.id) {
             const id = req.params.id ? req.params.id : req.query.id;
             console.log(id);
-            let sql = `SELECT * FROM CourseCompass.user WHERE userId = ${id};`;
+            let sql = `SELECT * FROM CourseCompass.user WHERE emailId = '${id}';`;
             console.log(sql);
             db.query(sql, function (err, users) {
                 if (err) throw err;

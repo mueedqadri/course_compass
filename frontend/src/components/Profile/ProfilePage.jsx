@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import {VpnKey, Save} from '@material-ui/icons';
@@ -10,6 +10,7 @@ import Avatar from '@material-ui/core/Avatar';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { deepOrange } from '@material-ui/core/colors';
 import '../../css/Custom.css';
+import axios from "axios";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -47,11 +48,36 @@ const useStyles = makeStyles((theme) => ({
         maxHeight: '100%',
       },
     }));
-
     
 export default function ProfilePage()  {
- 
+
+    // const authAPI = 'https://course-compass-group9.herokuapp.com/users/'
+    const authAPI = 'https://localhost:4000/users/'
+
+    const [user, setUser] = useState({
+        firstName: "James",
+        lastName: "Bond",
+        email: "university@email.com",
+        bannerId: "B001030114"
+    });
+
+    const getUserInfo = async () => {
+        const id = localStorage.getItem('user')
+        const res = await axios.get(`${authAPI}${id}`)
+        console.log(res.data.user)
+        // check response
+        if (res.data.status && res.status === 200) {
+            // do if logged in, save logged in state
+            setUser(res.data.user)
+        } else {
+            alert("failed to get state")
+        }
+    }
+
     const classes = useStyles();
+
+    getUserInfo().then(r => console.log(r))
+
     return (
         <div className={classes.root}>
             <Grid container justify="space-around" spacing={8}>
@@ -94,6 +120,7 @@ export default function ProfilePage()  {
                                                 label="First name"
                                                 fullWidth
                                                 defaultValue="James"
+                                                value = {user.firstName}
                                             />
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
@@ -102,6 +129,7 @@ export default function ProfilePage()  {
                                                 label="Last name"
                                                 fullWidth
                                                 defaultValue="Bond"
+                                                value = {user.lastName}
                                             />
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
@@ -110,6 +138,7 @@ export default function ProfilePage()  {
                                                 label="Banner Id"
                                                 fullWidth
                                                 defaultValue="B001030114"
+                                                value = {user.bannerId}
                                             />
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
@@ -118,6 +147,7 @@ export default function ProfilePage()  {
                                                 label="University Email"
                                                 fullWidth
                                                 defaultValue="jamesbond@007.com"
+                                                value = {user.email}
                                             />
                                         </Grid>
                                     </Grid>
