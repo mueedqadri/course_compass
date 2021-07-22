@@ -2,8 +2,8 @@
 
 Project of Group 9
 
-* *Date Created*: 18 JUN 2021
-* *Last Modification Date*: 22 JUN 2021
+* *Date Created*: 21 JULY 2021
+* *Last Modification Date*: 21 JULY 2021
 * *URL*: <https://course-compass-frontend.herokuapp.com>
 * *Git repo*: <https://github.com/5709group9/group9_course_compass>
 
