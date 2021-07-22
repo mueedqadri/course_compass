@@ -1,3 +1,4 @@
+//Front and Backend Created by Mueed Qadri
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -29,7 +30,7 @@ export default function CourseDetails(props) {
   // Get all the courses that a user is registered for
   const getCourses = async () => {
     let courseObjList = [];
-    await fetch(`http://localhost:4000/user_courses/${1}`)
+    await fetch(`${process.env.REACT_APP_API_END_POINT}/user_courses/${1}`)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -69,7 +70,7 @@ export default function CourseDetails(props) {
   //to check conflicts
   const getSelectedCourse = async (id) => {
     let selectedCourse = [];
-    await fetch(`http://localhost:4000/course/${id}/`)
+    await fetch(`${process.env.REACT_APP_API_END_POINT}/course/${id}/`)
       .then((res) => {
         if (res.ok) {
           return res.json();

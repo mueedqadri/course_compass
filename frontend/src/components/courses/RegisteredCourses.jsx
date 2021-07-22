@@ -1,3 +1,4 @@
+//Front and Backend Created by Mueed Qadri
 import React, { useState, useEffect } from "react";
 import Container from "@material-ui/core/Container";
 import Avatar from "@material-ui/core/Avatar";
@@ -34,7 +35,7 @@ function Courses(props) {
 
   //Call backend to drop a course
   const dropCourse=()=>{
-    fetch(`http://localhost:4000/courses/delete/${1}/${chipToDelete.id}`, {
+    fetch(`${process.env.REACT_APP_API_END_POINT}/courses/delete/${1}/${chipToDelete.id}`, {
       method: 'DELETE',
     })
     .then(response =>{
@@ -103,7 +104,7 @@ function Courses(props) {
         "userId":1,
         "courseId":parseInt(props.courseToAdd[0].id) 
     };
-    fetch('http://localhost:4000/courses/add/', {
+    fetch(`${process.env.REACT_APP_API_END_POINT}/courses/add/`, {
         method: 'POST',
         body: JSON.stringify(data) ,
         headers:{          

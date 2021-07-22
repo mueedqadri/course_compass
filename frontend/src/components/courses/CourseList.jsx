@@ -1,3 +1,5 @@
+//Front and Backend Created by Mueed Qadri
+
 import React, { useState, useEffect } from "react";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
@@ -72,7 +74,7 @@ function CourseList(props) {
   //Call backend to fetch the list of courses and bind to the user interface
   useEffect(async () => {
     let courseObjList = [];
-    await fetch(`http://localhost:4000/courses/${term}/${departments}`)
+    await fetch(`${process.env.REACT_APP_API_END_POINT}/courses/${term}/${departments}`)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -112,40 +114,41 @@ function CourseList(props) {
               weekData: getWeekData(relatedInfo.meetingTime),
             };
           });
+          let newRows = courseObjList.map((row) => {
+            if (
+              props.registeredCourse.map((course) => course.id).includes(row.id)
+            ) {
+              return {
+                ...row,
+                action: addCourse.call(this, {
+                  index: row.id,
+                  vacancy: row.vacancy,
+                  isTaken: true,
+                }),
+              };
+            }
+            let vacancy = (1 - row.filled / row.capacity) * 100;
+            return {
+              ...row,
+              action: addCourse.call(this, {
+                index: row.id,
+                vacancy: vacancy,
+                isTaken: false,
+              }),
+            };
+          });
+          setRows(newRows);
         }
       });
-    setRows(courseObjList);
   }, []);
 
-  //Update the Button when a course is registered to a user.
-  useEffect(() => {
-    if (rows) {
-      let newRows = rows.map((row) => {
-        if (
-          props.registeredCourse.map((course) => course.id).includes(row.id)
-        ) {
-          return {
-            ...row,
-            action: addCourse.call(this, {
-              index: row.id,
-              vacancy: row.vacancy,
-              isTaken: true,
-            }),
-          };
-        }
-        let vacancy = (1 - row.filled / row.capacity) * 100;
-        return {
-          ...row,
-          action: addCourse.call(this, {
-            index: row.id,
-            vacancy: vacancy,
-            isTaken: false,
-          }),
-        };
-      });
-      setRows(newRows);
-    }
-  }, [props.registeredCourse]);
+  // //Update the Button when a course is registered to a user.
+  // useEffect(() => {
+  //   if (rows) {
+      
+  //     setRows(newRows);
+  //   }
+  // }, [props.registeredCourse]);
 
   //Add buttons to devExpress grid based on the parameters such as vacancy
   // and isTaken.

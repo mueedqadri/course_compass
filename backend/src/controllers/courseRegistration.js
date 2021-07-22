@@ -1,3 +1,4 @@
+//Created by Mueed Qadri
 var courseController = {};
 
 courseController.AllTerm = function (req, res) {
