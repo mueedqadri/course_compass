@@ -72,6 +72,7 @@ export default function LoginForm()  {
         if (res.data.status && res.status === 200) {
             // do if logged in, save logged in state
             localStorage.setItem('token', res.data.token);
+            localStorage.setItem('user', res.data.user);
             history.push('/profile');
         } else {
             alert("Invalid login")

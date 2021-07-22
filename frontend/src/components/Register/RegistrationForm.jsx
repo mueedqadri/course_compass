@@ -73,15 +73,20 @@ export default function RegistrationForm()  {
         const res = await axios.post(authAPI, data)
         console.log(res)
         // check response
-        if (res.data.status && res.status === 200) {
+        let err ={};
+        if (res.data.success && res.status === 201) {
             // do if logged in, save logged in state
             localStorage.setItem('token', res.data.token);
+            localStorage.setItem('user', res.data.user);
+            setOpenDialogBox(true);
             history.push('/profile');
         } else {
-            alert("Invalid login")
+            setErrors(err);
+            setOpenDialogBox(false);
+            alert("Invalid entry")
         }
 
-        let err ={};
+        /*let err ={};
         let open = false;
         for (const prop in user) {
             if (Object.hasOwnProperty.call(user, prop)) {
@@ -89,11 +94,11 @@ export default function RegistrationForm()  {
                 err[prop] = validateChange(prop, element)[prop];      
             }
         }
-        if(user.email ==="jamesbond007@dal.ca"){
+        if (user.email ==="jamesbond007@dal.ca") {
             open = true;
         }
         setErrors(err);
-        setOpenDialogBox(open);
+        setOpenDialogBox(open);*/
     }
 
     const validateChange =(fieldName, fieldValue)=> {
