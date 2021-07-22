@@ -1,6 +1,6 @@
-# CourseCompass
+# Assignment 3
 
-Project of Group 9
+Assignment 3 feature development
 
 * *Date Created*: 18 JUN 2021
 * *Last Modification Date*: 21 JUL 2021
