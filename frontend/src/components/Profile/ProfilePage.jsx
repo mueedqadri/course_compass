@@ -51,8 +51,8 @@ const useStyles = makeStyles((theme) => ({
     
 export default function ProfilePage()  {
 
-    // const authAPI = 'https://course-compass-group9.herokuapp.com/users/'
-    const authAPI = 'https://localhost:4000/users/'
+    const authAPI = 'https://course-compass-group9.herokuapp.com/users/'
+    // const authAPI = 'https://localhost:4000/users/'
 
     const [user, setUser] = useState({
         firstName: "James",
@@ -70,7 +70,7 @@ export default function ProfilePage()  {
             // do if logged in, save logged in state
             setUser(res.data.user)
         } else {
-            alert("failed to get state")
+            console.log("failed to get state")
         }
     }
 
