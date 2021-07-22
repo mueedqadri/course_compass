@@ -46,7 +46,7 @@ function Grades() {
 
     //method to get grades from backend based on termid
     async function getGrades(termId) {
-        await axios.get("${process.env.REACT_APP_API_END_POINT}/grades/" + termId + "/1").then((res) => {
+        await axios.get(`${process.env.REACT_APP_API_END_POINT}/grades/${termId}/1`).then((res) => {
 
             let rows = []
             for (let resDataRow in res.data.data) {
@@ -65,7 +65,7 @@ function Grades() {
     //method to get terms of students that contain grades
     useEffect(() => {
         async function getTerms() {
-            await axios.get("${process.env.REACT_APP_API_END_POINT}/grade_terms/1").then((res) => {
+            await axios.get(`${process.env.REACT_APP_API_END_POINT}/grade_terms/1`).then((res) => {
                 let Termlist = res.data.data
                 setTerms(res.data.data);
                 if (Termlist.length > 0) {
