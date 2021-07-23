@@ -16,15 +16,10 @@ Assignment 3 feature development
 * [Abdul Mueed Qadri](ab291996@dal.ca) - *(Collaborator)*
 
 
-## Getting Started
-
-[Milan Ganesh Acharya](ml650738@dal.ca)'s Git repository can be found [here](https://github.com/5709group9/group9_course_compass/tree/milan_achar)
-
-
 ## Testing of Schedule
 
-The feature that I chose for Assignment 3 is the displaying of Schedule. The Schedule can be accessed [here](https://course-compass-frontend.herokuapp.com/schedule).
-The Schedule feature is dependent on the Login feature, which is being developed by another team member. As of submission of this file, the Login feature is yet to be completed. So for the purpose of this assignment, the value for User ID is hard-coded in the GET request being made by the application. As seen in the snippet below, the user ID '1' has been hard-coded, but the application is able to handle any user ID specified.
+The Schedule can be accessed [here](https://course-compass-frontend.herokuapp.com/schedule).  
+The Schedule feature is dependent on the Login feature. As of submission of this file, the Login feature is yet to be completed. So for the purpose of this assignment, the value for User ID is hard-coded in the GET request being made by the application. As seen in the snippet below, the user ID '1' has been hard-coded, but the application is able to handle any user ID specified.  
 This temporary drawback will be handled once the code of the dependent feature is ready and integrated.
 
 ```
@@ -33,28 +28,14 @@ await Axios.get(process.env.REACT_APP_API_END_POINT + '/schedule/1').then((res) 
 
 ## Files Created for the Assignment
 
-These files were created as part of creating the API for accessing the schedule:
-* backend/src/controllers/schedule.js
-* backend/src/routes/schedule.js
+* backend/src/controllers/schedule.js - Backend created by Milan Ganesh Acharya
+* backend/src/routes/schedule.js - Backend created by Milan Ganesh Acharya
 
 
-## Files Modified for the Assignment
+## APIs created for the Assignment
 
-The majority of code changes were done to the file below. The code changes are for binding the data from the API request to the Schedule component.
-The minor changes done in other files are not mentioned here.
-* frontend/src/components/Schedule/Schedule.jsx
-
-
-## API created for the Assignment
-
-The GET API for retrieving the schedule of a User with ID 'id' was created. The API can be accessed in the following link:
+The GET API for retrieving the schedule of a User with ID 'id':  
 https://course-compass-group9.herokuapp.com/schedule/:id
-
-
-## Other related tasks for the assignment
-
-* Creation of the database schema for the application.
-* Inserting data, and updating field of the database.
 
 
 ## Sources Used
@@ -161,15 +142,15 @@ let newRows = courseObjList.map((row) => {
 
 ```
 
-The code above was created by adapting the code in [StackOverflow](https://stackoverflow.com/questions/12433604/how-can-i-find-matching-values-in-two-arrays) as shown below: 
+The code above was created by adapting the code in [StackOverflow](https://stackoverflow.com/questions/12433604/how-can-i-find-matching-values-in-two-arrays) as shown below:
 
 ```
 const intersection = array1.filter(element => array2.includes(element));
 ```
 
 - The code in [StackOverflow](https://stackoverflow.com/questions/12433604/how-can-i-find-matching-values-in-two-arrays)  was implemented by using a combination of filter and includes()
--  [StackOverflow](https://stackoverflow.com/questions/12433604/how-can-i-find-matching-values-in-two-arrays)  Code was used to filter out the courses as per the so as to find the registered courses. 
-- [StackOverflow](https://stackoverflow.com/questions/12433604/how-can-i-find-matching-values-in-two-arrays)  Code was modified by changing changing the logic of filter and also using a map as per the requirement. 
+-  [StackOverflow](https://stackoverflow.com/questions/12433604/how-can-i-find-matching-values-in-two-arrays)  Code was used to filter out the courses as per the so as to find the registered courses.
+- [StackOverflow](https://stackoverflow.com/questions/12433604/how-can-i-find-matching-values-in-two-arrays)  Code was modified by changing changing the logic of filter and also using a map as per the requirement.
 
 
 ### Header.jsx
@@ -177,16 +158,16 @@ const intersection = array1.filter(element => array2.includes(element));
 *Lines 72 - 109*
 
 ```
-<Tabs 
-    classes={{indicator: classes.indicator}} 
-    variant="scrollable" 
-    scrollButtons="auto" 
-    value={location.pathname} 
+<Tabs
+    classes={{indicator: classes.indicator}}
+    variant="scrollable"
+    scrollButtons="auto"
+    value={location.pathname}
     onChange={handleCallToRouter}
 >
-    <Tab 
+    <Tab
     className={classes.tabRoot}
-    label="Dashboard" 
+    label="Dashboard"
     value="/">
 
     </Tab>
@@ -203,7 +184,7 @@ const intersection = array1.filter(element => array2.includes(element));
 </Tabs>
 ```
 
-The code above was created by adapting the code in [StackOverflow](https://stackoverflow.com/questions/41638688/material-uis-tabs-integration-with-react-router-4) as shown below: 
+The code above was created by adapting the code in [StackOverflow](https://stackoverflow.com/questions/41638688/material-uis-tabs-integration-with-react-router-4) as shown below:
 
 ```
 <Tabs
@@ -246,7 +227,7 @@ onChange={this.handleCallToRouter}
 </Snackbar>
 ```
 
-The code above was created by adapting the code in [Material UI](https://material-ui.com/components/snackbars/) as shown below: 
+The code above was created by adapting the code in [Material UI](https://material-ui.com/components/snackbars/) as shown below:
 
 ```
 <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
@@ -257,8 +238,8 @@ The code above was created by adapting the code in [Material UI](https://materia
 ```
 
 - The code in [Material UI](https://material-ui.com/components/snackbars/) was implemented by adding the Snackbar component.
-- [Material UI](https://material-ui.com/components/snackbars/)'s Code was used to show feedback to the user during course registration. 
-- [Material UI](https://material-ui.com/components/snackbars/)'s Code was modified by adding props and using a callback to implement the desired functionality. 
+- [Material UI](https://material-ui.com/components/snackbars/)'s Code was used to show feedback to the user during course registration.
+- [Material UI](https://material-ui.com/components/snackbars/)'s Code was modified by adding props and using a callback to implement the desired functionality.
 
 
 ### LoginForm.jsx
@@ -270,7 +251,7 @@ The code above was created by adapting the code in [Material UI](https://materia
 
 ```
 
-The code above was created by adapting the code in [Adding bootstrap](https://create-react-app.dev/docs/adding-bootstrap/) as shown below: 
+The code above was created by adapting the code in [Adding bootstrap](https://create-react-app.dev/docs/adding-bootstrap/) as shown below:
 
 ```
 import 'bootstrap/dist/css/bootstrap.css';
@@ -278,8 +259,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 ```
 
 - The code in [Adding bootstrap](https://create-react-app.dev/docs/adding-bootstrap/) was implemented by pasting the import statement.
-- [Adding bootstrap](https://create-react-app.dev/docs/adding-bootstrap/)'s Code was used to import bootstrap in the project. 
-- [Adding bootstrap](https://create-react-app.dev/docs/adding-bootstrap/)'s Code was not modified at all. 
+- [Adding bootstrap](https://create-react-app.dev/docs/adding-bootstrap/)'s Code was used to import bootstrap in the project.
+- [Adding bootstrap](https://create-react-app.dev/docs/adding-bootstrap/)'s Code was not modified at all.
 
 
 ### LoginForm.jsx
@@ -289,12 +270,12 @@ import 'bootstrap/dist/css/bootstrap.css';
 ```
 else if (!/^[A-Za-z0-9]+$/.test(FirstName)) {
     err.FirstName = "Enter a valid First Name";
-} 
-if 
+}
+if
 
 ```
 
-The code above was created by adapting the code in [regex.test()](https://stackoverflow.com/questions/6603015/check-whether-a-string-matches-a-regex-in-js) as shown below: 
+The code above was created by adapting the code in [regex.test()](https://stackoverflow.com/questions/6603015/check-whether-a-string-matches-a-regex-in-js) as shown below:
 
 ```
 console.log(/^([a-z0-9]{5,})$/.test('abc1')); // false
@@ -326,7 +307,7 @@ console.log(/^([a-z0-9]{5,})$/.test('abc123')); // true
   ]);
 ```
 
-The code above was created by adapting the code in [Devexpress](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/column-resizing/) as shown below: 
+The code above was created by adapting the code in [Devexpress](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/column-resizing/) as shown below:
 
 ```
   const [defaultColumnWidths] = useState([
@@ -337,8 +318,8 @@ The code above was created by adapting the code in [Devexpress](https://devexpre
   ]);
 ```
 
-- The code in [Devexpress](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/column-resizing/) was implemented by the adding the use state block to set the column widths. 
-- [Devexpress](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/column-resizing/)'s Code was used to change the width of the devexpress grid. 
+- The code in [Devexpress](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/column-resizing/) was implemented by the adding the use state block to set the column widths.
+- [Devexpress](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/column-resizing/)'s Code was used to change the width of the devexpress grid.
 - [Devexpress](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/column-resizing/)'s Code was modified by changing the column keys and values.
 
 
