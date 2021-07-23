@@ -40,7 +40,8 @@ function Courses(props) {
     })
     .then(response =>{
         if(response.ok){
-          props.getCourses();
+          props.getRegisteredCourse();
+          props.getAllCourses();
         }
     })
   }
@@ -114,7 +115,8 @@ function Courses(props) {
     })
     .then(response =>{
         if(response.ok){
-          props.getCourses();
+          props.getRegisteredCourse();
+          props.getAllCourses();
         }
     })
   }

@@ -6,6 +6,9 @@ import Courses from "./RegisteredCourses";
 import CourseList from "./CourseList";
 import { useParams } from "react-router-dom";
 import { getWeekData } from "../Shared/util";
+import CircularProgressWithLabel from "../Shared/ProgressCircular";
+import AddIcon from "@material-ui/icons/Add";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,13 +25,55 @@ export default function CourseDetails(props) {
   const [registeredCourse, setRegisteredCourses] = useState([]);
 
   const { term, departments } = useParams();
+  
+  const [rows, setRows] = useState([]);
 
   useEffect(async () => {
-    await getCourses();
+    await getRegisteredCourse();
+    await getAllCourses();
   }, []);
 
+  //Show visual representation of the vacancy
+  const showProgress = ({ index }, filled) => {
+    return <CircularProgressWithLabel variant="determinate" value={filled} />;
+  };
+
+  //Add buttons to devExpress grid based on the parameters such as vacancy
+  // and isTaken.
+  const addCourse = ({ index, vacancy, isTaken }) => {
+    if (!isTaken) {
+      return (
+        <Button
+          onClick={handleAddCourses}
+          variant="contained"
+          size="small"
+          id={index}
+          color="primary"
+          disabled={!vacancy}
+          disableElevation
+          startIcon={<AddIcon id={index} />}
+        >
+          Add
+        </Button>
+      );
+    } else {
+      return (
+        <Button
+          variant="outlined"
+          size="small"
+          id={index}
+          color="secondary"
+          disabled={true}
+          disableElevation
+        >
+          Added
+        </Button>
+      );
+    }
+  };
+
   // Get all the courses that a user is registered for
-  const getCourses = async () => {
+  const getRegisteredCourse = async () => {
     let courseObjList = [];
     await fetch(`${process.env.REACT_APP_API_END_POINT}/user_courses/${1}`)
       .then((res) => {
@@ -65,6 +110,54 @@ export default function CourseDetails(props) {
         setRegisteredCourses(courseObjList);
       });
   };
+
+  //Call backend to fetch the list of courses and bind to the user interface
+  const getAllCourses = async ()=>{
+    let courseObjList = [];
+    await fetch(`${process.env.REACT_APP_API_END_POINT}/courses/${term}/${departments}/${1}`)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then((data) => {
+        if (data && data.data) {
+          courseObjList = data.data.map((course) => {
+            let relatedInfo = JSON.parse(course.relatedInfo);
+            let vacancy = (1 - course.filled / course.capacity) * 100;
+            return {
+              id: course.courseId,
+              courseCode: course.courseCode,
+              instructor: `${course.firstName} ${course.lastName}`,
+              instructorEmail: course.emailId,
+              vacancy: showProgress.call(this, { index: 0 }, vacancy),
+              name: course.title,
+              department: course.name,
+              description: course.description,
+              credits: course.credits,
+              action: addCourse.call(this, {
+                index: course.courseId,
+                vacancy: vacancy,
+                isTaken: course.binary_user_course,
+              }),
+              buildingDescription: relatedInfo.meetingTime.buildingDescription,
+              campusDescription: relatedInfo.meetingTime.campusDescription,
+              meetingType: relatedInfo.meetingTime.meetingTypeDescription,
+              hoursWeek: relatedInfo.meetingTime.hoursWeek,
+              building: relatedInfo.meetingTime.building,
+              startDate: relatedInfo.meetingTime.startDate,
+              endDate: relatedInfo.meetingTime.endDate,
+              beginTime: relatedInfo.meetingTime.beginTime,
+              endTime: relatedInfo.meetingTime.endTime,
+              filled: course.filled,
+              capacity: course.capacity,
+              weekData: getWeekData(relatedInfo.meetingTime),
+            };
+          });
+          setRows(courseObjList);
+        }
+      });
+  }
 
   //Get details about the course that the user wants to add 
   //to check conflicts
@@ -118,7 +211,8 @@ export default function CourseDetails(props) {
               <Courses
                 courseToAdd={courseToAdd}
                 registeredCourse={registeredCourse}
-                getCourses={getCourses}
+                getRegisteredCourse={getRegisteredCourse}
+                getAllCourses={getAllCourses}
               />
             </Grid>
           </Grid>
@@ -126,7 +220,7 @@ export default function CourseDetails(props) {
         <Grid item sm={9}>
           <CourseList
             callback={handleAddCourses}
-            registeredCourse={registeredCourse}
+            rows={rows}
           />
         </Grid>
       </Grid>

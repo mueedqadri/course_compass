@@ -11,15 +11,19 @@ courseController.AllTerm = function (req, res) {
 courseController.AllCourses = function (req, res) {
   if (
     (req.params.termId || req.query.termId) &&
-    (req.params.depId || req.query.depId)
+    (req.params.depId || req.query.depId) &&
+    (req.params.uid || req.query.uid)
   ) {
     const termId = req.params.termId ? req.params.termId : req.query.termId;
     const depId = req.params.depId ? req.params.depId : req.query.depId;
+    const uid = req.params.uid ? req.params.uid : req.query.uid;
     let formattedDepIds = depId
       .split(",")
       .map((i) => `'${i}'`)
       .join();
-    let sql = `SELECT c.*, it.*, d.*
+
+    let sql = `SELECT 
+        c.*, tc.*, d.*, it.*, IF(userId = ${uid}, 1, 0) AS binary_user_course
     FROM
         term_course AS tc
             JOIN
@@ -30,6 +34,8 @@ courseController.AllCourses = function (req, res) {
         course AS c ON c.courseId = tc.courseId
             JOIN
         department AS d ON d.departmentId = dc.departmentId
+            LEFT JOIN
+        user_course AS uc ON uc.courseId = c.courseId
     WHERE
         tc.termId IN (${termId})
             AND dc.departmentId IN (${formattedDepIds})`;

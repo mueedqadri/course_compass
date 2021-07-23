@@ -43,7 +43,6 @@ function CourseList(props) {
 
   const [expandedRowIds, setExpandedRowIds] = useState([]);
 
-  const [rows, setRows] = useState([]);
 
   const [filteringStateColumnExtensions] = useState([
     { columnName: "action", filteringEnabled: false },
@@ -74,7 +73,7 @@ function CourseList(props) {
   //Call backend to fetch the list of courses and bind to the user interface
   useEffect(async () => {
     let courseObjList = [];
-    await fetch(`${process.env.REACT_APP_API_END_POINT}/courses/${term}/${departments}`)
+    await fetch(`${process.env.REACT_APP_API_END_POINT}/courses/${term}/${departments}/${1}`)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -98,7 +97,7 @@ function CourseList(props) {
               action: addCourse.call(this, {
                 index: course.courseId,
                 vacancy: vacancy,
-                isTaken: false,
+                isTaken: course.binary_user_course,
               }),
               buildingDescription: relatedInfo.meetingTime.buildingDescription,
               campusDescription: relatedInfo.meetingTime.campusDescription,
@@ -114,41 +113,10 @@ function CourseList(props) {
               weekData: getWeekData(relatedInfo.meetingTime),
             };
           });
-          let newRows = courseObjList.map((row) => {
-            if (
-              props.registeredCourse.map((course) => course.id).includes(row.id)
-            ) {
-              return {
-                ...row,
-                action: addCourse.call(this, {
-                  index: row.id,
-                  vacancy: row.vacancy,
-                  isTaken: true,
-                }),
-              };
-            }
-            let vacancy = (1 - row.filled / row.capacity) * 100;
-            return {
-              ...row,
-              action: addCourse.call(this, {
-                index: row.id,
-                vacancy: vacancy,
-                isTaken: false,
-              }),
-            };
-          });
-          setRows(newRows);
+          // setRows(courseObjList);
         }
       });
   }, []);
-
-  // //Update the Button when a course is registered to a user.
-  // useEffect(() => {
-  //   if (rows) {
-      
-  //     setRows(newRows);
-  //   }
-  // }, [props.registeredCourse]);
 
   //Add buttons to devExpress grid based on the parameters such as vacancy
   // and isTaken.
@@ -203,7 +171,7 @@ function CourseList(props) {
   return (
     <Container className={classes.root}>
       <Paper elevation={3}>
-        <Grid rows={rows} columns={columns}>
+        <Grid rows={props.rows} columns={columns}>
           <FilteringState
             filters={filters}
             onFiltersChange={setFilters}
