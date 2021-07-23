@@ -1,3 +1,4 @@
+// Front-end developed by Abdul Mueed Qadri. Back-end developed by Milan Ganesh Acharya
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
 
@@ -122,6 +123,7 @@ export default function Schedule(props) {
         for (var i = 0; i < data.length; i++) {
           var related = JSON.parse(data[i].relatedInfo);
 
+          // Extract schedule information from the received response
           var startDate = related.meetingTime.startDate.split('/');
           var endDate = related.meetingTime.endDate.split('/');
           var beginHrs = related.meetingTime.beginTime.substr(0, 2);
@@ -136,6 +138,7 @@ export default function Schedule(props) {
           var sat = related.meetingTime.saturday;
           var sun = related.meetingTime.sunday;
 
+          // Covert data to format required by the Scheduler
           var byday = 'BYDAY=';
           if (mon)
             byday += 'MO,';
@@ -154,6 +157,7 @@ export default function Schedule(props) {
           byday = byday.substring(0, byday.length - 1);
           var rRule = 'FREQ=DAILY;' + byday + ';UNTIL=' + endDate[2] + endDate[0] + endDate[1];
 
+          // Schedule information required for the Scheduler
           var appItem = {};
           appItem['id'] = i;
           appItem['title'] = data[i].title;
@@ -163,6 +167,7 @@ export default function Schedule(props) {
           appItem['rRule'] = rRule;
           appointment.push(appItem);
 
+          // Meeting room information required for the Scheduler
           var resourceItem = {};
           resourceItem['text'] = related.meetingTime.room;
           resourceItem['id'] = i;

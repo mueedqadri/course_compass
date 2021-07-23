@@ -1,3 +1,4 @@
+// Developed by Milan Ganesh Acharya
 var scheduleController = {};
 
 scheduleController.userSchedule = function (req, res) {
