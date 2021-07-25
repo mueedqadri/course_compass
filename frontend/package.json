@@ -2,6 +2,9 @@
   "name": "group9_course_compass",
   "version": "0.1.0",
   "private": true,
+  "optionalDependencies": {
+    "fsevents": "2.1.2"
+  },
   "dependencies": {
     "@devexpress/dx-react-core": "^2.7.5",
     "@devexpress/dx-react-grid": "^2.7.5",
@@ -14,6 +17,8 @@
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.21.1",
+    "dotenv": "^8.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",

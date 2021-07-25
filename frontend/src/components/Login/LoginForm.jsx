@@ -1,3 +1,4 @@
+//Backend Creted by Philemon Lee and Front Created by Mueed Qadri
 import React, {useState} from 'react';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
@@ -15,7 +16,7 @@ import '../../css/Custom.css';
 import AlertDialog from '../Shared/AlertDialog';
 import { Link, useHistory} from "react-router-dom";
 
-const authAPI = 'https://course-compass-group9.herokuapp.com/users/login'
+const authAPI = 'https://tutorial4-api.herokuapp.com/api/users/login'
 
 const useStyles = makeStyles((theme) => ({
       form: {

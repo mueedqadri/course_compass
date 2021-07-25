@@ -1,7 +1,5 @@
+//Front Created by Mueed Qadri
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import {VpnKey, Save} from '@material-ui/icons';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -10,7 +8,7 @@ import Avatar from '@material-ui/core/Avatar';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { deepOrange } from '@material-ui/core/colors';
 import '../../css/Custom.css';
-import Schedular from '../Schedular/Schedular';
+import Schedule from '../Schedule/Schedule';
 import Notifications from '../Notification/Notifications';
 
 
@@ -82,14 +80,14 @@ export default function StudentDashboard()  {
                     </Paper>
                 </Grid>
                 <Grid item xs={6}>
-                    <Schedular 
+                    <Schedule 
                         height ={500}
                         viewDefault ={'Day'}
                         showToday ={false}
                         showViewSwitch ={false}
                     >
 
-                    </Schedular>
+                    </Schedule>
                 </Grid>
                 <Grid item xs={3}>
                     <Notifications></Notifications>

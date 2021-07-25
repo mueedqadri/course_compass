@@ -1,22 +1,29 @@
 const express = require('express');
 const app = express();
 const mysql= require("mysql");
-const dbCredentials = require('./config/dbCredentials') 
-const courses = require('./routes/courseRegistration')
-const users = require('./routes/userManagement')
+const courses = require('./routes/courseRegistration');
+const users = require('./routes/userManagement');
+const schedule = require('./routes/schedule');
+const records = require('./routes/records')
+const cors = require('cors');
+require('dotenv').config();
 
-let db = mysql.createConnection(dbCredentials);
+let db = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASS,
+    database: process.env.MYSQL_DB
+});
 global.db = db;
 
 app.use(express.json());
+app.use(cors());
 app.use('/', courses);
 app.use('/', users);
-
-app.use((req, res, next)=>{
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+app.use('/', schedule);
+app.use('/', records);
+app.use('/', (req, res)=>{
     res.send('User API')
-    next();
 })
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));

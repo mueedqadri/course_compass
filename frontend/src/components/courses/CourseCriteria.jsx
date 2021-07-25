@@ -1,3 +1,4 @@
+//Front and Backend Created by Mueed Qadri
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -50,29 +51,34 @@ export default function CourseCriteria() {
   useEffect(async()=>{
     let termsList = [];
     let departmentList = [];
-    await fetch('http://localhost:4000/terms/')
+    debugger;
+    await fetch(`${process.env.REACT_APP_API_END_POINT}/terms/`)
     .then(res =>{
       if(res.ok){
         return res.json()
       }
     }).then( data => {
-      termsList = data.data.map(term => {
-        return {
-          id: term.termId,
-          name: term.term.split(" ")[1],
-        }})
+        if(data && data.data){
+            termsList = data.data.map(term => {
+                return {
+                  id: term.termId,
+                  name: term.term.split(" ")[1],
+                }})
+        }
     });
-    await fetch('http://localhost:4000/department/')
+    await fetch(`${process.env.REACT_APP_API_END_POINT}/department/`)
     .then(res =>{
       if(res.ok){
         return res.json()
       }
     }).then( data => {
-        departmentList = data.data.map(department => {
-        return {
-          id: department.departmentId,
-          name: department.name,
-        }})
+        if(data && data.data){
+            departmentList = data.data.map(department => {
+                return {
+                  id: department.departmentId,
+                  name: department.name,
+            }})
+        }
     });
     setTerms(termsList);
     setDepartments(departmentList);
