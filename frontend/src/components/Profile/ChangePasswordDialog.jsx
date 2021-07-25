@@ -5,9 +5,21 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import {VpnKey} from "@material-ui/icons";
 
-export default function FormDialog() {
+export function FormDialog() {
   const [open, setOpen] = React.useState(false);
+
+  const [password, setPassword] = React.useState( {
+    prevPassword: "",
+    newPassword: "",
+    confPassword: "",
+  });
+
+  const handleSubmit = () => {
+    // Authenticate user
+    // Update password
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -19,11 +31,16 @@ export default function FormDialog() {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button
+          variant="contained"
+          color="default"
+          startIcon={<VpnKey />}
+          onClick={handleClickOpen}
+      >
         Change Password
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title">Change Password</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -31,6 +48,7 @@ export default function FormDialog() {
             id="prevPassword"
             label="Previous Password"
             type="password"
+            onChange={e => setPassword({prevPassword: e.target.value})}
             fullWidth
           />
           <TextField
@@ -39,14 +57,16 @@ export default function FormDialog() {
             id="newPassword"
             label="New Password"
             type="password"
+            onChange={e => setPassword({newPassword: e.target.value})}
             fullWidth
           />
           <TextField
             autoFocus
             margin="dense"
-            id="prevPassword"
+            id="confPassword"
             label="Confirm New Password"
             type="password"
+            onChange={e => setPassword({confPassword: e.target.value})}
             fullWidth
           />
         </DialogContent>

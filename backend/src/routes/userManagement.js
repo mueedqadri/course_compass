@@ -37,6 +37,7 @@ const decrypt = (hash) => {
 
 // Get user info by id
 Router.get('/users/:id', (req, res) => {
+    console.log("Getting user info...")
     try {
         if (req.params.id || req.query.id) {
             const id = req.params.id ? req.params.id : req.query.id;
@@ -46,13 +47,9 @@ Router.get('/users/:id', (req, res) => {
             db.query(sql, function (err, users) {
                 if (err) throw err;
                 const user = users[0];
-                console.log(user.password);
-                const encryptedPassword = encrypt(user.password);
-                console.log(encryptedPassword)
-                const decryptedPassword = decrypt(encryptedPassword);
-                console.log(decryptedPassword)
                 if (users) {
                     res.status(200).json({
+                        message: "User found",
                         success: true,
                         user: user
                     });
@@ -133,12 +130,12 @@ Router.post('/users/login', (req, res) => {
 // Update user details
 Router.post('/users/update', (req, res) => {
     try {
-        const sql = `UPDATE CourseCompass.user SET ? WHERE emailId = ${req.body["emailId"]}`;
+        const sql = `UPDATE CourseCompass.user SET ? WHERE emailId = '${req.body["emailId"]}'`;
         console.log(req.body)
         db.query(sql, [req.body], (err, results) => {
             if (err) throw err;
             return res.status(201).json({
-                message: "User created",
+                message: "User updated",
                 success: true,
             })
         })
@@ -165,7 +162,8 @@ Router.post('/users/create', (req, res) => {
                 console.log(results)
                 return res.status(201).json({
                     message: "User created",
-                    success: true
+                    success: true,
+                    token: generateAccessToken(body["emailId"])
                 })
             })
         } catch (ex) {

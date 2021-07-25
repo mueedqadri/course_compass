@@ -95,12 +95,6 @@ export default function App() {
                 </Switch>
                 :
                 <Switch>
-                    <Route exact path="/">
-                        <Layout
-                            form={<LoginForm/>}
-                        >
-                        </Layout>
-                    </Route>
                     <Route exact path="/login">
                         <Layout
                             form={<LoginForm/>}
@@ -110,6 +104,12 @@ export default function App() {
                     <Route exact path="/register">
                         <Layout
                             form={<RegistrationForm/>}
+                        >
+                        </Layout>
+                    </Route>
+                    <Route path="/">
+                        <Layout
+                            form={<LoginForm/>}
                         >
                         </Layout>
                     </Route>

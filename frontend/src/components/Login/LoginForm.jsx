@@ -16,7 +16,7 @@ import '../../css/Custom.css';
 import AlertDialog from '../Shared/AlertDialog';
 import { Link, useHistory} from "react-router-dom";
 
-const authAPI = 'https://tutorial4-api.herokuapp.com/api/users/login'
+const authAPI = process.env.REACT_APP_API_END_POINT + '/users/login'
 
 const useStyles = makeStyles((theme) => ({
       form: {
@@ -70,11 +70,12 @@ export default function LoginForm()  {
         const res = await axios.post(authAPI, data)
         console.log(res)
         // check response
-        if (res.data.status && res.status === 200) {
+        if (res.status === 201) {
             // do if logged in, save logged in state
             localStorage.setItem('token', res.data.token);
-            localStorage.setItem('user', res.data.user);
+            localStorage.setItem('user', data.emailId);
             history.push('/profile');
+            window.location.reload();
         } else {
             alert("Invalid login")
         }

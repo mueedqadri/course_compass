@@ -16,7 +16,7 @@ import AlertDialog from '../Shared/AlertDialog';
 import {Link, useHistory} from "react-router-dom";
 import axios from "axios";
 
-const authAPI = 'https://course-compass-group9.herokuapp.com/users/create'
+const authAPI = process.env.REACT_APP_API_END_POINT + '/users/create'
 
 const useStyles = makeStyles((theme) => ({
       form: {
@@ -78,7 +78,7 @@ export default function RegistrationForm()  {
         if (res.data.success && res.status === 201) {
             // do if logged in, save logged in state
             localStorage.setItem('token', res.data.token);
-            localStorage.setItem('user', res.data.user);
+            localStorage.setItem('user', data.emailId);
             setOpenDialogBox(true);
             history.push('/profile');
         } else {
