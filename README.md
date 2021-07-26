@@ -37,8 +37,8 @@ await Axios.get(process.env.REACT_APP_API_END_POINT + '/schedule/1').then((res) 
 ### Backend: 
 - backend\src\controllers\schedule.js - Backend created by Milan Ganesh Acharya
 - backend\src\routes\schedule.js - Backend created by Milan Ganesh Acharya
-- backend\routes\courseRegistration.js
-- backend\controllers\courseRegistration.js
+- backend\routes\courseRegistration.js - Backend by Mueed Qadri
+- backend\controllers\courseRegistration.js - Backend by Mueed Qadri
 ### Frontend
 
 - frontend\src\component\Schedule\Schedule.jsx - Frontend by Abdul Mueed Qadri, and corresponding Backend(1 and 2) by Milan Ganesh Acharya
