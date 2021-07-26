@@ -84,9 +84,10 @@ export default function RegistrationForm()  {
         console.log(res)
         // check response
         if (res.data.success && res.status === 201) {
+            // Get userId
             const user = await axios.get(`${usersAPI}${data.emailId}`)
-            if (res.status === 200) {
-                localStorage.setItem('id', user.data.id);
+            if (user.status === 200) {
+                localStorage.setItem('id', user.data.user.userId);
             } else {
                 console.log("Failed to get id")
             }
@@ -94,7 +95,8 @@ export default function RegistrationForm()  {
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user', data.emailId);
             open = true
-            history.push('/profile');
+            history.push('/');
+            window.location.reload();
         } else {
             setErrors(err);
             setOpenDialogBox(false);

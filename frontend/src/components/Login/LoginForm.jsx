@@ -73,15 +73,15 @@ export default function LoginForm()  {
         // check response
         if (res.status === 201) {
             const get = await axios.get(`${usersAPI}${user.email}`)
-            if (res.status === 200) {
-                localStorage.setItem('id', get.data.id);
+            if (get.status === 200) {
+                localStorage.setItem('id', get.data.user.userId);
             } else {
                 console.log("Failed to get id")
             }
             // do if logged in, save logged in state
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user', data.emailId);
-            history.push('/profile');
+            history.push('/');
             window.location.reload();
         } else {
             alert("Invalid login")
