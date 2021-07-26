@@ -72,9 +72,9 @@ export default function LoginForm()  {
         console.log(res)
         // check response
         if (res.status === 201) {
-            const user = await axios.get(`${usersAPI}${user.email}`)
+            const get = await axios.get(`${usersAPI}${user.email}`)
             if (res.status === 200) {
-                localStorage.setItem('id', user.data.id);
+                localStorage.setItem('id', get.data.id);
             } else {
                 console.log("Failed to get id")
             }
