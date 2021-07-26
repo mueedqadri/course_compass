@@ -19,14 +19,14 @@ export default function App() {
     const [loggedIn, setLoggedIn] = useState(false)
 
     useEffect(() => {
-        if (localStorage.getItem('token') && localStorage.getItem('token') !== undefined) {
+        if (localStorage.getItem('token') !== undefined && localStorage.getItem('token') !== undefined) {
             setLoggedIn(true);
         }
     }, []);
 
     return (
         <React.StrictMode>
-            <Header/>
+            <Header show={loggedIn}/>
             {loggedIn ? <Switch>
                     <Route exact path="/register">
                         <Layout
@@ -48,13 +48,13 @@ export default function App() {
                     </Route>
                     <Route exact path="/schedule">
                         <ContentLayout
-                            content = {
-                            <Schedule
-                                height ={600}
-                                viewDefault ={'Month'}
-                                showToday ={true}
-                                showViewSwitch ={true}
-                            />}
+                            content={
+                                <Schedule
+                                    height={600}
+                                    viewDefault={'Month'}
+                                    showToday={true}
+                                    showViewSwitch={true}
+                                />}
                         />
                     </Route>
                     <Route exact path="/profile">

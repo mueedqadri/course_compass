@@ -1,4 +1,4 @@
-//Backend Creted by Philemon Lee and Front Created by Mueed Qadri
+//Backend Created by Philemon Lee and Front Created by Mueed Qadri
 import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -17,6 +17,7 @@ import {Link, useHistory} from "react-router-dom";
 import axios from "axios";
 
 const authAPI = process.env.REACT_APP_API_END_POINT + '/users/create'
+const usersAPI = process.env.REACT_APP_API_END_POINT + '/users/'
 
 const useStyles = makeStyles((theme) => ({
       form: {
@@ -65,6 +66,14 @@ export default function RegistrationForm()  {
     }
 
     const onSubmit = async () =>{
+        let err ={};
+        let open = false;
+        for (const prop in user) {
+            if (Object.hasOwnProperty.call(user, prop)) {
+                const element = user[prop];
+                err[prop] = validateChange(prop, element)[prop];
+            }
+        }
         const data = {
             "emailId" : user.email,
             "password" : user.password,
@@ -74,32 +83,25 @@ export default function RegistrationForm()  {
         const res = await axios.post(authAPI, data)
         console.log(res)
         // check response
-        let err ={};
         if (res.data.success && res.status === 201) {
+            const user = await axios.get(`${usersAPI}${data.emailId}`)
+            if (res.status === 200) {
+                localStorage.setItem('id', user.data.id);
+            } else {
+                console.log("Failed to get id")
+            }
             // do if logged in, save logged in state
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user', data.emailId);
-            setOpenDialogBox(true);
+            open = true
             history.push('/profile');
         } else {
             setErrors(err);
             setOpenDialogBox(false);
             alert("Invalid entry")
         }
-
-        /*let err ={};
-        let open = false;
-        for (const prop in user) {
-            if (Object.hasOwnProperty.call(user, prop)) {
-                const element = user[prop];
-                err[prop] = validateChange(prop, element)[prop];      
-            }
-        }
-        if (user.email ==="jamesbond007@dal.ca") {
-            open = true;
-        }
         setErrors(err);
-        setOpenDialogBox(open);*/
+        setOpenDialogBox(open);
     }
 
     const validateChange =(fieldName, fieldValue)=> {
@@ -155,9 +157,9 @@ export default function RegistrationForm()  {
             <Paper  elevation={10}  className={classes.signUp}>
                 {
                     openDialogBox &&
-                    <AlertDialog 
-                        email={"jamebond007@dal.ca"}
-                    ></AlertDialog>
+                    <AlertDialog
+    email={"jamebond007@dal.ca"}
+    />
                 }
                 <CssBaseline />
                 <Typography component="h1" variant="h4">
@@ -175,7 +177,7 @@ export default function RegistrationForm()  {
                                 label="First Name"
                                 autoFocus
                                 onChange={handleChange}
-                                error={errors.firstName ? true : false}
+                                error={!!errors.firstName}
                                 helperText={errors.firstName ?errors.firstName : ""}
                             /> 
                             </Grid>
@@ -188,7 +190,7 @@ export default function RegistrationForm()  {
                                 label="Last Name"
                                 name="lastName"
                                 onChange={handleChange}
-                                error={errors.lastName? true : false}
+                                error={!!errors.lastName}
                                 helperText={errors.lastName ?errors.lastName : ""}
                             />
                             </Grid>
@@ -201,7 +203,7 @@ export default function RegistrationForm()  {
                                 label="University Email"
                                 name="email"
                                 onChange={handleChange}
-                                error={errors.email? true : false}
+                                error={!!errors.email}
                                 helperText={errors.email ?errors.email : ""}
                             />
                             </Grid>
@@ -212,7 +214,7 @@ export default function RegistrationForm()  {
                                     fullWidth
                                     name="password"
                                     label="Password"
-                                    error={errors.password? true : false}
+                                    error={!!errors.password}
                                     onChange={handleChange}
                                     helperText={errors.password ?errors.password : ""}
                                     type={showPassword ? "text" : "password"}
@@ -239,7 +241,7 @@ export default function RegistrationForm()  {
                                     fullWidth
                                     name="confirmPassword"
                                     label="Confirm Password"
-                                    error={errors.confirmPassword? true : false}
+                                    error={!!errors.confirmPassword}
                                     onChange={handleChange}
                                     helperText={errors.confirmPassword ?errors.confirmPassword : ""}
                                     type={showConfirmPassword ? "text" : "password"}

@@ -1,4 +1,4 @@
-//Backend Creted by Philemon Lee and Front Created by Mueed Qadri
+//Backend Created by Philemon Lee and Front Created by Mueed Qadri
 import React, {useState} from 'react';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
@@ -17,6 +17,7 @@ import AlertDialog from '../Shared/AlertDialog';
 import { Link, useHistory} from "react-router-dom";
 
 const authAPI = process.env.REACT_APP_API_END_POINT + '/users/login'
+const usersAPI = process.env.REACT_APP_API_END_POINT + '/users/'
 
 const useStyles = makeStyles((theme) => ({
       form: {
@@ -71,6 +72,12 @@ export default function LoginForm()  {
         console.log(res)
         // check response
         if (res.status === 201) {
+            const user = await axios.get(`${usersAPI}${user.email}`)
+            if (res.status === 200) {
+                localStorage.setItem('id', user.data.id);
+            } else {
+                console.log("Failed to get id")
+            }
             // do if logged in, save logged in state
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user', data.emailId);
