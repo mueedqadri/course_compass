@@ -15,12 +15,13 @@ Assignment 3 feature development
 * [Milan Ganesh Acharya](ml650738@dal.ca) - *(Collaborator)*
 * [Abdul Mueed Qadri](ab291996@dal.ca) - *(Collaborator)*
 
+## <strong>Important note for Reviewers:
+Please create a new account or use the following credentials for reviewing the application:
 
-## Getting Started
+username: email@email.com
 
-[Milan Ganesh Acharya](ml650738@dal.ca)'s Git repository can be found [here](https://github.com/5709group9/group9_course_compass/tree/milan_achar)
-
-
+password: password
+</strong>
 ## Testing of Schedule
 
 The feature that I chose for Assignment 3 is the displaying of Schedule. The Schedule can be accessed [here](https://course-compass-frontend.herokuapp.com/schedule).
@@ -31,18 +32,35 @@ This temporary drawback will be handled once the code of the dependent feature i
 await Axios.get(process.env.REACT_APP_API_END_POINT + '/schedule/1').then((res) => {
 ```
 
-## Files Created for the Assignment
+## File Authors
 
-These files were created as part of creating the API for accessing the schedule:
-* backend/src/controllers/schedule.js
-* backend/src/routes/schedule.js
+### Backend: 
+- backend\src\controllers\schedule.js - Backend created by Milan Ganesh Acharya
+- backend\src\routes\schedule.js - Backend created by Milan Ganesh Acharya
+- backend\routes\courseRegistration.js
+- backend\controllers\courseRegistration.js
+### Frontend
 
-
-## Files Modified for the Assignment
-
-The majority of code changes were done to the file below. The code changes are for binding the data from the API request to the Schedule component.
-The minor changes done in other files are not mentioned here.
-* frontend/src/components/Schedule/Schedule.jsx
+- frontend\src\component\Schedule\Schedule.jsx - Frontend by Abdul Mueed Qadri, and corresponding Backend(1 and 2) by Milan Ganesh Acharya
+- frontend\components\courses\CourseCriteria.jsx (Fronend and Backend by Mueed Qadri)
+- frontend\components\courses\CourseDetails.jsx (Fronend and Backend by Mueed Qadri)
+- frontend\components\courses\CourseInfo.jsx (Backend by Mueed Qadri, Frontend by Milan Ganesh)
+- frontend\components\courses\CourseList.jsx (Fronend and Backend by Mueed Qadri)
+- frontend\components\courses\RegisteredCourses.jsx (Fronend and Backend by Mueed Qadri)
+- frontend\components\courses\SelectDepartment.jsx (Fronend and Backend by Mueed Qadri)
+- frontend\components\courses\TermMenu.jsx (Fronend and Backend by Mueed Qadri)
+- frontend\components\Shared\ProgressCircular.jsx (Fronend and Backend by Mueed Qadri)
+- frontend\components\Shared\Alert.jsx (Fronend and Backend by Mueed Qadri)
+- frontend\components\Shared\AlertDialog.jsx (Fronend and Backend by Mueed Qadri)
+- src\components\Register\RegistrationForm.jsx (Frontend by Mueed Qadri, Backend by Philemon Lee)
+- src\components\Notification\Notifications.jsx (Frontend by Mueed Qadri)
+- src\components\Login.jsx (Frontend by Mueed Qadri, Backend by Philemon Lee)
+- src\components\Dashboard\StudentDashboard.jsx (Frontend by Mueed Qadri)
+- src\components\Schedule\Schedule.jsx (Front end by Mueed Qadri, Backend by Milan Ganesh)
+- src\components\Shared\Header.jsx (Frontend by Mueed Qadri)
+- src\components\Shared\ContentLayout.jsx (Frontend by Mueed Qadri)
+- src\components\Shared\Footer.jsx (Frontend by Mueed Qadri)
+- src\components\Profile\ProfilePage.jsx (Frontend by Mueed Qadri, Backend by Philemon Lee)
 
 
 ## API created for the Assignment
@@ -348,6 +366,7 @@ The code above was created by adapting the code in [Devexpress](https://devexpre
 * [React](https://reactjs.org/) - The front-end web framework used
 * [Node](https://nodejs.org/en/) - The back-end web framework used
 * [Express](http://expressjs.com) - The back-end server which facilitates API requests
+* [Devexpress](https://www.devexpress.com/) -Building complex components such as schedular and Grid.
 * [MySQL](https://www.mysql.com) - The back-end data store
 
 
@@ -356,6 +375,8 @@ The code above was created by adapting the code in [Devexpress](https://devexpre
 * Information relating to the Course, and Instructors were taken from [1].
 * The Schedule component uses the 'DevExtreme React Scheduler' package mentioned in [2]. The Scheduler has been customised to fit the needs of the application.
 * The information in [3] helped with the deployment of the entire application to Heroku.
+* Used the website [regex101](https://regex101.com/) to text various regex and come up with the one that fitted my use case. [4]
+* Used devexpress to build the complex components such as the schedular and Grid.[5]
 
 
 ## References
@@ -363,3 +384,7 @@ The code above was created by adapting the code in [Devexpress](https://devexpre
 [1] Dalhousie University, *Academic Calendars*, Accessed on: JUL. 17, 2021. [Online]. Available: https://academiccalendar.dal.ca/Catalog/ViewCatalog.aspx  
 [2] Developer Express Inc., *React Scheduler for Material-UI*, Accessed on: JUN. 18, 2021. [Online]. Available: https://devexpress.github.io/devextreme-reactive/react/scheduler/  
 [3] Stackoverflow, *Automated heroku deploy from subfolder*, Accessed on: JUL. 17, 2021. [Online]. Available: https://stackoverflow.com/questions/39197334/automated-heroku-deploy-from-subfolder
+
+[4]	F. Dib, “regex101: build, test, and debug regex,” Regex101.com. [Online]. Available: https://regex101.com/. [Accessed: 22-Jul-2021].
+
+[5]	“React grid remote data binding,” Github.io. [Online]. Available: https://devexpress.github.io/devextreme-reactive/react/grid/demos/featured/remote-data/. [Accessed: 22-Jul-2021].

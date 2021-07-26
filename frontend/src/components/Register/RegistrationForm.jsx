@@ -60,7 +60,8 @@ export default function RegistrationForm()  {
         setErrors(err);
     }
 
-    const onSubmit = () =>{
+    const onSubmit = async () =>{
+        debugger
         let err ={};
         let open = false;
         for (const prop in user) {
@@ -69,16 +70,44 @@ export default function RegistrationForm()  {
                 err[prop] = validateChange(prop, element)[prop];      
             }
         }
-        if(user.email ==="jamesbond007@dal.ca"){
-            open = true;
+        if(Object.values(err).every(x => x === null || x === '' || x=== undefined)){
+            const data = {
+                "emailId" : user.email,
+                "password" : user.password,
+                "firstName" : user.firstName,
+                "lastName" : user.lastName
+            }
+            const res = await axios.post(authAPI, data)
+            console.log(res)
+            // check response
+            if (res.data.success && res.status === 201) {
+                // Get userId
+                const user = await axios.get(`${usersAPI}${data.emailId}`)
+                if (user.status === 200) {
+                    localStorage.setItem('id', user.data.user.userId);
+                } else {
+                    console.log("Failed to get id")
+                }
+                // do if logged in, save logged in state
+                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('user', data.emailId);
+                open = true
+                history.push('/');
+                window.location.reload();
+            } else {
+                setErrors(err);
+                setOpenDialogBox(false);
+                alert("Invalid entry")
+            }
         }
+        
         setErrors(err);
         setOpenDialogBox(open);
     }
 
     const validateChange =(fieldName, fieldValue)=> {
         let err = {};
-        switch(fieldValue) {
+        switch(fieldName) {
             case 'email':
                 if (!fieldValue) {
                     err.email = "Enter your Email";
