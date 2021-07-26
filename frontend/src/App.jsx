@@ -19,7 +19,7 @@ export default function App() {
     const [loggedIn, setLoggedIn] = useState(false)
 
     useEffect(() => {
-        if (localStorage.getItem('token') !== undefined && localStorage.getItem('token') !== undefined) {
+        if (localStorage.getItem('token') && localStorage.getItem('user') !== undefined) {
             setLoggedIn(true);
         }
     }, []);
