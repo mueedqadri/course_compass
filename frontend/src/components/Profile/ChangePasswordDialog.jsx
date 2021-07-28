@@ -25,8 +25,9 @@ export function FormDialog() {
         let userAuth = false;
         if (id) {
             const data = {"emailId": id, "password": password.prevPassword}
+            console.log(data)
             const res = await axios.post(authAPI, data)
-            console.log(res)
+            console.log(password.newPassword)
             // check response
             if (res.status === 201 && res.data.success === true) {
                 userAuth = true;
@@ -36,7 +37,7 @@ export function FormDialog() {
         if (userAuth && password.newPassword !== "" && password.newPassword === password.confPassword) {
             const updateAPI = process.env.REACT_APP_API_END_POINT + '/users/update'
             // const updateAPI = 'http://localhost:4000/users/update'
-            const res = await axios.post(updateAPI, {password: password.newPassword})
+            const res = await axios.post(updateAPI, {"emailId": id, "password": password.newPassword})
             if (res.status === 201) {
                 alert("Password updated!")
                 setOpen(false);
@@ -76,7 +77,10 @@ export function FormDialog() {
                         id="prevPassword"
                         label="Previous Password"
                         type="password"
-                        onChange={e => setPassword({prevPassword: e.target.value})}
+                        onChange={e => setPassword({
+                            ...password,
+                            prevPassword: e.target.value
+                        })}
                         fullWidth
                     />
                     <TextField
@@ -85,7 +89,10 @@ export function FormDialog() {
                         id="newPassword"
                         label="New Password"
                         type="password"
-                        onChange={e => setPassword({newPassword: e.target.value})}
+                        onChange={e => setPassword({
+                            ...password,
+                            newPassword: e.target.value
+                        })}
                         fullWidth
                     />
                     <TextField
@@ -94,7 +101,10 @@ export function FormDialog() {
                         id="confPassword"
                         label="Confirm New Password"
                         type="password"
-                        onChange={e => setPassword({confPassword: e.target.value})}
+                        onChange={e => setPassword({
+                            ...password,
+                            confPassword: e.target.value
+                        })}
                         fullWidth
                     />
                 </DialogContent>
