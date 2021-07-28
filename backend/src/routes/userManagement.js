@@ -135,7 +135,7 @@ Router.post('/users/update', (req, res) => {
         if (req.body.password) {
             req.body.password = encrypt(req.body.password)
         }
-        db.query(sql, [req.body], (err, results) => {
+        db.query(sql, [req.body], (err) => {
             if (err) throw err;
             return res.status(201).json({
                 message: "User updated",
