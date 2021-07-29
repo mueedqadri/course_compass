@@ -16,6 +16,7 @@ function FeeAssessment() {
     const [terms, setTerms] = useState([]);
     const [currencyColumns] = useState(['amount']);
     const [rows, setRows] = useState([]);
+    const [coursesAvailable, setAvailable] = useState(true);
 
     const columns = [
         { name: 'id', title: 'Sl. No.' },
@@ -55,15 +56,16 @@ function FeeAssessment() {
 
     async function getFees(termId) {
         await axios.get(`${process.env.REACT_APP_API_END_POINT}/fee/${termId}/1`).then((res) => {
-            console.log(res.data.courseInfo);
-
             let rows = []
             let i = 1;
             for (let courseInfoRow in res.data.courseInfo) {
                 let row = res.data.courseInfo[courseInfoRow]
-                rows.push({id: i++, description: row['title'], amount: row['fee']});
+                rows.push({ id: i++, description: row['title'], amount: row['fee'] });
             }
             setRows(rows)
+            setAvailable(true);
+        }, (error) => {
+            setAvailable(false);
         });
     }
 
@@ -83,7 +85,7 @@ function FeeAssessment() {
     }, []);
 
     return (
-        <div>
+        <div style={{ textAlign: "center" }}>
             <Helmet>
                 <title>Fee Assessment</title>
             </Helmet>
@@ -102,21 +104,24 @@ function FeeAssessment() {
                         })}
                     </Select>
                 </FormControl>
-                <Paper>
-                    <Grid rows={rows} columns={columns}>
-                        <CurrencyTypeProvider for={currencyColumns} />
-                        <SummaryState totalItems={totalSummaryItems} />
-                        <IntegratedSummary />
-                        <Table columnExtensions={tableColumnExtensions} />
-                        <TableHeaderRow />
-                        <TableSummaryRow />
-                    </Grid>
-                    <br />
-                    <Button variant="contained">Download Statement</Button>
-                    <br />
-                    <br />
-                </Paper>
+                {(!coursesAvailable) ? <h2>No Courses selected for the term</h2> :
+                    <Paper>
+                        <Grid rows={rows} columns={columns}>
+                            <CurrencyTypeProvider for={currencyColumns} />
+                            <SummaryState totalItems={totalSummaryItems} />
+                            <IntegratedSummary />
+                            <Table columnExtensions={tableColumnExtensions} />
+                            <TableHeaderRow />
+                            <TableSummaryRow />
+                        </Grid>
+                        <br />
+                        <Button variant="contained">Download Statement</Button>
+                        <br />
+                        <br />
+                    </Paper>
+                }
             </Container>
+
         </div>
     );
 }
