@@ -133,7 +133,8 @@ Router.post('/users/update', (req, res) => {
         const sql = `UPDATE CourseCompass.user SET ? WHERE emailId = '${req.body["emailId"]}'`;
         console.log(req.body)
         if (req.body.password) {
-            req.body.password = encrypt(req.body.password)
+            req.body.password = JSON.stringify(encrypt(req.body.password))
+            console.log(req.body.password)
         }
         db.query(sql, [req.body], (err) => {
             if (err) throw err;
