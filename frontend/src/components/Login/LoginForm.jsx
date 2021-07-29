@@ -62,8 +62,6 @@ export default function LoginForm()  {
     }
 
     const onSubmit = async () => {
-        console.log(user.email)
-        console.log(user.password)
 
         // Authenticate via API
         // const data = {"email" : "jonsnow@westeros.com", "password" : "G@me0fthr0ne5"}
@@ -72,8 +70,10 @@ export default function LoginForm()  {
         console.log(res)
         // check response
         if (res.status === 201) {
+
             const get = await axios.get(`${usersAPI}${user.email}`)
             if (get.status === 200) {
+                console.log(get.data.user)
                 localStorage.setItem('id', get.data.user.userId);
             } else {
                 console.log("Failed to get id")

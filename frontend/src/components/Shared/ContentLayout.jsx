@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     }));
 
 export default function ContentLayout(props)  {
+    console.log(props)
     const classes = useStyles();
     
     return (

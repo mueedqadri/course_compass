@@ -6,17 +6,17 @@ import Paper from '@material-ui/core/Paper';
 import {makeStyles} from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import {deepOrange} from '@material-ui/core/colors';
+import {deepPurple} from '@material-ui/core/colors';
 import '../../css/Custom.css';
 import Schedule from '../Schedule/Schedule';
 import Notifications from '../Notification/Notifications';
-import {getUserInfo} from '../Shared/util';
 
 
 const useStyles = makeStyles((theme) => ({
-    orange: {
-        color: theme.palette.getContrastText(deepOrange[500]),
-        backgroundColor: deepOrange[500],
+  
+    purple: {
+        color: theme.palette.getContrastText(deepPurple[500]),
+        backgroundColor: deepPurple[500],
     },
     extraLarge: {
         width: '5em',
@@ -50,32 +50,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function StudentDashboard() {
-
+export default function StudentDashboard(props) {
     const [user, setUser] = useState({
         bannerId: "",
         emailId: "",
         firstName: "",
         lastName: "",
     });
-
-    useEffect(() => {
-        console.log("Use Effect Triggered")
-        const id = localStorage.getItem('user')
-        if (id) {
-            const userInfo = getUserInfo(id)
-            console.log(userInfo)
-            const { firstName, lastName, bannerId, emailId } = userInfo;
-            setUser({
-                firstName: firstName,
-                lastName: lastName,
-                emailId: emailId,
-                bannerId: bannerId
-            })
-
-        }
-    }, [])
-
+    
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -85,20 +67,20 @@ export default function StudentDashboard() {
                         <Grid container spacing={2} justify="center">
                             <Grid item>
                                 <ButtonBase>
-                                    <Avatar alt="James Bond" src="/broken-image.jpg"
-                                            className={`${classes.orange} ${classes.extraLarge}`}/>
+                                    <Avatar alt={props && props.user ? props.user.firstName:""} src="/broken-image.jpg"
+                                            className={`${classes.purple} ${classes.extraLarge}`}/>
                                 </ButtonBase>
                             </Grid>
                             <Grid item container>
                                 <Grid item xs>
                                     <Typography gutterBottom align="center" variant="h4">
-                                        {user.firstName + " " + user.lastName}
+                                        {props && props.user ? props.user.firstName + " " + props.user.lastName :""}
                                     </Typography>
                                     <Typography align="center" variant="body2" gutterBottom>
-                                        {user.emailId}
+                                        {props && props.user ? props.user.emailId: ""}
                                     </Typography>
                                     <Typography align="center" variant="body2" color="textSecondary">
-                                        {user.bannerId}
+                                        {props.user.bannerId}
                                     </Typography>
                                 </Grid>
                             </Grid>

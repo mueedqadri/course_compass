@@ -1,5 +1,5 @@
 //Front Created by Mueed Qadri
-import React from "react";
+import React, {useEffect, useState} from "react";
 import AppBar from "@material-ui/core/AppBar";
 import {makeStyles} from "@material-ui/core/styles";
 import logo from "../../images/Logo.png";
@@ -7,6 +7,8 @@ import {Grid, Toolbar, Avatar, Button} from "@material-ui/core";
 import {Tabs, Tab} from "@material-ui/core";
 import {useHistory, useLocation} from "react-router-dom";
 import {deepPurple} from '@material-ui/core/colors';
+import axios from "axios";
+import UserAvatar from "../Shared/UserAvatar";
 
 const useStyles = makeStyles((theme) => ({
     row: {
@@ -45,6 +47,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header(props) {
+    const usersAPI = process.env.REACT_APP_API_END_POINT + '/users/'
+    
+    const [user, setUser] = useState({});
+
+    useEffect( () => {
+        getUserInfo().catch();
+    }, [])
+
+    const getUserInfo = async () => {
+        const id = localStorage.getItem('user')
+        if (id) {
+            const res = await axios.get(`${usersAPI}${id}`)
+            if (res.status === 200) {
+                setUser(res.data.user)
+            } 
+        }
+    }
+
     let location = useLocation();
 
     const history = useHistory();
@@ -112,9 +132,9 @@ export default function Header(props) {
                                     </Grid>
                                     <Grid item>
                                         <Grid container direction="row">
-                                            <Button onClick={handleCallToRouter} value="/profile">
-                                                <Avatar className={classes.purple}>OP</Avatar>
-                                            </Button>
+                                            <UserAvatar
+                                                user={props.user}
+                                            />
                                         </Grid>
                                     </Grid>
                                 </Grid>

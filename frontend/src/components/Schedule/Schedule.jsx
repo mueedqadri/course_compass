@@ -214,10 +214,12 @@ export default function Schedule(props) {
             startDayHour={8}
             endDayHour={18}
           />
-          <DayView
+          
+          {!props.showToday && <DayView
             startDayHour={8}
             endDayHour={18}
-          />
+          />}
+          
           <MonthView
 
             timeTableCellComponent={TimeTableCellMonth}

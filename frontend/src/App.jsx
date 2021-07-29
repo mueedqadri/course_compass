@@ -14,19 +14,58 @@ import Fee from './components/Fee/FeeAssessment';
 import CourseDetails from './components/courses/CourseDetails';
 import CourseCriteria from './components/courses/CourseCriteria';
 import StudentDashboard from './components/Dashboard/StudentDashboard';
+import axios from "axios";
 
 export default function App() {
     const [loggedIn, setLoggedIn] = useState(false)
+    const [user, setUser] = useState({
+        firstName: "",
+        lastName: "",
+        emailId: "",
+        bannerId: "",
+        address1: "",
+        address2: "",
+        zip: "",
+        city: "",
+        state: "",
+        country: "",
+    });
 
     useEffect(() => {
         if (localStorage.getItem('token') && localStorage.getItem('user') !== undefined) {
             setLoggedIn(true);
+            getUserInfo(localStorage.getItem('user'));
         }
     }, []);
 
+    const getUserInfo = async (id) => {
+        console.log("Getting user info...")
+        const usersAPI = process.env.REACT_APP_API_END_POINT + '/users/get/'
+        if (id) {
+            await fetch(`${usersAPI}${id}`)
+            .then((res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            })
+            .then((data) => {
+                if (data && data.user) {
+                    console.log(data)
+                    setUser(data.user)
+                }
+            });
+        } else {
+          console.log("Invalid id")
+          return null
+        }
+      }
+
     return (
         <React.StrictMode>
-            <Header show={loggedIn}/>
+            <Header 
+                show={loggedIn}
+                user= {user}
+            />
             {loggedIn ? <Switch>
                     <Route exact path="/register">
                         <Layout
@@ -43,7 +82,10 @@ export default function App() {
                     <Route exact path="/">
 
                         <ContentLayout
-                            content={<StudentDashboard/>}
+                            content={
+                                <StudentDashboard
+                                    user= {user}
+                                />}
                         />
                     </Route>
                     <Route exact path="/schedule">
@@ -59,7 +101,9 @@ export default function App() {
                     </Route>
                     <Route exact path="/profile">
                         <ContentLayout
-                            content={<ProfilePage/>}
+                            content={<ProfilePage
+                                user= {user}
+                            />}
                         />
                     </Route>
                     <Route exact path="/courses">
@@ -89,7 +133,11 @@ export default function App() {
                     </Route>
                     <Route exact path="/dashBoard">
                         <ContentLayout
-                            content={<StudentDashboard/>}
+                            content={ 
+                            <StudentDashboard
+                                user= {user}
+                            />
+                            }
                         />
                     </Route>
                 </Switch>

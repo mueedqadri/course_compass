@@ -66,7 +66,6 @@ export default function RegistrationForm()  {
     }
 
     const onSubmit = async () =>{
-        debugger
         let err ={};
         let open = false;
         for (const prop in user) {
@@ -88,14 +87,10 @@ export default function RegistrationForm()  {
             if (res.data.success && res.status === 201) {
                 // Get userId
                 const user = await axios.get(`${usersAPI}${data.emailId}`)
-                if (user.status === 200) {
-                    localStorage.setItem('id', user.data.user.userId);
-                } else {
+                if (user.status !== 200) {
                     console.log("Failed to get id")
                 }
                 // do if logged in, save logged in state
-                localStorage.setItem('token', res.data.token);
-                localStorage.setItem('user', data.emailId);
                 open = true
                 history.push('/');
                 window.location.reload();
