@@ -62,28 +62,29 @@ export default function LoginForm()  {
     }
 
     const onSubmit = async () => {
-
+        console.log("Start authentication...")
         // Authenticate via API
-        // const data = {"email" : "jonsnow@westeros.com", "password" : "G@me0fthr0ne5"}
         const data = {"emailId" : user.email, "password" : user.password}
+        console.log(data)
         const res = await axios.post(authAPI, data)
-        console.log(res)
+        console.log(res.status)
         // check response
         if (res.status === 201) {
-
             const get = await axios.get(`${usersAPI}${user.email}`)
+            console.log(get)
             if (get.status === 200) {
                 console.log(get.data.user)
                 localStorage.setItem('id', get.data.user.userId);
+                // do if logged in, save logged in state
+                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('user', data.emailId);
+                history.push('/');
+                window.location.reload();
             } else {
                 console.log("Failed to get id")
             }
-            // do if logged in, save logged in state
-            localStorage.setItem('token', res.data.token);
-            localStorage.setItem('user', data.emailId);
-            history.push('/');
-            window.location.reload();
         } else {
+            console.log("Invalid login")
             alert("Invalid login")
         }
 
