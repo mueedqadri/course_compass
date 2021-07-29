@@ -3,10 +3,12 @@ var feeController = {};
 
 feeController.termFee = function (req, res) {
     try {
-        if (req.params.id || req.query.id) {
-            const id = req.params.id ? req.params.id : req.query.id;
-            let sql = 'SELECT * FROM course JOIN user_course WHERE user_course.userId=' + id
-                + ' AND user_course.courseId=course.courseId';
+        if ((req.params.termId || req.query.termId) && (req.params.userId || req.query.userId)) {
+            const termId = req.params.termId ? req.params.termId : req.query.termId;
+            const userId = req.params.userId ? req.params.userId : req.query.userId;
+            let sql = `SELECT title, fee FROM course, user_course, term_course WHERE user_course.userId=${userId} AND user_course.courseId=course.courseId 
+            AND user_course.courseId=term_course.courseId AND term_course.termId=${termId}`;
+
             db.query(sql, function (err, course) {
                 if (err)
                     throw err;

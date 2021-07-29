@@ -49,10 +49,12 @@ function FeeAssessment() {
 
     const handleChange = (event) => {
         setTerm(event.target.value);
+        let termId = event.target.value;
+        getFees(termId);
     };
 
     async function getFees(termId) {
-        await axios.get(`${process.env.REACT_APP_API_END_POINT}/fee/1`).then((res) => {
+        await axios.get(`${process.env.REACT_APP_API_END_POINT}/fee/${termId}/1`).then((res) => {
             console.log(res.data.courseInfo);
 
             let rows = []
