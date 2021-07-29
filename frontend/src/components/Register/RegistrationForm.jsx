@@ -1,4 +1,4 @@
-//Backend Creted by Philemon Lee and Front Created by Mueed Qadri
+//Backend Created by Philemon Lee and Front Created by Mueed Qadri
 import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,8 +13,11 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import '../../css/Custom.css';
 import AlertDialog from '../Shared/AlertDialog';
-import { Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import axios from "axios";
 
+const authAPI = process.env.REACT_APP_API_END_POINT + '/users/create'
+const usersAPI = process.env.REACT_APP_API_END_POINT + '/users/'
 
 const useStyles = makeStyles((theme) => ({
       form: {
@@ -32,6 +35,8 @@ const useStyles = makeStyles((theme) => ({
 
     
 export default function RegistrationForm()  {
+    const history = useHistory();
+
     const [user, setUser] = useState({
         firstName: "",
         lastName: "",
@@ -67,7 +72,7 @@ export default function RegistrationForm()  {
         for (const prop in user) {
             if (Object.hasOwnProperty.call(user, prop)) {
                 const element = user[prop];
-                err[prop] = validateChange(prop, element)[prop];      
+                err[prop] = validateChange(prop, element)[prop];
             }
         }
         if(Object.values(err).every(x => x === null || x === '' || x=== undefined)){
@@ -158,9 +163,9 @@ export default function RegistrationForm()  {
             <Paper  elevation={10}  className={classes.signUp}>
                 {
                     openDialogBox &&
-                    <AlertDialog 
-                        email={"jamebond007@dal.ca"}
-                    ></AlertDialog>
+                    <AlertDialog
+    email={"jamebond007@dal.ca"}
+    />
                 }
                 <CssBaseline />
                 <Typography component="h1" variant="h4">
@@ -178,7 +183,7 @@ export default function RegistrationForm()  {
                                 label="First Name"
                                 autoFocus
                                 onChange={handleChange}
-                                error={errors.firstName ? true : false}
+                                error={!!errors.firstName}
                                 helperText={errors.firstName ?errors.firstName : ""}
                             /> 
                             </Grid>
@@ -191,7 +196,7 @@ export default function RegistrationForm()  {
                                 label="Last Name"
                                 name="lastName"
                                 onChange={handleChange}
-                                error={errors.lastName? true : false}
+                                error={!!errors.lastName}
                                 helperText={errors.lastName ?errors.lastName : ""}
                             />
                             </Grid>
@@ -204,7 +209,7 @@ export default function RegistrationForm()  {
                                 label="University Email"
                                 name="email"
                                 onChange={handleChange}
-                                error={errors.email? true : false}
+                                error={!!errors.email}
                                 helperText={errors.email ?errors.email : ""}
                             />
                             </Grid>
@@ -215,7 +220,7 @@ export default function RegistrationForm()  {
                                     fullWidth
                                     name="password"
                                     label="Password"
-                                    error={errors.password? true : false}
+                                    error={!!errors.password}
                                     onChange={handleChange}
                                     helperText={errors.password ?errors.password : ""}
                                     type={showPassword ? "text" : "password"}
@@ -242,7 +247,7 @@ export default function RegistrationForm()  {
                                     fullWidth
                                     name="confirmPassword"
                                     label="Confirm Password"
-                                    error={errors.confirmPassword? true : false}
+                                    error={!!errors.confirmPassword}
                                     onChange={handleChange}
                                     helperText={errors.confirmPassword ?errors.confirmPassword : ""}
                                     type={showConfirmPassword ? "text" : "password"}

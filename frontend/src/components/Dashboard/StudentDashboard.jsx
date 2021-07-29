@@ -1,56 +1,81 @@
 //Front Created by Mueed Qadri
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import { deepOrange } from '@material-ui/core/colors';
+import {deepOrange} from '@material-ui/core/colors';
 import '../../css/Custom.css';
 import Schedule from '../Schedule/Schedule';
 import Notifications from '../Notification/Notifications';
+import {getUserInfo} from '../Shared/util';
 
 
 const useStyles = makeStyles((theme) => ({
-      orange: {
+    orange: {
         color: theme.palette.getContrastText(deepOrange[500]),
         backgroundColor: deepOrange[500],
-      },
-      extraLarge: {
-          width: '5em',
-          height: '5em'
-      },
-      root: {
+    },
+    extraLarge: {
+        width: '5em',
+        height: '5em'
+    },
+    root: {
         flexGrow: 1,
-      },
-      paper: {
+    },
+    paper: {
         padding: theme.spacing(2),
         margin: 'auto',
-        
+
         borderRadius: 10,
-      },
-      studentDetails: {
+    },
+    studentDetails: {
         padding: theme.spacing(6),
         margin: 'auto',
-        
+
         borderRadius: 10,
-      },
-      image: {
+    },
+    image: {
         width: 128,
         height: 128,
-      },
-      img: {
+    },
+    img: {
         margin: 'auto',
         display: 'block',
         maxWidth: '100%',
         maxHeight: '100%',
-      },
-    }));
+    },
+}));
 
-    
-export default function StudentDashboard()  {
- 
+
+export default function StudentDashboard() {
+
+    const [user, setUser] = useState({
+        bannerId: "",
+        emailId: "",
+        firstName: "",
+        lastName: "",
+    });
+
+    useEffect(() => {
+        console.log("Use Effect Triggered")
+        const id = localStorage.getItem('user')
+        if (id) {
+            const userInfo = getUserInfo(id)
+            console.log(userInfo)
+            const { firstName, lastName, bannerId, emailId } = userInfo;
+            setUser({
+                firstName: firstName,
+                lastName: lastName,
+                emailId: emailId,
+                bannerId: bannerId
+            })
+
+        }
+    }, [])
+
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -59,20 +84,21 @@ export default function StudentDashboard()  {
                     <Paper elevation={2} className={classes.paper}>
                         <Grid container spacing={2} justify="center">
                             <Grid item>
-                                <ButtonBase >
-                                    <Avatar alt="James Bond" src="/broken-image.jpg" className={`${classes.orange} ${classes.extraLarge}` }  />
+                                <ButtonBase>
+                                    <Avatar alt="James Bond" src="/broken-image.jpg"
+                                            className={`${classes.orange} ${classes.extraLarge}`}/>
                                 </ButtonBase>
                             </Grid>
-                            <Grid item  container>
+                            <Grid item container>
                                 <Grid item xs>
                                     <Typography gutterBottom align="center" variant="h4">
-                                        James Bond
+                                        {user.firstName + " " + user.lastName}
                                     </Typography>
                                     <Typography align="center" variant="body2" gutterBottom>
-                                        jamesbond@007.com
+                                        {user.emailId}
                                     </Typography>
                                     <Typography align="center" variant="body2" color="textSecondary">
-                                        B001030114
+                                        {user.bannerId}
                                     </Typography>
                                 </Grid>
                             </Grid>
@@ -80,20 +106,20 @@ export default function StudentDashboard()  {
                     </Paper>
                 </Grid>
                 <Grid item xs={6}>
-                    <Schedule 
-                        height ={500}
-                        viewDefault ={'Day'}
-                        showToday ={false}
-                        showViewSwitch ={false}
+                    <Schedule
+                        height={500}
+                        viewDefault={'Day'}
+                        showToday={false}
+                        showViewSwitch={false}
                     >
 
                     </Schedule>
                 </Grid>
                 <Grid item xs={3}>
-                    <Notifications></Notifications>
+                    <Notifications/>
                 </Grid>
-                
+
             </Grid>
-        </div>    
-    );     
+        </div>
+    );
 }

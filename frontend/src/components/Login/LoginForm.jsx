@@ -1,5 +1,5 @@
-//Backend Creted by Philemon Lee and Front Created by Mueed Qadri
-import React, {useEffect, useState} from 'react';
+//Backend Created by Philemon Lee and Front Created by Mueed Qadri
+import React, {useState} from 'react';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
@@ -16,7 +16,8 @@ import '../../css/Custom.css';
 import AlertDialog from '../Shared/AlertDialog';
 import { Link, useHistory} from "react-router-dom";
 
-const authAPI = 'https://tutorial4-api.herokuapp.com/api/users/login'
+const authAPI = process.env.REACT_APP_API_END_POINT + '/users/login'
+const usersAPI = process.env.REACT_APP_API_END_POINT + '/users/get/'
 
 const useStyles = makeStyles((theme) => ({
       form: {
@@ -45,22 +46,6 @@ export default function LoginForm()  {
     const [openDialogBox, setOpenDialogBox] = useState(false);
     const [errors, setErrors] = useState({});
 
-    const api = async () => {
-        console.log("API triggered")
-        const data = {"email" : "jonsnow@westeros.com", "password" : "G@me0fthr0ne5"}
-        // const data = {"email" : user.email, "password" : user.password}
-        const res = await axios.post(authAPI, data)
-        console.log(res)
-        // check response
-        if (res.data.status && res.status === 200) {
-            // do if logged in, save logged in state
-            localStorage.setItem('token', res.data.token);
-            history.push('/profile');
-        } else {
-            alert("Invalid login")
-        }
-    }
-
     const handleClickShowPassword = (event) => {
         if(event && event.currentTarget &&event.currentTarget.ariaLabel && event.currentTarget.ariaLabel.includes("confirmPassword") ){
             setShowPassword((prevState)=> !prevState);
@@ -69,20 +54,40 @@ export default function LoginForm()  {
 
     const history = useHistory();
 
-    const handleChange = (event)=> {
+    const handleChange = (event) => {
         user[event.target.name] = event.target.value;
         let err = validateChange(event.target.name, event.target.value);
         setUser(user);
         setErrors(err);
     }
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         console.log(user.email)
         console.log(user.password)
 
         // Authenticate via API
+        // const data = {"email" : "jonsnow@westeros.com", "password" : "G@me0fthr0ne5"}
+        const data = {"emailId" : user.email, "password" : user.password}
+        const res = await axios.post(authAPI, data)
+        console.log(res)
+        // check response
+        if (res.status === 201) {
+            const get = await axios.get(`${usersAPI}${user.email}`)
+            if (get.status === 200) {
+                localStorage.setItem('id', get.data.user.userId);
+            } else {
+                console.log("Failed to get id")
+            }
+            // do if logged in, save logged in state
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('user', data.emailId);
+            history.push('/');
+            window.location.reload();
+        } else {
+            alert("Invalid login")
+        }
 
-        let err ={};
+        /*let err ={};
         let open = false;
         for (const prop in user) {
             if (Object.hasOwnProperty.call(user, prop)) {
@@ -99,7 +104,8 @@ export default function LoginForm()  {
 
             history.push('/profile');
         }
-        setOpenDialogBox(open);
+        */
+        // setOpenDialogBox(true);
     }
 
     const validateChange =(fieldName, fieldValue)=> {
@@ -187,7 +193,6 @@ export default function LoginForm()  {
                                 >
                                     Login
                                 </Button>
-                                <Button onClick={api}>API</Button>
                             </Grid>
                         </Grid>
                         <Grid container justify="flex-end">
