@@ -2,7 +2,7 @@ const {encrypt, decrypt, generateToken} = require("../config/encryption");
 const userManagementController = {};
 
 userManagementController.create = function (req, res) {
-    const body = req.body;
+    const {body} = req;
     if (body["password"] && body["emailId"]) {
         try {
             const col = Object.keys(body).toString()

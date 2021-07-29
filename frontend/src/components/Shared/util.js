@@ -15,7 +15,7 @@ export const getWeekData = (meetingTime) => {
 
 export const getUserInfo = async (id) => {
   console.log("Getting user info...")
-  const usersAPI = process.env.REACT_APP_API_END_POINT + '/users/'
+  const usersAPI = process.env.REACT_APP_API_END_POINT + '/users/get/'
   if (id) {
     const res = await axios.get(`${usersAPI}${id}`)
     // check response

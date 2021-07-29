@@ -17,7 +17,7 @@ import AlertDialog from '../Shared/AlertDialog';
 import { Link, useHistory} from "react-router-dom";
 
 const authAPI = process.env.REACT_APP_API_END_POINT + '/users/login'
-const usersAPI = process.env.REACT_APP_API_END_POINT + '/users/'
+const usersAPI = process.env.REACT_APP_API_END_POINT + '/users/get/'
 
 const useStyles = makeStyles((theme) => ({
       form: {

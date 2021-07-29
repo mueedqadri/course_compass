@@ -55,7 +55,7 @@ export default function ProfilePage()  {
     console.log("Profile Page loading...")
 
     // const usersAPI = 'https://course-compass-group9.herokuapp.com/users/'
-    const usersAPI = process.env.REACT_APP_API_END_POINT + '/users/'
+    const usersAPI = process.env.REACT_APP_API_END_POINT + '/users/get/'
     const updateAPI = process.env.REACT_APP_API_END_POINT + '/users/update'
 
     const [user, setUser] = useState({
