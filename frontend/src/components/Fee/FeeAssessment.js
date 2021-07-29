@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
@@ -9,10 +9,13 @@ import FormControl from '@material-ui/core/FormControl';
 import { DataTypeProvider, SummaryState, IntegratedSummary } from '@devexpress/dx-react-grid';
 import { Grid, Table, TableHeaderRow, TableSummaryRow } from '@devexpress/dx-react-grid-material-ui';
 import Helmet from 'react-helmet';
+import axios from 'axios';
 
 function FeeAssessment() {
-    const [term, setTerm] = useState(10);
+    const [term, setTerm] = useState('');
+    const [terms, setTerms] = useState([]);
     const [currencyColumns] = useState(['amount']);
+    const [rows, setRows] = useState([]);
 
     const columns = [
         { name: 'id', title: 'Sl. No.' },
@@ -26,14 +29,6 @@ function FeeAssessment() {
         { columnName: 'description', width: 'auto' },
         { columnName: 'amount', align: 'right' }
     ]);
-
-    const rows = [
-        { id: '1', description: 'Student Union', amount: 75.78 },
-        { id: '2', description: 'Bus Pass Fee', amount: 81.35 },
-        { id: '3', description: 'International Tuition Fee', amount: 4980.00 },
-        { id: '4', description: 'Grad. Society Fee', amount: 20.00 },
-        { id: '5', description: 'Grad. Comp. Sci. Fee', amount: 3348.00 }
-    ];
 
     const CurrencyFormatter = ({ value }) => (
         <b style={{ color: 'darkgreen' }}>
@@ -50,11 +45,40 @@ function FeeAssessment() {
 
     const [totalSummaryItems] = useState([
         { columnName: 'amount', type: 'sum' }
-      ]);
+    ]);
 
     const handleChange = (event) => {
         setTerm(event.target.value);
     };
+
+    async function getFees(termId) {
+        await axios.get(`${process.env.REACT_APP_API_END_POINT}/fee/1`).then((res) => {
+            console.log(res.data.courseInfo);
+
+            let rows = []
+            let i = 1;
+            for (let courseInfoRow in res.data.courseInfo) {
+                let row = res.data.courseInfo[courseInfoRow]
+                rows.push({id: i++, description: row['title'], amount: row['fee']});
+            }
+            setRows(rows)
+        });
+    }
+
+    const onLoadFees = (termId) => {
+        getFees(termId);
+    };
+
+    useEffect(() => {
+        async function getTerms() {
+            await axios.get(`${process.env.REACT_APP_API_END_POINT}/grade_terms/1`).then((res) => {
+                setTerms(res.data.data);
+                setTerm(res.data.data[0]['termid']);
+                onLoadFees(res.data.data[0]['termid']);
+            });
+        }
+        getTerms();
+    }, []);
 
     return (
         <div>
@@ -65,11 +89,15 @@ function FeeAssessment() {
                 <h1>Fee Assessment</h1>
                 <p>Displays the fee charged for the selected term. Please make sure, the courses are added for the term you are selecting.</p>
                 <FormControl id="term-selector">
-                    <InputLabel>Term</InputLabel>
-                    <Select value={term} onChange={handleChange}>
-                        <MenuItem value={10}>Summer 2021</MenuItem>
-                        <MenuItem value={20}>Fall 2021</MenuItem>
-                        <MenuItem value={30}>Winter 2022</MenuItem>
+                    <InputLabel>Select Term</InputLabel>
+                    <Select value={term} displayEmpty onChange={handleChange}>
+                        {terms?.map((item) => {
+                            return (
+                                <MenuItem key={item['termid']} value={item['termid']}>
+                                    {item['term']}
+                                </MenuItem>
+                            );
+                        })}
                     </Select>
                 </FormControl>
                 <Paper>
