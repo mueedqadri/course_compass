@@ -94,6 +94,8 @@ export default function RegistrationForm()  {
                 open = true
                 history.push('/');
                 window.location.reload();
+            } else if (!res.data.success && res.status === 400) {
+                alert(res.data.message)
             } else {
                 setErrors(err);
                 setOpenDialogBox(false);

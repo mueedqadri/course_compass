@@ -5,22 +5,35 @@ userManagementController.create = function (req, res) {
     const {body} = req;
     if (body["password"] && body["emailId"]) {
         try {
-            const col = Object.keys(body).toString()
-            const sql = `INSERT INTO CourseCompass.user (${col}) VALUES ?;`;
-            body["password"] = JSON.stringify(encrypt(body["password"]))
-            console.log(sql)
-            console.log(Object.values(body))
-            db.query(sql, [[Object.values(body)]], (err, results) => {
+            db.query(`SELECT emailId FROM CourseCompass.user WHERE emailId = '${body["emailId"]}';`, (err, results) => {
+                console.log("verifying...")
                 if (err) throw err;
-                console.log(results)
-                return res.status(201).json({
-                    message: "User created",
-                    success: true,
-                    token: generateToken(body["emailId"])
-                })
+                if (results && results) {
+                    console.log("Results: " + results[0].emailId)
+                    return res.status(400).json({
+                        message: "User exists already",
+                        success: false,
+                    })
+                } else {
+                    console.log("No id found")
+                    const col = Object.keys(body).toString()
+                    const sql = `INSERT INTO CourseCompass.user (${col}) VALUES ?;`;
+                    body["password"] = JSON.stringify(encrypt(body["password"]))
+                    console.log(sql)
+                    console.log(Object.values(body))
+                    db.query(sql, [[Object.values(body)]], (err, results) => {
+                        if (err) throw err;
+                        console.log(results)
+                        return res.status(201).json({
+                            message: "User created",
+                            success: true,
+                            token: generateToken(body["emailId"])
+                        })
+                    })
+                }
             })
         } catch (ex) {
-            res.status(500).json({
+            return res.status(500).json({
                 success: false,
                 message: "Internal Server Error"
             });
