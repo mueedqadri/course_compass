@@ -66,27 +66,21 @@ export default function LoginForm()  {
         // Authenticate via API
         const data = {"emailId" : user.email, "password" : user.password}
         console.log(data)
-        const res = await axios.post(authAPI, data)
-        console.log(res.status)
-        // check response
-        if (res.status === 201) {
-            const get = await axios.get(`${usersAPI}${user.email}`)
-            console.log(get)
-            if (get.status === 200) {
-                console.log(get.data.user)
-                localStorage.setItem('id', get.data.user.userId);
+        await axios.post(authAPI, data).then( async res => {
+            console.log(res)
+            // check response
+            if (res.status === 200) {
+                localStorage.setItem('id', res.data.userId);
                 // do if logged in, save logged in state
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('user', data.emailId);
                 history.push('/');
                 window.location.reload();
             } else {
-                console.log("Failed to get id")
+                console.log("Invalid login")
+                alert("Invalid login")
             }
-        } else {
-            console.log("Invalid login")
-            alert("Invalid login")
-        }
+        })
 
         /*let err ={};
         let open = false;

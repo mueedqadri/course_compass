@@ -51,29 +51,8 @@ userManagementController.authenticate = function (req, res) {
     console.log("Authentication started...")
     console.log(emailId)
     console.log(password)
-    const success = () =>
-        res.status(200).json({
-            message: "User authenticated",
-            success: true,
-            token: generateToken(emailId)
-        })
-    const invalidUser = () =>
-        res.status(404).json({
-            message: "User not found",
-            success: false
-        })
-    const invalidPassword = () =>
-        res.status(404).json({
-            message: "Invalid password",
-            success: false
-        })
-    const internalServerError = () =>
-        res.status(500).json({
-            success: false,
-            message: "Internal Server Error"
-        })
     try {
-        const sql = `SELECT password FROM CourseCompass.user WHERE emailId = '${emailId}';`;
+        const sql = `SELECT password, userId FROM CourseCompass.user WHERE emailId = '${emailId}';`;
         db.query(sql, (err, results) => {
             if (err) throw err;
             if (results) {
@@ -82,18 +61,32 @@ userManagementController.authenticate = function (req, res) {
                 // console.log(hash)
                 if (decrypt(hash) === password) {
                     console.log("Success")
-                    return success()
+                    return res.status(200).json({
+                        message: "User authenticated",
+                        success: true,
+                        id: results[0].userId,
+                        token: generateToken(emailId)
+                    })
                 } else {
                     console.log("Invalid password")
-                    return invalidPassword()
+                    return res.status(404).json({
+                        message: "Invalid password",
+                        success: false
+                    })
                 }
             } else {
                 console.log("Invalid user")
-                return invalidUser()
+                return res.status(404).json({
+                    message: "User not found",
+                    success: false
+                })
             }
         })
     } catch (ex) {
-        return internalServerError()
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        })
     }
 }
 
