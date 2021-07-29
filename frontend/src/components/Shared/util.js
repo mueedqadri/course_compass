@@ -22,7 +22,9 @@ export const getUserInfo = async (id) => {
     if (res.status === 200) {
       // do if logged in, save logged in state
       // console.log(res.data.user)
-      return await res.data.user
+      return res.data.user.then(
+          (data) => {return data}
+      )
     } else {
       console.log("failed to get state")
       return null;

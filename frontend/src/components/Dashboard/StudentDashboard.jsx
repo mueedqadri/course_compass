@@ -65,18 +65,14 @@ export default function StudentDashboard() {
         if (id) {
             const userInfo = getUserInfo(id)
             console.log(userInfo)
-            userInfo.then((data) => {
-                    console.log(data)
-                    console.log(data.firstName)
-                    const { firstName, lastName, bannerId, emailId } = data;
-                    setUser({
-                        firstName: firstName,
-                        lastName: lastName,
-                        emailId: emailId,
-                        bannerId: bannerId
-                    })
-                }
-            )
+            const { firstName, lastName, bannerId, emailId } = userInfo;
+            setUser({
+                firstName: firstName,
+                lastName: lastName,
+                emailId: emailId,
+                bannerId: bannerId
+            })
+
         }
     }, [])
 

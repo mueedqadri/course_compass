@@ -42,7 +42,7 @@ userManagementController.authenticate = function (req, res) {
         res.status(201).json({
             message: "User authenticated",
             success: true,
-            token: generateAccessToken(emailId)
+            token: generateToken(emailId)
         })
     const invalidUser = () =>
         res.status(201).json({
