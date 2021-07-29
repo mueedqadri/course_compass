@@ -14,7 +14,6 @@ import Fee from './components/Fee/FeeAssessment';
 import CourseDetails from './components/courses/CourseDetails';
 import CourseCriteria from './components/courses/CourseCriteria';
 import StudentDashboard from './components/Dashboard/StudentDashboard';
-import axios from "axios";
 
 export default function App() {
     const [loggedIn, setLoggedIn] = useState(false)

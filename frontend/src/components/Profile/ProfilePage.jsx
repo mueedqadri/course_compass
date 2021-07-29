@@ -130,7 +130,7 @@ export default function ProfilePage() {
               <Grid item container>
                 <Grid item xs>
                   <Typography gutterBottom align="center" variant="h4">
-                    {user ? user.firstName : "no user"}
+                    {user ? (user.firstName + " " + user.lastName) : "no user"}
                   </Typography>
                   <Typography align="center" variant="body2" gutterBottom>
                     {user ? user.emailId : "no email"}
