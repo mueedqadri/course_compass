@@ -2,8 +2,14 @@ const crypto = require('crypto');
 const algorithm = 'aes-256-ctr';
 const secretKey = 'vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3';
 const iv = crypto.randomBytes(16);
+const tokenSecret = crypto.randomBytes(64).toString('hex')
+const jwt = require('jsonwebtoken');
 
-export const encrypt = (text) => {
+function generateToken(username) {
+    return jwt.sign(username, tokenSecret);
+}
+
+function encrypt(text) {
 
     const cipher = crypto.createCipheriv(algorithm, secretKey, iv);
 
@@ -15,7 +21,7 @@ export const encrypt = (text) => {
     };
 };
 
-export const decrypt = (hash) => {
+function decrypt(hash) {
 
     const decipher = crypto.createDecipheriv(algorithm, secretKey, Buffer.from(hash.iv, 'hex'));
 
@@ -23,3 +29,5 @@ export const decrypt = (hash) => {
 
     return decrypted.toString();
 };
+
+module.exports = {generateToken, encrypt, decrypt}
