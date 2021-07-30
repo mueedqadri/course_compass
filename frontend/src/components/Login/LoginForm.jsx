@@ -17,6 +17,7 @@ import AlertDialog from '../Shared/AlertDialog';
 import { Link, useHistory} from "react-router-dom";
 
 const authAPI = process.env.REACT_APP_API_END_POINT + '/users/login'
+const usersAPI = process.env.REACT_APP_API_END_POINT + '/users/get/'
 
 const useStyles = makeStyles((theme) => ({
       form: {
@@ -35,14 +36,10 @@ const useStyles = makeStyles((theme) => ({
     
 export default function LoginForm()  {
     const [user, setUser] = useState({
-        firstName: "",
-        lastName: "",
         email: "", 
         password: "",
-        confirmPassword: ""
     });
     const [showPassword, setShowPassword] = useState(false);
-    const [openDialogBox, setOpenDialogBox] = useState(false);
     const [errors, setErrors] = useState({});
 
     const handleClickShowPassword = (event) => {
@@ -61,51 +58,65 @@ export default function LoginForm()  {
     }
 
     const onSubmit = async () => {
-        // Validate input
-        let err = {};
+        let err ={};
+        debugger
         for (const prop in user) {
             if (Object.hasOwnProperty.call(user, prop)) {
                 const element = user[prop];
-                err[prop] = validateChange(prop, element)[prop];
+                err[prop] = validateChange(prop, element)[prop];      
             }
+        }
+        if(Object.values(err).every(x => x === null || x === '' || x=== undefined)){
+
+            // check response
+            const data = {"emailId" : user.email, "password" : user.password};
+            await fetch(authAPI, {
+                method: 'POST',
+                body: JSON.stringify(data) ,
+                headers:{          
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  }
+            }).then(response =>{
+                if(response.status == 200){
+                    return response.json();
+                }else if(response.status == 201){
+                    err.email = "User id does not exist";
+                } else if(response.status ==404){
+                    err.password = "Invalid Password"
+                } else {
+                    err.email = "Unknown Error"
+                }
+                
+            }).then((data) => {
+                if(data){
+                    localStorage.setItem('id', data.userId);
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', data.emailId);
+                    history.push('/');
+                    window.location.reload();
+                }
+            })
         }
         setErrors(err);
-
-        // Authenticate via API
-        const data = {"emailId" : user.email, "password" : user.password}
-        const res = await axios.post(authAPI, data)
-        console.log(res)
-        // check response
-        if (res.status === 200) {
-            // do if logged in, save logged in state
-            if (res.data.success === true) {
-                console.log("login successful")
-                localStorage.setItem('id', res.data.userId);
-                localStorage.setItem('token', res.data.token);
-                localStorage.setItem('user', data.emailId);
-                setOpenDialogBox(true)
-                history.push('/');
-                window.location.reload();
-            } else {
-                alert("Authentication failed")
-            }
-        } else {
-            alert("Invalid request")
-        }
     }
 
     const validateChange =(fieldName, fieldValue)=> {
         let err = {};
         switch(fieldName) {
             case 'email':
-                if (!fieldName) {
+                if (!fieldValue) {
                     err.email = "Enter your Email";
                 }
                 else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fieldValue)) {
                     err.email = "Enter a valid email id";
                 }
-            break;
-            default:
+                break;
+            case 'password':
+                if (!fieldValue) {
+                    err.password = "Password Cannot be empty";
+                }
+                break;
         }
         if (Object.getOwnPropertyNames(err).length !== 0) {
         }
@@ -116,10 +127,6 @@ export default function LoginForm()  {
     return (
         <div>
             <Paper  elevation={10}  className={classes.signUp}>
-                {
-                    openDialogBox &&
-                    <AlertDialog email={"jamebond007@dal.ca"}/>
-                }
                 <Typography component="h1" variant="h4">
                     Login
                 </Typography>
