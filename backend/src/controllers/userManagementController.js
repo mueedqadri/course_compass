@@ -38,11 +38,12 @@ userManagementController.authenticate = function (req, res) {
     console.log("Authentication started...")
     console.log(emailId)
     console.log(password)
-    const success = () =>
-        res.status(201).json({
+    const success = (id) =>
+        res.status(200).json({
             message: "User authenticated",
             success: true,
-            token: generateToken(emailId)
+            token: generateToken(emailId),
+            userId: id
         })
     const invalidUser = () =>
         res.status(201).json({
@@ -60,16 +61,15 @@ userManagementController.authenticate = function (req, res) {
             message: "Internal Server Error"
         })
     try {
-        const sql = `SELECT password FROM CourseCompass.user WHERE emailId = '${emailId}';`;
+        const sql = `SELECT userId, password FROM CourseCompass.user WHERE emailId = '${emailId}';`;
         db.query(sql, (err, results) => {
             if (err) throw err;
-            if (results) {
-                // console.log(results[0].password)
+            if (results.length) {
+                console.log(results)
                 const hash = JSON.parse(results[0].password);
-                // console.log(hash)
                 if (decrypt(hash) === password) {
                     console.log("Success")
-                    return success()
+                    return success(results[0].userId)
                 } else {
                     console.log("Invalid password")
                     return invalidPassword()
@@ -90,7 +90,7 @@ userManagementController.get = function (req, res) {
         if (req.params.id || req.query.id) {
             const id = req.params.id ? req.params.id : req.query.id;
             console.log(id);
-            let sql = `SELECT * FROM CourseCompass.user WHERE emailId = '${id}';`;
+            let sql = `SELECT * FROM CourseCompass.user WHERE userId = ${id};`;
             console.log(sql);
             db.query(sql, function (err, users) {
                 if (err) throw err;

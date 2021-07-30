@@ -51,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ProfilePage() {
-  // const usersAPI = 'https://course-compass-group9.herokuapp.com/users/'
   const usersAPI = process.env.REACT_APP_API_END_POINT + "/users/get/";
   const updateAPI = process.env.REACT_APP_API_END_POINT + "/users/update";
 
@@ -71,7 +70,7 @@ export default function ProfilePage() {
   // State for updating user info
 
   const getUserInfo = async () => {
-    const id = localStorage.getItem("user");
+    const id = localStorage.getItem("id");
     if (id) {
       const res = await axios.get(`${usersAPI}${id}`);
       // check response
