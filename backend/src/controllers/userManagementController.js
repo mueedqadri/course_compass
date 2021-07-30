@@ -34,7 +34,7 @@ userManagementController.create = function (req, res) {
         }
     } else {
         return res.status(404).json({
-            message: "Invalid input",
+            message: "Invalid body",
             success: false
         })
     }
