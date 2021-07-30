@@ -103,7 +103,8 @@ function Transcripts() {
                 const pdf = new jsPDF();
                 pdf.addImage(dataUrl, 'PNG', 0, 0);
                 pdf.save("uTranscripts.pdf");
-                setDisplayStatus('none')
+                setGrades([])
+                //setDisplayStatus('none')
             });
     };
 
@@ -204,7 +205,7 @@ function Transcripts() {
             <Box my="3rem" />
             {/* The below will let students download unofficial transcripts. */}
             <Typography variant="subtitle1" color="primary" style={{ display: 'flex' }}>
-                <Box color="red" mx={0.5} onClick={downloadTranscripts}>Click here</Box> if you want to downlod unofficial transcripts
+                <Box color="red" mx={0.5} onClick={downloadTranscripts}>Click here</Box> if you want to download unofficial transcripts
             </Typography>
 
             {grades.length ? <TableContainer component={Paper} id="uofficialTranscripts" style={{ display: displayStatus }}>
