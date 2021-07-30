@@ -10,6 +10,7 @@ import { DataTypeProvider, SummaryState, IntegratedSummary } from '@devexpress/d
 import { Grid, Table, TableHeaderRow, TableSummaryRow } from '@devexpress/dx-react-grid-material-ui';
 import Helmet from 'react-helmet';
 import axios from 'axios';
+import Pdf from "react-to-pdf";
 
 function FeeAssessment() {
     const [term, setTerm] = useState('');
@@ -84,6 +85,13 @@ function FeeAssessment() {
         getTerms();
     }, []);
 
+    const ref = React.createRef();
+    const options = {
+        orientation: 'landscape',
+        unit: 'in',
+        format: [9, window.innerWidth / 116]
+    };
+
     return (
         <div style={{ textAlign: "center" }}>
             <Helmet>
@@ -103,25 +111,30 @@ function FeeAssessment() {
                             );
                         })}
                     </Select>
+                    <br />
                 </FormControl>
                 {(!coursesAvailable) ? <h2>No Courses selected for the term</h2> :
-                    <Paper>
-                        <Grid rows={rows} columns={columns}>
-                            <CurrencyTypeProvider for={currencyColumns} />
-                            <SummaryState totalItems={totalSummaryItems} />
-                            <IntegratedSummary />
-                            <Table columnExtensions={tableColumnExtensions} />
-                            <TableHeaderRow />
-                            <TableSummaryRow />
-                        </Grid>
+                    <div>
+                        <Paper ref={ref}>
+                            <Grid rows={rows} columns={columns}>
+                                <CurrencyTypeProvider for={currencyColumns} />
+                                <SummaryState totalItems={totalSummaryItems} />
+                                <IntegratedSummary />
+                                <Table columnExtensions={tableColumnExtensions} />
+                                <TableHeaderRow />
+                                <TableSummaryRow />
+                            </Grid>
+                        </Paper>
                         <br />
-                        <Button variant="contained">Download Statement</Button>
+                        <Pdf targetRef={ref} filename="Statement.pdf" options={options}>
+                            {({ toPdf }) => (
+                                <Button variant="contained" onClick={toPdf}>Download Statement</Button>
+                            )}
+                        </Pdf>
                         <br />
-                        <br />
-                    </Paper>
+                    </div>
                 }
             </Container>
-
         </div>
     );
 }

@@ -25,6 +25,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-select-country-list": "^2.2.3",
+    "react-to-pdf": "^0.0.14",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
