@@ -75,7 +75,7 @@ export default function CourseDetails(props) {
   // Get all the courses that a user is registered for
   const getRegisteredCourse = async () => {
     let courseObjList = [];
-    await fetch(`${process.env.REACT_APP_API_END_POINT}/user_courses/${1}`)
+    await fetch(`${process.env.REACT_APP_API_END_POINT}/user_courses/${sessionStorage.getItem('id')}`)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -114,7 +114,7 @@ export default function CourseDetails(props) {
   //Call backend to fetch the list of courses and bind to the user interface
   const getAllCourses = async ()=>{
     let courseObjList = [];
-    await fetch(`${process.env.REACT_APP_API_END_POINT}/courses/${term}/${departments}/${1}`)
+    await fetch(`${process.env.REACT_APP_API_END_POINT}/courses/${term}/${departments}/${sessionStorage.getItem('id')}`)
       .then((res) => {
         if (res.ok) {
           return res.json();

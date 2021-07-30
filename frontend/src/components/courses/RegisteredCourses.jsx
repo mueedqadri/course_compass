@@ -35,7 +35,7 @@ function Courses(props) {
 
   //Call backend to drop a course
   const dropCourse=()=>{
-    fetch(`${process.env.REACT_APP_API_END_POINT}/courses/delete/${1}/${chipToDelete.id}`, {
+    fetch(`${process.env.REACT_APP_API_END_POINT}/courses/delete/${sessionStorage.getItem('id')}/${chipToDelete.id}`, {
       method: 'DELETE',
     })
     .then(response =>{
@@ -102,7 +102,7 @@ function Courses(props) {
   //After performing all the validations add the course to the user
   const addCourse = ()=>{
     let data = {
-        "userId":1,
+        "userId":sessionStorage.getItem('id'),
         "courseId":parseInt(props.courseToAdd[0].id) 
     };
     fetch(`${process.env.REACT_APP_API_END_POINT}/courses/add/`, {

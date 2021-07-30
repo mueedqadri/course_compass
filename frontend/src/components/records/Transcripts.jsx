@@ -23,6 +23,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { useSnackbar } from "notistack";
 
 const countries = countryList().getData();
 
@@ -45,6 +46,8 @@ function createData(term, name, title, grade, attempted, earned) {
 
 function Transcripts() {
     const classes = useStyles();
+
+    const { enqueueSnackbar } = useSnackbar();
 
     //states for all form elements
     const [country, setCountry] = React.useState('AF');
@@ -108,14 +111,16 @@ function Transcripts() {
     const handleSubmit = event => {
         event.preventDefault();
         if (!bannerid || !copies || !address || !city || !state || !zip) {
-            alert("Please fill in all the details")
+            
+            enqueueSnackbar('Please fill in all the details', { variant :'warning' });
         } else {
             axios.post(`${process.env.REACT_APP_API_END_POINT}/transcripts/add`, { bannerid, copies, address, city, state, zip, country })
                 .then(res => {
                     if (res.data.success) {
-                        alert("Request sent successfully. Please wait for a confirmation from the department.")
+                        enqueueSnackbar('Request sent successfully. Please wait for a confirmation from the department', { variant :'success' });
                     } else {
-                        alert("We are unable to handle the request right now. Please try again later");
+                        
+                        enqueueSnackbar('We are unable to handle the request right now. Please try again later', { variant :'error' });
                     }
                 })
         }

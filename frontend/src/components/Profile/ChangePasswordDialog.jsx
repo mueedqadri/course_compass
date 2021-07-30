@@ -7,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {VpnKey} from "@material-ui/icons";
 import axios from "axios";
+import { useSnackbar } from "notistack";
 
 const authAPI = process.env.REACT_APP_API_END_POINT + '/users/login'
 
@@ -18,6 +19,8 @@ export function FormDialog() {
         newPassword: "",
         confPassword: "",
     });
+    
+  const { enqueueSnackbar } = useSnackbar();
 
     const handleSubmit = async () => {
         // Authenticate user
@@ -26,25 +29,23 @@ export function FormDialog() {
         let userAuth = false;
         if (id) {
             const data = {"emailId": id, "password": password.prevPassword}
-            console.log(data)
             const res = await axios.post(authAPI, data)
-            console.log(password.newPassword)
             // check response
             if (res.status === 201 && res.data.success === true) {
                 userAuth = true;
             } else {
-                alert("Invalid login")
+                enqueueSnackbar('Invalid login', { variant :'error' });
             }
         if (userAuth && password.newPassword !== "" && password.newPassword === password.confPassword) {
             const updateAPI = process.env.REACT_APP_API_END_POINT + '/users/update'
             // const updateAPI = 'http://localhost:4000/users/update'
             const res = await axios.post(updateAPI, {"emailId": id, "password": password.newPassword})
             if (res.status === 201) {
-                alert("Password updated!")
+                enqueueSnackbar('Password Updates!', { variant :'success' });
                 setOpen(false);
                 window.location.reload();
             } else {
-                alert("Update failed")
+                enqueueSnackbar('Update Failed', { variant :'error' });
             }
         }
         }

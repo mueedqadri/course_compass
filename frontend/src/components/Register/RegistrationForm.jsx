@@ -14,6 +14,8 @@ import {makeStyles} from '@material-ui/core/styles';
 import '../../css/Custom.css';
 import {Link, useHistory} from "react-router-dom";
 import axios from "axios";
+import { useSnackbar } from "notistack";
+
 
 const authAPI = process.env.REACT_APP_API_END_POINT + '/users/create'
 
@@ -34,6 +36,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function RegistrationForm() {
     const history = useHistory();
+
+    const { enqueueSnackbar } = useSnackbar();
 
     const [user, setUser] = useState({
         firstName: "",
@@ -79,7 +83,8 @@ export default function RegistrationForm() {
             await axios.post(authAPI, data)
                 .then(response => {
                     if (response.data.success) {
-                        alert("Account created! Please login.")
+                        
+                        enqueueSnackbar('Account created! Please login.', { variant :'success' });
                         history.push('/');
                         window.location.reload();
                     } else {

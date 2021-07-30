@@ -89,7 +89,7 @@ export default function StudentDashboard(props) {
                 </Grid>
                 <Grid item xs={6}>
                     <Schedule
-                        height={500}
+                        height={600}
                         viewDefault={'Day'}
                         showToday={false}
                         showViewSwitch={false}
