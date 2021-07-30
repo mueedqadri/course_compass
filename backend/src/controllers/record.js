@@ -74,32 +74,47 @@ recordController.postTranscripts = function (req, res) {
     const state = req.body.state;
     const zip = req.body.zip;
     const country = req.body.country;
+    let transcriptCount = 0;
 
-    console.log(bannerid, copies, address, city, state, zip, country)
 
     if (bannerid && copies && address && city && state && zip && country) {
-        console.log("request in here")
 
+        let sqlVerifyTranscripts = `select COUNT(*) AS transcriptsCount from transcripts where bannerid = '${bannerid}'`;
+        db.query(sqlVerifyTranscripts, function (err, rows, fields) {
+            if (err) throw err;
 
-        let sql = `INSERT INTO transcripts (bannerid, copies,address,city,state,zip,country) VALUES('${bannerid}' ,'${copies}','${address}','${city}','${state}','${zip}','${country}' )`;
-        console.log(sql);
-        db.query(sql, function (err) {
-            try {
-                if (err) {
-                    throw err;
-                }
+            transcriptCount =
+                rows[0].transcriptsCount;
+
+            if (transcriptCount == 0) {
+                let sql = `INSERT INTO transcripts (bannerid, copies,address,city,state,zip,country) VALUES('${bannerid}' ,'${copies}','${address}','${city}','${state}','${zip}','${country}' )`;
+                db.query(sql, function (err) {
+                    try {
+                        if (err) {
+                            throw err;
+                        }
+                        return res.status(201).json({
+                            success: true,
+                            message: "Transcripts request sent!"
+                        });
+                    } catch (error) {
+                        console.log(error)
+                        return res.status(500).json({
+                            success: false,
+                            message: "Internal Server Error"
+                        });
+                    }
+                })
+            } else {
                 return res.status(201).json({
-                    success: true,
-                    message: "Transcripts request sent!"
-                });
-            } catch (error) {
-                console.log(error)
-                return res.status(500).json({
                     success: false,
-                    message: "Internal Server Error"
+                    message: `Transcripts are already requested by user  ${bannerid}`
                 });
             }
-        })
+
+
+        });
+
 
     }
     else {

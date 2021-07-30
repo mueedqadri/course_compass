@@ -87,7 +87,7 @@ function Transcripts() {
     //Download unofficial transcripts
     const downloadTranscripts = async () => {
 
-        await axios.get(`${process.env.REACT_APP_API_END_POINT}/all_grades/1`).then((res) => {
+        await axios.get(`${process.env.REACT_APP_API_END_POINT}/all_grades/${sessionStorage.getItem('id')}`).then((res) => {
 
             let rows = []
             for (let resDataRow in res.data.data) {
@@ -111,16 +111,16 @@ function Transcripts() {
     const handleSubmit = event => {
         event.preventDefault();
         if (!bannerid || !copies || !address || !city || !state || !zip) {
-            
-            enqueueSnackbar('Please fill in all the details', { variant :'warning' });
+
+            enqueueSnackbar('Please fill in all the details', { variant: 'warning' });
         } else {
             axios.post(`${process.env.REACT_APP_API_END_POINT}/transcripts/add`, { bannerid, copies, address, city, state, zip, country })
                 .then(res => {
                     if (res.data.success) {
-                        enqueueSnackbar('Request sent successfully. Please wait for a confirmation from the department', { variant :'success' });
+                        enqueueSnackbar('Request sent successfully. Please wait for a confirmation from the department', { variant: 'success' });
                     } else {
-                        
-                        enqueueSnackbar('We are unable to handle the request right now. Please try again later', { variant :'error' });
+
+                        enqueueSnackbar(res.data.message, { variant: 'error' });
                     }
                 })
         }
