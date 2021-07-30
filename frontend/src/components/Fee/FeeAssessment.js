@@ -56,7 +56,7 @@ function FeeAssessment() {
     };
 
     async function getFees(termId) {
-        await axios.get(`${process.env.REACT_APP_API_END_POINT}/fee/${termId}/1`).then((res) => {
+        await axios.get(`${process.env.REACT_APP_API_END_POINT}/fee/${termId}/${sessionStorage.getItem('id')}`).then((res) => {
             let rows = []
             let i = 1;
             for (let courseInfoRow in res.data.courseInfo) {
@@ -76,7 +76,7 @@ function FeeAssessment() {
 
     useEffect(() => {
         async function getTerms() {
-            await axios.get(`${process.env.REACT_APP_API_END_POINT}/grade_terms/1`).then((res) => {
+            await axios.get(`${process.env.REACT_APP_API_END_POINT}/grade_terms/${sessionStorage.getItem('id')}`).then((res) => {
                 setTerms(res.data.data);
                 setTerm(res.data.data[0]['termid']);
                 onLoadFees(res.data.data[0]['termid']);
