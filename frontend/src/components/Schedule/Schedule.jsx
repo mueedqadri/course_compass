@@ -23,6 +23,7 @@ import { useState, useEffect } from 'react';
 import {
   pink, purple, teal, amber, deepOrange,
 } from '@material-ui/core/colors';
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles(theme => ({
   todayCell: {
@@ -111,11 +112,13 @@ export default function Schedule(props) {
     instances: resourcesData,
   }];
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const classes = useStyles();
 
   useEffect(() => {
     async function fetchData() {
-      await Axios.get(process.env.REACT_APP_API_END_POINT + '/schedule/1').then((res) => {
+      await Axios.get(process.env.REACT_APP_API_END_POINT + '/schedule/'+sessionStorage.getItem('id')).then((res) => {
         const data = res.data.courseInfo;
 
         var appointment = [];
@@ -181,10 +184,11 @@ export default function Schedule(props) {
         (error) => {
           var status = error.response.status;
           if (status === 404) {
-            alert("User has not registered for any courses");
+            enqueueSnackbar('No courses have been registered', { variant :'warning' });
           }
           else if (status !== 404) {
-            alert("An error has occured when requesting for schedule");
+            
+            enqueueSnackbar('An error has occurred when requesting for schedule', { variant :'error' });
           }
         });
     }
@@ -198,6 +202,7 @@ export default function Schedule(props) {
 
   return (
     <div className={classes.container}>
+      
       <Paper elevation={10}>
         <Scheduler
           data={appointments}

@@ -6,9 +6,8 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
-import DeleteIcon from "@material-ui/icons/Delete";
+import {sqlToJsDate} from '../Shared/util'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,27 +24,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function Notifications() {
-  const [notificationData, setNotificationData] = React.useState([
-    {
-      heading: "Deadline close",
-      content:
-        "Last to deposit the fees is on 12 Sept. Ignore this message if you have already paid the fees",
-      date: "2020-06-10",
-    },
-    {
-      heading: "Update",
-      content:
-        "Last to deposit the fees is on 12 Sept. Ignore this message if you have already paid the fees",
-      date: "2020-06-10",
-    },
-    {
-      heading: "Last Date",
-      content:
-        "Last to deposit the fees is on 12 Sept. Ignore this message if you have already paid the fees",
-      date: "2020-06-10",
-    },
-  ]);
+  const [notificationData, setNotificationData] = React.useState([]);
+
+  
+React.useEffect(async()=>{
+  await fetch(`${process.env.REACT_APP_API_END_POINT}/notification/` ,{
+    method: 'GET',
+    headers:{          
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+  }}).then(res =>{
+    if(res.ok){
+      return res.json();
+    }
+  }).then( data => {
+      if(data && data.data){
+        setNotificationData(data.data);
+      }
+  });
+}, [])
 
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
@@ -54,14 +53,17 @@ export default function Notifications() {
     setExpanded(isExpanded ? panel : false);
   };
 
-  const handleDelete = (id) => (event) => {
-    event.stopPropagation();
-    setNotificationData((notification) => notification.filter((notification, idx) => idx !== id));
-  };
+  const getDate=(string)=>{
+    let date = new Date(string);
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    return `${months[date.getMonth()]} ${date.getDate()}`
+  }
+
+
 
   return (
     <div className={classes.root}>
-      <Typography>Notifications</Typography>
+      <Typography>Announcements</Typography>
       {notificationData.map((item, idx) => {
       return (
         <Accordion
@@ -85,13 +87,11 @@ export default function Notifications() {
                 </Typography>
               </Grid>
               <Grid item>
-                <IconButton
-                  aria-label="delete"
-                  className={classes.margin}
-                  onClick={handleDelete(idx)}
-                >
-                  <DeleteIcon fontSize="small" />
-                </IconButton>
+              <Typography 
+                className={classes.secondaryHeading}
+              >
+                {getDate(item.startDate)}
+              </Typography>
               </Grid>
             </Grid>
           </AccordionSummary>

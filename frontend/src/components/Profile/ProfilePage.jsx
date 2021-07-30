@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { VpnKey, Save } from "@material-ui/icons";
+import { Save } from "@material-ui/icons";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -12,6 +12,7 @@ import {deepPurple} from '@material-ui/core/colors';
 import "../../css/Custom.css";
 import axios from "axios";
 import { FormDialog as ChangePassword } from "./ChangePasswordDialog";
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   
@@ -51,9 +52,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ProfilePage() {
-  // const usersAPI = 'https://course-compass-group9.herokuapp.com/users/'
   const usersAPI = process.env.REACT_APP_API_END_POINT + "/users/get/";
   const updateAPI = process.env.REACT_APP_API_END_POINT + "/users/update";
+  
+  const { enqueueSnackbar } = useSnackbar();
 
   const [user, setUser] = useState({
     firstName: "",
@@ -71,18 +73,14 @@ export default function ProfilePage() {
   // State for updating user info
 
   const getUserInfo = async () => {
-    const id = localStorage.getItem("user");
+    const id = sessionStorage.getItem("id");
     if (id) {
       const res = await axios.get(`${usersAPI}${id}`);
       // check response
       if (res.status === 200) {
         // do if logged in, save logged in state
         setUser(res.data.user);
-      } else {
-        console.log("failed to get state");
-      }
-    } else {
-      console.log("Error loading user");
+      } 
     }
   };
 
@@ -102,10 +100,10 @@ export default function ProfilePage() {
         delete user.password;
       const res = await axios.post(updateAPI, user);
       if (res.status === 201) {
-        alert("User updated!");
+        enqueueSnackbar('User updated!', { variant :'success' });
         getUserInfo().catch()
       } else {
-        alert("Update failed");
+        enqueueSnackbar('Update failed', { variant :'error' });
       }
     }
   };
@@ -121,7 +119,7 @@ export default function ProfilePage() {
               <Grid item>
                 <ButtonBase>
                   <Avatar
-                    alt={user ? user.firstName : "no user"}
+                    alt={user ? (user.firstName + " " + user.firstName) : "no user"}
                     src="/broken-image.jpg"
                     className={`${classes.purple} ${classes.extraLarge}`}
                   />

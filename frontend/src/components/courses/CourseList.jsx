@@ -73,7 +73,7 @@ function CourseList(props) {
   //Call backend to fetch the list of courses and bind to the user interface
   useEffect(async () => {
     let courseObjList = [];
-    await fetch(`${process.env.REACT_APP_API_END_POINT}/courses/${term}/${departments}/${1}`)
+    await fetch(`${process.env.REACT_APP_API_END_POINT}/courses/${term}/${departments}/${sessionStorage.getItem('id')}`)
       .then((res) => {
         if (res.ok) {
           return res.json();

@@ -32,32 +32,26 @@ export default function App() {
     });
 
     useEffect(() => {
-        if (localStorage.getItem('token') && localStorage.getItem('user') !== undefined) {
+        if (sessionStorage.getItem('token') && sessionStorage.getItem('user') !== undefined) {
             setLoggedIn(true);
-            getUserInfo(localStorage.getItem('user'));
+            getUserInfo(sessionStorage.getItem('id'));
         }
     }, []);
 
     const getUserInfo = async (id) => {
-        console.log("Getting user info...")
         const usersAPI = process.env.REACT_APP_API_END_POINT + '/users/get/'
-        if (id) {
-            await fetch(`${usersAPI}${id}`)
-            .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            })
-            .then((data) => {
-                if (data && data.user) {
-                    console.log(data)
-                    setUser(data.user)
-                }
-            });
-        } else {
-          console.log("Invalid id")
-          return null
+        await fetch(`${usersAPI}${id}`)
+        .then((res) => {
+        if (res.ok) {
+            return res.json();
         }
+        })
+        .then((data) => {
+            if (data && data.user) {
+                console.log(data)
+                setUser(data.user)
+            }
+        });
       }
 
     return (

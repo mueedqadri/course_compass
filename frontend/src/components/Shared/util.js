@@ -1,5 +1,4 @@
 //Convert week boolean to objects
-import axios from "axios";
 
 export const getWeekData = (meetingTime) => {
   let weekData = [];

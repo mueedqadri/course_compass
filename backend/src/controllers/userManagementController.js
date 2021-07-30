@@ -6,18 +6,25 @@ userManagementController.create = function (req, res) {
     if (body["password"] && body["emailId"]) {
         try {
             const col = Object.keys(body).toString()
-            const sql = `INSERT INTO CourseCompass.user (${col}) VALUES ?;`;
+            const sql = `INSERT INTO CourseCompass.user (${col}) SELECT ? WHERE NOT EXISTS (SELECT * FROM CourseCompass.user WHERE emailId = '${body["emailId"]}');`;
             body["password"] = JSON.stringify(encrypt(body["password"]))
             console.log(sql)
             console.log(Object.values(body))
-            db.query(sql, [[Object.values(body)]], (err, results) => {
+            db.query(sql, [Object.values(body)], (err, results) => {
                 if (err) throw err;
                 console.log(results)
-                return res.status(201).json({
-                    message: "User created",
-                    success: true,
-                    token: generateToken(body["emailId"])
-                })
+                if (results.affectedRows === 1) {
+                    return res.status(201).json({
+                        message: "User created",
+                        success: true,
+                        token: generateToken(body["emailId"])
+                    })
+                } else {
+                    return res.status(201).json({
+                        message: "User exists",
+                        success: false,
+                    })
+                }
             })
         } catch (ex) {
             res.status(500).json({
@@ -27,7 +34,7 @@ userManagementController.create = function (req, res) {
         }
     } else {
         return res.status(404).json({
-            message: "Invalid input",
+            message: "Invalid body",
             success: false
         })
     }
@@ -38,11 +45,12 @@ userManagementController.authenticate = function (req, res) {
     console.log("Authentication started...")
     console.log(emailId)
     console.log(password)
-    const success = () =>
-        res.status(201).json({
+    const success = (id) =>
+        res.status(200).json({
             message: "User authenticated",
             success: true,
-            token: generateToken(emailId)
+            token: generateToken(emailId),
+            userId: id
         })
     const invalidUser = () =>
         res.status(201).json({
@@ -60,16 +68,15 @@ userManagementController.authenticate = function (req, res) {
             message: "Internal Server Error"
         })
     try {
-        const sql = `SELECT password FROM CourseCompass.user WHERE emailId = '${emailId}';`;
+        const sql = `SELECT userId, password FROM CourseCompass.user WHERE emailId = '${emailId}';`;
         db.query(sql, (err, results) => {
             if (err) throw err;
-            if (results) {
-                // console.log(results[0].password)
+            if (results.length) {
+                console.log(results)
                 const hash = JSON.parse(results[0].password);
-                // console.log(hash)
                 if (decrypt(hash) === password) {
                     console.log("Success")
-                    return success()
+                    return success(results[0].userId)
                 } else {
                     console.log("Invalid password")
                     return invalidPassword()
@@ -90,7 +97,7 @@ userManagementController.get = function (req, res) {
         if (req.params.id || req.query.id) {
             const id = req.params.id ? req.params.id : req.query.id;
             console.log(id);
-            let sql = `SELECT * FROM CourseCompass.user WHERE emailId = '${id}';`;
+            let sql = `SELECT * FROM CourseCompass.user WHERE userId = ${id};`;
             console.log(sql);
             db.query(sql, function (err, users) {
                 if (err) throw err;

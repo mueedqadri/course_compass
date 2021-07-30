@@ -13,6 +13,18 @@ import { Paper } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 
+import * as htmlToImage from 'html-to-image';
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+import { jsPDF } from "jspdf";
+
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import { useSnackbar } from "notistack";
+
 const countries = countryList().getData();
 
 //styling fot the form
@@ -27,8 +39,15 @@ const useStyles = makeStyles((theme) => ({
 
     }
 }));
+
+function createData(term, name, title, grade, attempted, earned) {
+    return { term, name, title, grade, attempted, earned };
+}
+
 function Transcripts() {
     const classes = useStyles();
+
+    const { enqueueSnackbar } = useSnackbar();
 
     //states for all form elements
     const [country, setCountry] = React.useState('AF');
@@ -38,6 +57,8 @@ function Transcripts() {
     const [state, setState] = React.useState('');
     const [zip, setZip] = React.useState('');
     const [copies, setCopies] = React.useState('');
+    const [grades, setGrades] = React.useState([]);
+    const [displayStatus, setDisplayStatus] = React.useState('block');
 
     //Updatestate on change of form values
     const handleChange = (event) => {
@@ -62,21 +83,47 @@ function Transcripts() {
     const handleAddressChange = (e) => {
         setAddress(e.target.value);
     };
-    const downloadTranscripts = () => {
-        alert("Downloaded unofficial transcripts successfully")
+
+    //Download unofficial transcripts
+    const downloadTranscripts = async () => {
+
+        await axios.get(`${process.env.REACT_APP_API_END_POINT}/all_grades/1`).then((res) => {
+
+            let rows = []
+            for (let resDataRow in res.data.data) {
+                let row = res.data.data[resDataRow]
+                rows.push(createData(row['term'], row['courseCode'], row['title'], row['grade'], row['earnedcredits'], row['earnedcredits']))
+            }
+            setGrades(rows)
+        });
+        htmlToImage.toPng(document.getElementById('uofficialTranscripts'), { quality: 0.95 })
+            .then(function (dataUrl) {
+                var link = document.createElement('a');
+                link.download = 'transcripts.jpeg';
+                const pdf = new jsPDF();
+                pdf.addImage(dataUrl, 'PNG', 0, 0);
+                pdf.save("uTranscripts.pdf");
+                setDisplayStatus('none')
+            });
     };
 
     //Submit the form to backend on click of "Send"
     const handleSubmit = event => {
         event.preventDefault();
-        axios.post(`${process.env.REACT_APP_API_END_POINT}/transcripts/add`, { bannerid, copies, address, city, state, zip, country })
-            .then(res => {
-                if (res.data.success) {
-                    alert("Request sent successfully. Please wait for a confirmation from the department.")
-                } else {
-                    alert("We are unable to handle the request right now. Please try again later");
-                }
-            })
+        if (!bannerid || !copies || !address || !city || !state || !zip) {
+            
+            enqueueSnackbar('Please fill in all the details', { variant :'warning' });
+        } else {
+            axios.post(`${process.env.REACT_APP_API_END_POINT}/transcripts/add`, { bannerid, copies, address, city, state, zip, country })
+                .then(res => {
+                    if (res.data.success) {
+                        enqueueSnackbar('Request sent successfully. Please wait for a confirmation from the department', { variant :'success' });
+                    } else {
+                        
+                        enqueueSnackbar('We are unable to handle the request right now. Please try again later', { variant :'error' });
+                    }
+                })
+        }
     }
 
     return (
@@ -159,6 +206,37 @@ function Transcripts() {
             <Typography variant="subtitle1" color="primary" style={{ display: 'flex' }}>
                 <Box color="red" mx={0.5} onClick={downloadTranscripts}>Click here</Box> if you want to downlod unofficial transcripts
             </Typography>
+
+            {grades.length ? <TableContainer component={Paper} id="uofficialTranscripts" style={{ display: displayStatus }}>
+                <h2 align="center">Unofficial Transcripts</h2>
+                <Table className={classes.table} aria-label="simple table" >
+                    <TableHead>
+                        <TableRow>
+                            <TableCell align="center">Term</TableCell>
+                            <TableCell align="center">Course</TableCell>
+                            <TableCell align="center">Course Title</TableCell>
+                            <TableCell align="center">Final Grade</TableCell>
+                            <TableCell align="center">Credits Attempted</TableCell>
+                            <TableCell align="center">Credits Earned</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {grades.map((row) => (
+                            <TableRow key={row.name}>
+                                <TableCell align="center">{row.term}</TableCell>
+                                <TableCell component="th" scope="row" align="center" >
+                                    {row.name}
+                                </TableCell>
+                                <TableCell align="center">{row.title}</TableCell>
+                                <TableCell align="center">{row.grade}</TableCell>
+                                <TableCell align="center">{row.attempted}</TableCell>
+                                <TableCell align="center">{row.earned}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer> : <p></p>}
+
         </Container >
     );
 }
