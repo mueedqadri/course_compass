@@ -35,6 +35,7 @@ userManagementController.create = function (req, res) {
 
 userManagementController.authenticate = function (req, res) {
     const {emailId, password} = req.body
+    let id;
     console.log("Authentication started...")
     console.log(emailId)
     console.log(password)
@@ -42,6 +43,7 @@ userManagementController.authenticate = function (req, res) {
         res.status(200).json({
             message: "User authenticated",
             success: true,
+            id: id,
             token: generateToken(emailId)
         })
     const invalidUser = () =>
@@ -60,12 +62,13 @@ userManagementController.authenticate = function (req, res) {
             message: "Internal Server Error"
         })
     try {
-        const sql = `SELECT password FROM CourseCompass.user WHERE emailId = '${emailId}';`;
+        const sql = `SELECT password, userId FROM CourseCompass.user WHERE emailId = '${emailId}';`;
         db.query(sql, (err, results) => {
             if (err) throw err;
             if (results) {
                 // console.log(results[0].password)
                 const hash = JSON.parse(results[0].password);
+                id = results[0].userId
                 // console.log(hash)
                 if (decrypt(hash) === password) {
                     console.log("Success")
