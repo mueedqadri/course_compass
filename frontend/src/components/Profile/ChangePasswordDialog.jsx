@@ -23,33 +23,40 @@ export function FormDialog() {
   const { enqueueSnackbar } = useSnackbar();
 
     const handleSubmit = async () => {
-        // Authenticate user
-        console.log(password)
         const id = sessionStorage.getItem('user')
+        const data = {"emailId": id, "password": password.prevPassword}
         let userAuth = false;
         if (id) {
-            const data = {"emailId": id, "password": password.prevPassword}
-            const res = await axios.post(authAPI, data)
-            // check response
-            if (res.status === 201 && res.data.success === true) {
-                userAuth = true;
+            debugger;
+            if(!password.newPassword){
+                enqueueSnackbar('Password cannot be empty', { variant :'warning' });
+            } else if(password.newPassword !== password.confPassword){
+                enqueueSnackbar('Passwords do not match', { variant :'warning' });
             } else {
-                enqueueSnackbar('Invalid login', { variant :'error' });
-            }
-        if (userAuth && password.newPassword !== "" && password.newPassword === password.confPassword) {
-            const updateAPI = process.env.REACT_APP_API_END_POINT + '/users/update'
-            // const updateAPI = 'http://localhost:4000/users/update'
-            const res = await axios.post(updateAPI, {"emailId": id, "password": password.newPassword})
-            if (res.status === 201) {
-                enqueueSnackbar('Password Updates!', { variant :'success' });
-                setOpen(false);
-                window.location.reload();
-            } else {
-                enqueueSnackbar('Update Failed', { variant :'error' });
+                await axios.post(authAPI, data).then((res)=>{
+                    if (res.status === 200 && res.data.success === true) {
+                        userAuth = true;
+                    } else {
+                        enqueueSnackbar('Invalid login', { variant :'error' });
+                    }
+                }).then(async()=>{
+                    if (userAuth) {
+                        const updateAPI = process.env.REACT_APP_API_END_POINT + '/users/update'
+                        // const updateAPI = 'http://localhost:4000/users/update'
+                       await axios.post(updateAPI, {"emailId": id, "password": password.newPassword})
+                        .then((res)=>{
+                            if (res.status === 201) {
+                                enqueueSnackbar('Password Updates!', { variant :'success' });
+                                setOpen(false);
+                                window.location.reload();
+                            } else {
+                                enqueueSnackbar('Update Failed', { variant :'error' });
+                            }
+                        })
+                    } 
+                })
             }
         }
-        }
-        // Update password
     }
 
     const handleClickOpen = () => {

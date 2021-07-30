@@ -92,7 +92,7 @@ export default function LoginForm()  {
                 if(data){
                     sessionStorage.setItem('id', data.userId);
                     sessionStorage.setItem('token', data.token);
-                    sessionStorage.setItem('user', data.emailId);
+                    sessionStorage.setItem('user', user.email);
                     history.push('/');
                     window.location.reload();
                 }
