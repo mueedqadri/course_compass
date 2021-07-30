@@ -17,7 +17,6 @@ import AlertDialog from '../Shared/AlertDialog';
 import { Link, useHistory} from "react-router-dom";
 
 const authAPI = process.env.REACT_APP_API_END_POINT + '/users/login'
-const usersAPI = process.env.REACT_APP_API_END_POINT + '/users/get/'
 
 const useStyles = makeStyles((theme) => ({
       form: {
@@ -62,50 +61,37 @@ export default function LoginForm()  {
     }
 
     const onSubmit = async () => {
+        // Validate input
+        let err = {};
+        for (const prop in user) {
+            if (Object.hasOwnProperty.call(user, prop)) {
+                const element = user[prop];
+                err[prop] = validateChange(prop, element)[prop];
+            }
+        }
+        setErrors(err);
 
         // Authenticate via API
-        // const data = {"email" : "jonsnow@westeros.com", "password" : "G@me0fthr0ne5"}
         const data = {"emailId" : user.email, "password" : user.password}
         const res = await axios.post(authAPI, data)
         console.log(res)
         // check response
-        if (res.status === 201) {
-
-            const get = await axios.get(`${usersAPI}${user.email}`)
-            if (get.status === 200) {
-                console.log(get.data.user)
-                localStorage.setItem('id', get.data.user.userId);
-            } else {
-                console.log("Failed to get id")
-            }
+        if (res.status === 200) {
             // do if logged in, save logged in state
-            localStorage.setItem('token', res.data.token);
-            localStorage.setItem('user', data.emailId);
-            history.push('/');
-            window.location.reload();
-        } else {
-            alert("Invalid login")
-        }
-
-        /*let err ={};
-        let open = false;
-        for (const prop in user) {
-            if (Object.hasOwnProperty.call(user, prop)) {
-                const element = user[prop];
-                err[prop] = validateChange(prop, element)[prop];      
+            if (res.data.success === true) {
+                console.log("login successful")
+                localStorage.setItem('id', res.data.userId);
+                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('user', data.emailId);
+                setOpenDialogBox(true)
+                history.push('/');
+                window.location.reload();
+            } else {
+                alert("Authentication failed")
             }
+        } else {
+            alert("Invalid request")
         }
-        if(user.email ==="jamesbond007@dal.ca"){
-            open = true;
-        }
-        setErrors(err);
-        // debugger
-        if(!Object.values(err).filter(i => i !==undefined).length){
-
-            history.push('/profile');
-        }
-        */
-        // setOpenDialogBox(true);
     }
 
     const validateChange =(fieldName, fieldValue)=> {
