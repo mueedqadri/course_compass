@@ -43,7 +43,7 @@ export default function LoginForm()  {
     const [errors, setErrors] = useState({});
 
     const handleClickShowPassword = (event) => {
-        if(event && event.currentTarget &&event.currentTarget.ariaLabel && event.currentTarget.ariaLabel.includes("confirmPassword") ){
+        if(event && event.currentTarget &&event.currentTarget.ariaLabel && event.currentTarget.ariaLabel.includes("password") ){
             setShowPassword((prevState)=> !prevState);
         }
     }
