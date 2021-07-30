@@ -193,7 +193,6 @@ courseController.DeleteCourses = function (req, res) {
 
 function checkResults(req, res, err, objects, successMessage, failMessage) {
   try {
-    console.log(err);
     if (err) throw err;
     if (!objects || !objects.length) {
       res.status(404).json({

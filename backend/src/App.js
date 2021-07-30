@@ -7,6 +7,7 @@ const schedule = require('./routes/schedule');
 const records = require('./routes/records')
 const cors = require('cors');
 require('dotenv').config();
+app.use(cors());
 
 let db = mysql.createConnection({
     host: process.env.MYSQL_HOST,
@@ -17,7 +18,6 @@ let db = mysql.createConnection({
 global.db = db;
 
 app.use(express.json());
-app.use(cors());
 app.use('/', courses);
 app.use('/', users);
 app.use('/', schedule);
