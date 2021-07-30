@@ -6,18 +6,25 @@ userManagementController.create = function (req, res) {
     if (body["password"] && body["emailId"]) {
         try {
             const col = Object.keys(body).toString()
-            const sql = `INSERT INTO CourseCompass.user (${col}) VALUES ?;`;
+            const sql = `INSERT INTO CourseCompass.user (${col}) SELECT ? WHERE NOT EXISTS (SELECT * FROM CourseCompass.user WHERE emailId = '${body["emailId"]}');`;
             body["password"] = JSON.stringify(encrypt(body["password"]))
             console.log(sql)
             console.log(Object.values(body))
-            db.query(sql, [[Object.values(body)]], (err, results) => {
+            db.query(sql, [Object.values(body)], (err, results) => {
                 if (err) throw err;
                 console.log(results)
-                return res.status(201).json({
-                    message: "User created",
-                    success: true,
-                    token: generateToken(body["emailId"])
-                })
+                if (results.affectedRows === 1) {
+                    return res.status(201).json({
+                        message: "User created",
+                        success: true,
+                        token: generateToken(body["emailId"])
+                    })
+                } else {
+                    return res.status(201).json({
+                        message: "User exists",
+                        success: false,
+                    })
+                }
             })
         } catch (ex) {
             res.status(500).json({
