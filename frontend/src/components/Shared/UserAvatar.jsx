@@ -1,7 +1,7 @@
 //Front Created by Mueed Qadri
 import React from "react";
-import { Grid, Toolbar, Avatar, Button } from "@material-ui/core";
-import { useHistory, useLocation } from "react-router-dom";
+import {Grid, Avatar, Button, Snackbar} from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 import { deepPurple } from "@material-ui/core/colors";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Grow from "@material-ui/core/Grow";
@@ -10,6 +10,7 @@ import Popper from "@material-ui/core/Popper";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import { makeStyles } from "@material-ui/core/styles";
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
   row: {
@@ -35,6 +36,8 @@ export default function UserAvatar(props) {
 
   const [open, setOpen] = React.useState(false);
 
+  const [logout, setLogout] = React.useState(false);
+
   const history = useHistory();
 
   const anchorRef = React.useRef(null);
@@ -53,15 +56,16 @@ export default function UserAvatar(props) {
 
   const handleLogout = () => {
     sessionStorage.clear()
+    setLogout(true);
     history.push('/login');
+    setOpen(false);
     window.location.reload();
   };
-
   
-  const handleCallToRouter = (event, value) => {
+  const handleCallToRouter = (event) => {
     
     const { myValue } = event.currentTarget.dataset;
-    let url = value ? value : event.currentTarget.value;
+    // let url = value ? value : event.currentTarget.value;
     history.push(myValue);
     };
 
@@ -83,6 +87,11 @@ export default function UserAvatar(props) {
 
   return (
     <div className={classes.root}>
+      <Snackbar open={logout} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          Successfully logged out
+        </Alert>
+      </Snackbar>
       <div>
         <Grid item>
           <Grid container direction="row">
