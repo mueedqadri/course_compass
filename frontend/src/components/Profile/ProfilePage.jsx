@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { VpnKey, Save } from "@material-ui/icons";
+import { Save } from "@material-ui/icons";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -70,7 +70,7 @@ export default function ProfilePage() {
   // State for updating user info
 
   const getUserInfo = async () => {
-    const id = localStorage.getItem("id");
+    const id = sessionStorage.getItem("id");
     if (id) {
       const res = await axios.get(`${usersAPI}${id}`);
       // check response
@@ -120,7 +120,7 @@ export default function ProfilePage() {
               <Grid item>
                 <ButtonBase>
                   <Avatar
-                    alt={user ? user.firstName : "no user"}
+                    alt={user ? (user.firstName + " " + user.firstName) : "no user"}
                     src="/broken-image.jpg"
                     className={`${classes.purple} ${classes.extraLarge}`}
                   />

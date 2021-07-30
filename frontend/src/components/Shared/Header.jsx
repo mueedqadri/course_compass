@@ -56,7 +56,7 @@ export default function Header(props) {
     }, [])
 
     const getUserInfo = async () => {
-        const id = localStorage.getItem('user')
+        const id = sessionStorage.getItem('user')
         if (id) {
             const res = await axios.get(`${usersAPI}${id}`)
             if (res.status === 200) {

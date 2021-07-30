@@ -32,9 +32,9 @@ export default function App() {
     });
 
     useEffect(() => {
-        if (localStorage.getItem('token') && localStorage.getItem('user') !== undefined) {
+        if (sessionStorage.getItem('token') && sessionStorage.getItem('user') !== undefined) {
             setLoggedIn(true);
-            getUserInfo(localStorage.getItem('id'));
+            getUserInfo(sessionStorage.getItem('id'));
         }
     }, []);
 

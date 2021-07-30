@@ -22,7 +22,7 @@ export function FormDialog() {
     const handleSubmit = async () => {
         // Authenticate user
         console.log(password)
-        const id = localStorage.getItem('user')
+        const id = sessionStorage.getItem('user')
         let userAuth = false;
         if (id) {
             const data = {"emailId": id, "password": password.prevPassword}
