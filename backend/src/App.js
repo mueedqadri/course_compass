@@ -3,6 +3,7 @@ const app = express();
 const mysql= require("mysql");
 const courses = require('./routes/courseRegistration');
 const users = require('./routes/userManagement');
+const notification = require('./routes/notification');
 const schedule = require('./routes/schedule');
 const records = require('./routes/records')
 const cors = require('cors');
@@ -20,6 +21,7 @@ global.db = db;
 app.use(express.json());
 app.use('/', courses);
 app.use('/', users);
+app.use('/', notification);
 app.use('/', schedule);
 app.use('/', records);
 app.use('/', (req, res)=>{
