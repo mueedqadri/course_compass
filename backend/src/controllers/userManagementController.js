@@ -39,18 +39,18 @@ userManagementController.authenticate = function (req, res) {
     console.log(emailId)
     console.log(password)
     const success = () =>
-        res.status(201).json({
+        res.status(200).json({
             message: "User authenticated",
             success: true,
             token: generateToken(emailId)
         })
     const invalidUser = () =>
-        res.status(201).json({
+        res.status(200).json({
             message: "User not found",
             success: false
         })
     const invalidPassword = () =>
-        res.status(404).json({
+        res.status(200).json({
             message: "Invalid password",
             success: false
         })
