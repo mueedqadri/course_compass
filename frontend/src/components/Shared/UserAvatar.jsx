@@ -18,9 +18,6 @@ const useStyles = makeStyles((theme) => ({
   popover: {
     pointerEvents: "none",
   },
-  paper: {
-    padding: theme.spacing(1),
-  },
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
@@ -52,6 +49,12 @@ export default function UserAvatar(props) {
     }
 
     setOpen(false);
+  };
+
+  const handleLogout = () => {
+    sessionStorage.clear()
+    history.push('/login');
+    window.location.reload();
   };
 
   
@@ -124,12 +127,7 @@ export default function UserAvatar(props) {
                         Profile
                     </MenuItem>
                     <MenuItem 
-                        onClick={handleClose}
-                        onClick={() => {
-                            localStorage.clear()
-                            history.push('/login');
-                            window.location.reload();
-                        }}
+                        onClick={handleLogout}
                     >Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>

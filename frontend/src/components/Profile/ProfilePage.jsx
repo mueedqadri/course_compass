@@ -70,7 +70,7 @@ export default function ProfilePage() {
   // State for updating user info
 
   const getUserInfo = async () => {
-    const id = localStorage.getItem("id");
+    const id = sessionStorage.getItem("id");
     if (id) {
       const res = await axios.get(`${usersAPI}${id}`);
       // check response

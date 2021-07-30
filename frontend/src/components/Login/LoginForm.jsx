@@ -90,9 +90,9 @@ export default function LoginForm()  {
                 
             }).then((data) => {
                 if(data){
-                    localStorage.setItem('id', data.userId);
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('user', data.emailId);
+                    sessionStorage.setItem('id', data.userId);
+                    sessionStorage.setItem('token', data.token);
+                    sessionStorage.setItem('user', data.emailId);
                     history.push('/');
                     window.location.reload();
                 }
