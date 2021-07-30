@@ -39,6 +39,31 @@ recordController.GetUserGrades = function (req, res) {
     }
 };
 
+
+//method to get grades of student for all terms
+recordController.GetAllTermUserGrades = function (req, res) {
+    if ((req.params.uid || req.query.uid)) {
+        const uid = req.params.uid ? req.params.uid : req.query.uid;
+
+        let sql = `select gradeid,userid, grade.termid,term.term,course.courseId,course.courseCode,course.title,grade.grade,earnedcredits,earnedcredits from grade,course,term where grade.termid = term.termId and course.courseId = grade.courseid and grade.userId = ${uid} `;
+
+        db.query(sql, (err, grades) => checkResults(
+            req,
+            res,
+            err,
+            grades,
+            "Grades found",
+            "Grades Not found"
+        ));
+    }
+    else {
+        return res.status(400).json({
+            message: "Bad request",
+            success: false
+        });
+    }
+};
+
 //method to save form details to database
 recordController.postTranscripts = function (req, res) {
 
