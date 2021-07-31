@@ -1,7 +1,6 @@
 // Front-end developed by Abdul Mueed Qadri. Back-end developed by Milan Ganesh Acharya
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
-
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -25,6 +24,7 @@ import {
 } from '@material-ui/core/colors';
 import { useSnackbar } from "notistack";
 
+// Styles for the schedule
 const useStyles = makeStyles(theme => ({
   todayCell: {
     backgroundColor: fade(theme.palette.primary.main, 0.1),
@@ -56,6 +56,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+// Props for the schedule
 const TimeTableCell = (props) => {
   const classes = useStyles();
   const { startDate } = props;
@@ -67,6 +68,7 @@ const TimeTableCell = (props) => {
   } return <WeekView.TimeTableCell {...props} />;
 };
 
+// Props for the Day view
 const DayScaleCell = (props) => {
   const classes = useStyles();
   const { startDate, today } = props;
@@ -78,6 +80,7 @@ const DayScaleCell = (props) => {
   } return <WeekView.DayScaleCell {...props} />;
 };
 
+// Props for the Month view
 const TimeTableCellMonth = (props) => {
   const classes = useStyles();
   const { startDate } = props;
@@ -90,6 +93,7 @@ const TimeTableCellMonth = (props) => {
   } return <MonthView.TimeTableCell {...props} />;
 };
 
+// Props for Month cells
 const DayScaleCellMonth = (props) => {
   const classes = useStyles();
   const { startDate, today } = props;
@@ -101,6 +105,7 @@ const DayScaleCellMonth = (props) => {
   } return <MonthView.DayScaleCell {...props} />;
 };
 
+// Colors for each schedule item
 var colors = [pink, purple, teal, amber, deepOrange];
 
 export default function Schedule(props) {
@@ -117,8 +122,9 @@ export default function Schedule(props) {
   const classes = useStyles();
 
   useEffect(() => {
+    // Get schedule information from the API
     async function fetchData() {
-      await Axios.get(process.env.REACT_APP_API_END_POINT + '/schedule/'+sessionStorage.getItem('id')).then((res) => {
+      await Axios.get(process.env.REACT_APP_API_END_POINT + '/schedule/' + sessionStorage.getItem('id')).then((res) => {
         const data = res.data.courseInfo;
 
         var appointment = [];
@@ -184,11 +190,10 @@ export default function Schedule(props) {
         (error) => {
           var status = error.response.status;
           if (status === 404) {
-            enqueueSnackbar('No courses have been registered', { variant :'warning' });
+            enqueueSnackbar('No courses have been registered', { variant: 'warning' });
           }
           else if (status !== 404) {
-            
-            enqueueSnackbar('An error has occurred when requesting for schedule', { variant :'error' });
+            enqueueSnackbar('An error has occurred when requesting for schedule', { variant: 'error' });
           }
         });
     }
@@ -202,7 +207,7 @@ export default function Schedule(props) {
 
   return (
     <div className={classes.container}>
-      
+
       <Paper elevation={10}>
         <Scheduler
           data={appointments}
@@ -219,12 +224,12 @@ export default function Schedule(props) {
             startDayHour={8}
             endDayHour={18}
           />
-          
+
           {!props.showToday && <DayView
             startDayHour={8}
             endDayHour={18}
           />}
-          
+
           <MonthView
 
             timeTableCellComponent={TimeTableCellMonth}

@@ -1,3 +1,4 @@
+// Front-end and back-end developed by Milan Ganesh Acharya
 import React, { useState, useEffect } from 'react';
 import { Button } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
@@ -17,27 +18,28 @@ function FeeAssessment() {
     const [terms, setTerms] = useState([]);
     const [currencyColumns] = useState(['amount']);
     const [rows, setRows] = useState([]);
-    const [coursesAvailable, setAvailable] = useState(true);
+    const [coursesAvailable, setAvailable] = useState(false);
 
+    // Column names
     const columns = [
         { name: 'id', title: 'Sl. No.' },
         { name: 'description', title: 'Description' },
         { name: 'amount', title: 'Amount' }
     ];
 
-    // Align table column right
+    // Formatting of column names
     const [tableColumnExtensions] = useState([
         { columnName: 'id', width: '10%' },
         { columnName: 'description', width: 'auto' },
         { columnName: 'amount', align: 'right' }
     ]);
 
+    // Format for the Amount column
     const CurrencyFormatter = ({ value }) => (
         <b style={{ color: 'darkgreen' }}>
             {value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
         </b>
     );
-
     const CurrencyTypeProvider = props => (
         <DataTypeProvider
             formatterComponent={CurrencyFormatter}
@@ -45,16 +47,19 @@ function FeeAssessment() {
         />
     );
 
+    // Props for the DevExpress grid to calculate total amount
     const [totalSummaryItems] = useState([
         { columnName: 'amount', type: 'sum' }
     ]);
 
+    // Get the fees on changing the term
     const handleChange = (event) => {
         setTerm(event.target.value);
         let termId = event.target.value;
         getFees(termId);
     };
 
+    // Get the fees for the provided term
     async function getFees(termId) {
         await axios.get(`${process.env.REACT_APP_API_END_POINT}/fee/${termId}/${sessionStorage.getItem('id')}`).then((res) => {
             let rows = []
@@ -70,10 +75,12 @@ function FeeAssessment() {
         });
     }
 
+    // Get the fees for the provided term, on page load
     const onLoadFees = (termId) => {
         getFees(termId);
     };
 
+    // Get the terms on page load
     useEffect(() => {
         async function getTerms() {
             await axios.get(`${process.env.REACT_APP_API_END_POINT}/course_terms/${sessionStorage.getItem('id')}`).then((res) => {
@@ -85,11 +92,12 @@ function FeeAssessment() {
         getTerms();
     }, []);
 
+    // Page dimensions for generating the PDF
     const ref = React.createRef();
     const options = {
         orientation: 'landscape',
         unit: 'in',
-        format: [9, window.innerWidth / 116]
+        format: [9, window.innerWidth / 116]    // Formula to convert pixels to inches
     };
 
     return (
@@ -100,21 +108,21 @@ function FeeAssessment() {
             <Container>
                 <h1>Fee Assessment</h1>
                 <p>Displays the fee charged for the selected term. Please make sure, the courses are added for the term you are selecting.</p>
-                <FormControl id="term-selector">
-                    <InputLabel>Select Term</InputLabel>
-                    <Select value={term} displayEmpty onChange={handleChange}>
-                        {terms?.map((item) => {
-                            return (
-                                <MenuItem key={item['termId']} value={item['termId']}>
-                                    {item['term']}
-                                </MenuItem>
-                            );
-                        })}
-                    </Select>
-                    <br />
-                </FormControl>
-                {(!coursesAvailable) ? <h2>No Courses selected for the term</h2> :
+                {(!coursesAvailable) ? <h2>No courses have been added for any term</h2> :
                     <div>
+                        <FormControl id="term-selector">
+                            <InputLabel>Select Term</InputLabel>
+                            <Select value={term} displayEmpty onChange={handleChange}>
+                                {terms?.map((item) => {
+                                    return (
+                                        <MenuItem key={item['termId']} value={item['termId']}>
+                                            {item['term']}
+                                        </MenuItem>
+                                    );
+                                })}
+                            </Select>
+                            <br />
+                        </FormControl>
                         <Paper ref={ref}>
                             <Grid rows={rows} columns={columns}>
                                 <CurrencyTypeProvider for={currencyColumns} />

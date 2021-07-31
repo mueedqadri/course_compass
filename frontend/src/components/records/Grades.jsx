@@ -78,10 +78,10 @@ function Grades() {
         getTerms();
     }, []);
 
-    // display "loading" until grades are populated
+    // display warning when no grades are available
     return (
         <div style={{ textAlign: "center" }}>
-            {(!hasGrade) ? <h1>Loading</h1> :
+            {(!hasGrade) ? <h1>No grades are available for any term</h1> :
                 <div>
                     <h1 style={{ textAlign: "center" }}>Grades</h1>
                     <Container maxWidth="sm">
@@ -137,9 +137,3 @@ function Grades() {
 }
 
 export default Grades;
-
-// https://reactrouter.com/
-// https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/getting-started/
-// npm install @material-ui/core
-// npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid
-// npm i --save @devexpress/dx-react-grid-material-ui

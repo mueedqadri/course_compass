@@ -1,7 +1,7 @@
 // Developed by Milan Ganesh Acharya
 var feeController = {};
 
-//method to get terms that contains grades of a student
+// Method to get terms that have courses added in them
 feeController.courseTerm = function (req, res) {
     try {
         if ((req.params.userId || req.query.userId)) {
@@ -40,6 +40,7 @@ feeController.courseTerm = function (req, res) {
     }
 };
 
+// Method to get the courses in a specific term
 feeController.termFee = function (req, res) {
     try {
         if ((req.params.termId || req.query.termId) && (req.params.userId || req.query.userId)) {
