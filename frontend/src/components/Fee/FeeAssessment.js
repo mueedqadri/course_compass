@@ -76,10 +76,10 @@ function FeeAssessment() {
 
     useEffect(() => {
         async function getTerms() {
-            await axios.get(`${process.env.REACT_APP_API_END_POINT}/grade_terms/${sessionStorage.getItem('id')}`).then((res) => {
-                setTerms(res.data.data);
-                setTerm(res.data.data[0]['termid']);
-                onLoadFees(res.data.data[0]['termid']);
+            await axios.get(`${process.env.REACT_APP_API_END_POINT}/course_terms/${sessionStorage.getItem('id')}`).then((res) => {
+                setTerms(res.data.courseInfo);
+                setTerm(res.data.courseInfo[0]['termId']);
+                onLoadFees(res.data.courseInfo[0]['termId']);
             });
         }
         getTerms();
@@ -105,7 +105,7 @@ function FeeAssessment() {
                     <Select value={term} displayEmpty onChange={handleChange}>
                         {terms?.map((item) => {
                             return (
-                                <MenuItem key={item['termid']} value={item['termid']}>
+                                <MenuItem key={item['termId']} value={item['termId']}>
                                     {item['term']}
                                 </MenuItem>
                             );
