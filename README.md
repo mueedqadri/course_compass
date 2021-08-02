@@ -39,6 +39,9 @@ await Axios.get(process.env.REACT_APP_API_END_POINT + '/schedule/1').then((res) 
 - backend\src\routes\schedule.js - Backend created by Milan Ganesh Acharya
 - backend\routes\courseRegistration.js - Backend by Mueed Qadri
 - backend\controllers\courseRegistration.js - Backend by Mueed Qadri
+- backend\src\routes\records.js - Backend by Mani Teja Varma Kucherlapati
+- backend\src\controllers\record.js - Backend by Mani Teja Varma Kucherlapati
+- 
 ### Frontend
 
 - frontend\src\component\Schedule\Schedule.jsx - Frontend by Abdul Mueed Qadri, and corresponding Backend(1 and 2) by Milan Ganesh Acharya
@@ -58,6 +61,8 @@ await Axios.get(process.env.REACT_APP_API_END_POINT + '/schedule/1').then((res) 
 	@@ -62,96 +56,8 @@ await Axios.get(process.env.REACT_APP_API_END_POINT + '/schedule/1').then((res)
 - src\components\Shared\Footer.jsx (Frontend by Mueed Qadri)
 - src\components\Profile\ProfilePage.jsx (Frontend by Mueed Qadri, Backend by Philemon Lee)
+- frontend\src\components\records\Grades.jsx (Frontend by Mani Teja Varma Kucherlapti)
+- frontend\src\components\records\Transcripts.jsx (Frontend by Mani Teja Varma Kucherlapti)
 
 
 ## APIs created for the Assignment
